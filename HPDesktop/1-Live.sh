@@ -30,3 +30,6 @@ echo YES
 echo ${PASS}
 echo ${PASS}
 ) | cryptsetup luksFormat --type luks1 /dev/sda2
+(
+echo ${PASS}
+) | cryptsetup luksOpen /dev/sda2 devoid
