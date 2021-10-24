@@ -19,7 +19,6 @@ echo   # accepts default value for last sector
 echo w # writes partition table to disk
 ) | fdisk ${DISK}
 
-
 echo "-------------------------------------------------"
 echo "-----    Encrypted volume configuration     -----"
 echo "-------------------------------------------------"
@@ -38,3 +37,15 @@ lvcreate --name root -L 10G devoid
 lvcreate --name home -l 100%FREE devoid
 mkfs.ext4 -L root /dev/devoid/root
 mkfs.ext4 -L home /dev/devoid/home
+
+echo "-------------------------------------------------"
+echo "-----          System installation          -----"
+echo "-------------------------------------------------"
+mount /dev/devoid/root /mnt
+for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
+mkdir -p /mnt/home
+mount /dev/devoid/home /mnt/home
+mkfs.vfat /dev/sda1
+mkdir -p /mnt/boot/efi
+mount /dev/sda1 /mnt/boot/efi
+xbps-install -Sy -R https://repo-us.voidlinux.org/current/musl -r /mnt base-system lvm2 cryptsetup grub
