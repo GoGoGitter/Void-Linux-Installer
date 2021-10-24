@@ -28,12 +28,12 @@ read PASS # stores the user's input which will be called on by ${PASS}
 echo YES
 echo ${PASS}
 echo ${PASS}
-) | cryptsetup luksFormat --type luks1 /dev/sda2
+) | cryptsetup luksFormat --type luks1 ${DISK}2
 echo "Please enter a name for the encrypted volume. This will also serve as the hostname:"
 read NAME # stores the user's input which will be called on by ${PASS}
 (
 echo ${PASS}
-) | cryptsetup luksOpen /dev/sda2 ${NAME}
+) | cryptsetup luksOpen ${DISK}2 ${NAME}
 vgcreate ${NAME} /dev/mapper/${NAME}
 lvcreate --name root -L 10G ${NAME}
 lvcreate --name home -l 100%FREE ${NAME}
@@ -47,9 +47,9 @@ mount /dev/${NAME}/root /mnt
 for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
 mkdir -p /mnt/home
 mount /dev/${NAME}/home /mnt/home
-mkfs.vfat /dev/sda1
+mkfs.vfat ${DISK}1
 mkdir -p /mnt/boot/efi
-mount /dev/sda1 /mnt/boot/efi
+mount ${DISK}1 /mnt/boot/efi
 xbps-install -Sy -R https://repo-us.voidlinux.org/current/musl -r /mnt base-system cryptsetup grub-x86_64-efi lvm2
 chroot /mnt
 chown root:root /
@@ -66,13 +66,13 @@ echo "-----       Filesystem configuration        -----"
 echo "-------------------------------------------------"
 echo "/dev/${NAME}/root  /         ext4     defaults              0       0" >> /etc/fstab
 echo "/dev/${NAME}/home  /home     ext4     defaults              0       0" >> /etc/fstab
-echo "/dev/sda1         /boot/efi vfat     defaults              0       0" >> /etc/fstab
+echo "${DISK}1         /boot/efi vfat     defaults              0       0" >> /etc/fstab
 
 echo "-------------------------------------------------"
 echo "-----          GRUB configuration           -----"
 echo "-------------------------------------------------"
 echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
-blkid -o value -s UUID /dev/sda2
+blkid -o value -s UUID ${DISK}2
 read UUID
 sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT=rd.lvm.vg=${NAME} rd.luks.uuid=${UUID}/' /etc/default/grub
 
@@ -82,16 +82,16 @@ echo "-------------------------------------------------"
 dd bs=1 count=64 if=/dev/urandom of=/boot/volume.key
 (
 echo ${PASS} 
-) | cryptsetup luksAddKey /dev/sda2 /boot/volume.key
+) | cryptsetup luksAddKey ${DISK}2 /boot/volume.key
 chmod 000 /boot/volume.key
 chmod -R g-rwx,o-rwx /boot
-echo "${NAME}   /dev/sda2   /boot/volume.key   luks" >> /etc/crypttab
+echo "${NAME}   ${DISK}2   /boot/volume.key   luks" >> /etc/crypttab
 echo 'install_items+=" /boot/volume.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf
 
 echo "-------------------------------------------------"
 echo "-----     Complete system installation      -----"
 echo "-------------------------------------------------"
-grub-install /dev/sda
+grub-install ${DISK}
 xbps-reconfigure -fa
 exit 
 umount -R /mnt
