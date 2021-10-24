@@ -69,3 +69,7 @@ echo "/dev/sda1         /boot/efi vfat     defaults              0       0" >> /
 echo "-------------------------------------------------"
 echo "-----          GRUB configuration           -----"
 echo "-------------------------------------------------"
+echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
+blkid -o value -s UUID /dev/sda1
+read UUID
+sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT=rd.lvm.vg=devoid rd.luks.uuid=${UUID}/' /etc/default/grub
