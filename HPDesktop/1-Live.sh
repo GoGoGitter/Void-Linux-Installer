@@ -81,3 +81,12 @@ dd bs=1 count=64 if=/dev/urandom of=/boot/volume.key
 (
 echo ${PASS} 
 ) | cryptsetup luksAddKey /dev/sda2 /boot/volume.key
+chmod 000 /boot/volume.key
+chmod -R g-rwx,o-rwx /boot
+echo "devoid   /dev/sda2   /boot/volume.key   luks" >> /etc/crypttab
+echo 'install_items+=" /boot/volume.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf
+
+echo "-------------------------------------------------"
+echo "-----     Complete system installation      -----"
+echo "-------------------------------------------------"
+grub-install /dev/sda
