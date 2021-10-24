@@ -37,8 +37,8 @@ echo ${PASS}
 vgcreate ${NAME} /dev/mapper/${NAME}
 lvcreate --name root -L 10G ${NAME}
 lvcreate --name home -l 100%FREE ${NAME}
-mkfs.ext4 -L root /dev/${NAME}/root
-mkfs.ext4 -L home /dev/${NAME}/home
+mkfs.xfs -L root /dev/${NAME}/root
+mkfs.xfs -L home /dev/${NAME}/home
 
 echo "-------------------------------------------------"
 echo "-----          System installation          -----"
@@ -66,8 +66,8 @@ echo "LC_COLLATE=C" >> /etc/locale.conf
 echo "-------------------------------------------------"
 echo "-----       Filesystem configuration        -----"
 echo "-------------------------------------------------"
-echo "/dev/${NAME}/root  /         ext4     defaults              0       0" >> /etc/fstab
-echo "/dev/${NAME}/home  /home     ext4     defaults              0       0" >> /etc/fstab
+echo "/dev/${NAME}/root  /         xfs      defaults              0       0" >> /etc/fstab
+echo "/dev/${NAME}/home  /home     xfs      defaults              0       0" >> /etc/fstab
 echo "${DISK}1         /boot/efi vfat     defaults              0       0" >> /etc/fstab
 
 echo "-------------------------------------------------"
