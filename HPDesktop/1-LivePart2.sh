@@ -1,3 +1,12 @@
+echo "Enter name of disk (such as /dev/sda) again:"
+read DISK
+
+echo "Enter password for encrypted volume again:"
+read PASS
+
+echo "Enter name of encrypted volume again:"
+read NAME
+
 chown root:root /
 chmod 755 /
 echo "Please create new root password:"
