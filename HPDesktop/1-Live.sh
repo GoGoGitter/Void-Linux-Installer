@@ -30,22 +30,24 @@ echo YES
 echo ${PASS}
 echo ${PASS}
 ) | cryptsetup luksFormat --type luks1 /dev/sda2
+echo "Please enter a name for the encrypted volume. This will also serve as the hostname:"
+read NAME # stores the user's input which will be called on by ${PASS}
 (
 echo ${PASS}
-) | cryptsetup luksOpen /dev/sda2 devoid
-vgcreate devoid /dev/mapper/devoid
-lvcreate --name root -L 10G devoid
-lvcreate --name home -l 100%FREE devoid
-mkfs.ext4 -L root /dev/devoid/root
-mkfs.ext4 -L home /dev/devoid/home
+) | cryptsetup luksOpen /dev/sda2 ${NAME}
+vgcreate ${NAME} /dev/mapper/${NAME}
+lvcreate --name root -L 10G ${NAME}
+lvcreate --name home -l 100%FREE ${NAME}
+mkfs.ext4 -L root /dev/${NAME}/root
+mkfs.ext4 -L home /dev/${NAME}/home
 
 echo "-------------------------------------------------"
 echo "-----          System installation          -----"
 echo "-------------------------------------------------"
-mount /dev/devoid/root /mnt
+mount /dev/${NAME}/root /mnt
 for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
 mkdir -p /mnt/home
-mount /dev/devoid/home /mnt/home
+mount /dev/${NAME}/home /mnt/home
 mkfs.vfat /dev/sda1
 mkdir -p /mnt/boot/efi
 mount /dev/sda1 /mnt/boot/efi
@@ -56,15 +58,15 @@ chmod 755 /
 echo "Please create new root password:"
 read ROOT # stores the user's input which will be called on by ${ROOT}
 echo -e "${ROOT}\n${ROOT}" | passwd root # setting the root password
-echo devoid > /etc/hostname
+echo ${NAME} > /etc/hostname
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 echo "LC_COLLATE=C" >> /etc/locale.conf
 
 echo "-------------------------------------------------"
 echo "-----       Filesystem configuration        -----"
 echo "-------------------------------------------------"
-echo "/dev/devoid/root  /         ext4     defaults              0       0" >> /etc/fstab
-echo "/dev/devoid/home  /home     ext4     defaults              0       0" >> /etc/fstab
+echo "/dev/${NAME}/root  /         ext4     defaults              0       0" >> /etc/fstab
+echo "/dev/${NAME}/home  /home     ext4     defaults              0       0" >> /etc/fstab
 echo "/dev/sda1         /boot/efi vfat     defaults              0       0" >> /etc/fstab
 
 echo "-------------------------------------------------"
@@ -73,7 +75,7 @@ echo "-------------------------------------------------"
 echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
 blkid -o value -s UUID /dev/sda2
 read UUID
-sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT=rd.lvm.vg=devoid rd.luks.uuid=${UUID}/' /etc/default/grub
+sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT=rd.lvm.vg=${NAME} rd.luks.uuid=${UUID}/' /etc/default/grub
 
 echo "-------------------------------------------------"
 echo "-----            LUKS key setup             -----"
@@ -84,7 +86,7 @@ echo ${PASS}
 ) | cryptsetup luksAddKey /dev/sda2 /boot/volume.key
 chmod 000 /boot/volume.key
 chmod -R g-rwx,o-rwx /boot
-echo "devoid   /dev/sda2   /boot/volume.key   luks" >> /etc/crypttab
+echo "${NAME}   /dev/sda2   /boot/volume.key   luks" >> /etc/crypttab
 echo 'install_items+=" /boot/volume.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf
 
 echo "-------------------------------------------------"
