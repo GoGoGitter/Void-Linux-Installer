@@ -58,3 +58,14 @@ echo -e "${ROOT}\n${ROOT}" | passwd root # setting the root password
 echo devoid > /etc/hostname
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 echo "LC_COLLATE=C" >> /etc/locale.conf
+
+echo "-------------------------------------------------"
+echo "-----       Filesystem configuration        -----"
+echo "-------------------------------------------------"
+echo "/dev/devoid/root  /         ext4     defaults              0       0" >> /etc/fstab
+echo "/dev/devoid/home  /home     ext4     defaults              0       0" >> /etc/fstab
+echo "/dev/sda1         /boot/efi vfat     defaults              0       0" >> /etc/fstab
+
+echo "-------------------------------------------------"
+echo "-----          GRUB configuration           -----"
+echo "-------------------------------------------------"
