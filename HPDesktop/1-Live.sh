@@ -55,3 +55,6 @@ chmod 755 /
 echo "Please create new root password:"
 read ROOT # stores the user's input which will be called on by ${ROOT}
 echo -e "${ROOT}\n${ROOT}" | passwd root # setting the root password
+echo devoid > /etc/hostname
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+echo "LC_COLLATE=C" >> /etc/locale.conf
