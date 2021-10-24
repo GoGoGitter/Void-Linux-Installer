@@ -33,3 +33,8 @@ echo ${PASS}
 (
 echo ${PASS}
 ) | cryptsetup luksOpen /dev/sda2 devoid
+vgcreate devoid /dev/mapper/devoid
+lvcreate --name root -L 10G devoid
+lvcreate --name home -l 100%FREE devoid
+mkfs.ext4 -L root /dev/devoid/root
+mkfs.ext4 -L home /dev/devoid/home
