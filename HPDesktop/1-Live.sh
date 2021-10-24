@@ -18,3 +18,15 @@ echo   # accepts default value for first sector
 echo   # accepts default value for last sector
 echo w # writes partition table to disk
 ) | fdisk ${DISK}
+
+
+echo "-------------------------------------------------"
+echo "-----    Encrypted volume configuration     -----"
+echo "-------------------------------------------------"
+echo "Please create password for the encrypted volume:"
+read PASS # stores the user's input which will be called on by ${PASS}
+(
+echo YES
+echo ${PASS}
+echo ${PASS}
+) | cryptsetup luksFormat --type luks1 /dev/sda2
