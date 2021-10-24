@@ -50,7 +50,9 @@ mount /dev/${NAME}/home /mnt/home
 mkfs.vfat ${DISK}1
 mkdir -p /mnt/boot/efi
 mount ${DISK}1 /mnt/boot/efi
-xbps-install -Sy -R https://repo-us.voidlinux.org/current/musl -r /mnt base-system cryptsetup grub-x86_64-efi lvm2
+(
+echo Y
+) | xbps-install -Sy -R https://repo-us.voidlinux.org/current/musl -r /mnt base-system cryptsetup grub-x86_64-efi lvm2
 chroot /mnt
 chown root:root /
 chmod 755 /
