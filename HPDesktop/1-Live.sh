@@ -1,9 +1,10 @@
 echo "-------------------------------------------------"
 echo "-----             Partitioning              -----"
-echo "-------------------------------------------------"
+echo "-------------------------------------------------" 
 fdisk -l # lists all disks
 echo "Please enter disk: (example /dev/sda)"
 read DISK # stores the user's input which will be called on by ${DISK}
+wipefs -a ${DISK}
 (
 echo g # creates a new empty GPT partition table (clears out any partitions on the drive)
 echo n # adds a new partition
@@ -90,3 +91,7 @@ echo "-------------------------------------------------"
 echo "-----     Complete system installation      -----"
 echo "-------------------------------------------------"
 grub-install /dev/sda
+xbps-reconfigure -fa
+exit 
+umount -R /mnt
+shutdown now
