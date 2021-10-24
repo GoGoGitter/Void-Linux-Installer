@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 echo "Enter name of disk (such as /dev/sda) again:"
 read DISK
 
