@@ -70,6 +70,14 @@ echo "-------------------------------------------------"
 echo "-----          GRUB configuration           -----"
 echo "-------------------------------------------------"
 echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
-blkid -o value -s UUID /dev/sda1
+blkid -o value -s UUID /dev/sda2
 read UUID
 sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT=rd.lvm.vg=devoid rd.luks.uuid=${UUID}/' /etc/default/grub
+
+echo "-------------------------------------------------"
+echo "-----            LUKS key setup             -----"
+echo "-------------------------------------------------"
+dd bs=1 count=64 if=/dev/urandom of=/boot/volume.key
+(
+echo ${PASS} 
+) | cryptsetup luksAddKey /dev/sda2 /boot/volume.key
