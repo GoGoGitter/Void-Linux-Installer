@@ -48,4 +48,4 @@ mount /dev/devoid/home /mnt/home
 mkfs.vfat /dev/sda1
 mkdir -p /mnt/boot/efi
 mount /dev/sda1 /mnt/boot/efi
-xbps-install -Sy -R https://repo-us.voidlinux.org/current/musl -r /mnt base-system lvm2 cryptsetup grub
+xbps-install -Sy -R https://repo-us.voidlinux.org/current/musl -r /mnt base-system cryptsetup grub-x86_64-efi lvm2
