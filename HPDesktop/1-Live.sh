@@ -4,7 +4,6 @@ echo "-------------------------------------------------"
 fdisk -l # lists all disks
 echo "Please enter disk: (example /dev/sda)"
 read DISK # stores the user's input which will be called on by ${DISK}
-wipefs -a ${DISK}
 (
 echo g # creates a new empty GPT partition table (clears out any partitions on the drive)
 echo n # adds a new partition
@@ -18,7 +17,7 @@ echo 2 # sets the new primary partition as the second partition on the drive
 echo   # accepts default value for first sector
 echo   # accepts default value for last sector
 echo w # writes partition table to disk
-) | fdisk ${DISK}
+) | fdisk -W always ${DISK}
 
 echo "-------------------------------------------------"
 echo "-----    Encrypted volume configuration     -----"
