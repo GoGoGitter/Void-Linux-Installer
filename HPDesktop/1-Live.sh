@@ -35,7 +35,7 @@ echo "-----           Base Installation           -----"
 echo "-------------------------------------------------"
 (
 echo Y
-) | XBPS_ARCH=x86_64-musl xbps-install -S -r /mnt -R https://repo-us.voidlinux.org/current/musl base-system
+) | XBPS_ARCH=x86_64-musl xbps-install -Sy -r /mnt -R https://repo-us.voidlinux.org/current/musl base-system
 
 echo "-------------------------------------------------"
 echo "-----          Entering the Chroot          -----"
