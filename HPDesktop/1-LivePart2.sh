@@ -19,13 +19,13 @@ echo "-----            Configure fstab            -----"
 echo "-------------------------------------------------"
 cp /proc/mounts /etc/fstab
 
-echo "-------------------------------------------------"
-echo "-----            Installing GRUB            -----"
-echo "-------------------------------------------------"
-xbps-install grub-x86_64-efi
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id="Void" --removable
-
-echo "-------------------------------------------------"
-echo "-----             Finalization              -----"
-echo "-------------------------------------------------"
-xbps-reconfigure -fa
+# echo "-------------------------------------------------"
+# echo "-----            Installing GRUB            -----"
+# echo "-------------------------------------------------"
+# xbps-install grub-x86_64-efi
+# grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id="Void" --removable
+# 
+# echo "-------------------------------------------------"
+# echo "-----             Finalization              -----"
+# echo "-------------------------------------------------"
+# xbps-reconfigure -fa
