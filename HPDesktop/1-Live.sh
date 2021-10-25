@@ -20,7 +20,7 @@ echo   # accepts default value for first sector
 echo   # accepts default value for last sector
 echo w # writes partition table to disk
 ) | fdisk -W always ${DISK}
-mkfs.fat -F32 "${DISK}1" # formatting boot partition with FAT32 file system
+mkfs.fat -F 32 "${DISK}1" # formatting boot partition with FAT32 file system
 mkfs.ext4 "${DISK}2" # formatting root partition with Ext4 file system
 
 echo "-------------------------------------------------"
