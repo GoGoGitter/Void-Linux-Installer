@@ -48,7 +48,7 @@ curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/H
 mv 1-LivePart2.sh /mnt
 PS1='(chroot) # ' chroot /mnt/ /bin/bash ./1-LivePart2.sh
 rm /mnt/1-LivePart2.sh
-umount -R /mnt
+# umount -R /mnt
 
 echo "-------------------------------------------------"
 echo "-----   You may now shut down the system    -----"
