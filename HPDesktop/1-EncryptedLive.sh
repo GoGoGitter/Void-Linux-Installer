@@ -24,18 +24,10 @@ echo w # writes partition table to disk
 echo "-------------------------------------------------"
 echo "-----    Encrypted volume configuration     -----"
 echo "-------------------------------------------------"
-echo "Please create password for the encrypted volume:"
-read PASS # stores the user's input which will be called on by ${PASS}
-(
-echo YES
-echo "${PASS}"
-echo "${PASS}"
-) | cryptsetup luksFormat --type luks1 "${DISK}2"
+cryptsetup luksFormat --type luks1 "${DISK}2"
 echo "Please enter a name for the encrypted volume. This will also serve as the hostname:"
-read NAME # stores the user's input which will be called on by ${PASS}
-(
-echo "${PASS}"
-) | cryptsetup luksOpen "${DISK}2" "${NAME}"
+read NAME # stores the user's input which will be called on by ${NAME}
+cryptsetup luksOpen "${DISK}2" "${NAME}"
 vgcreate "${NAME}" "/dev/mapper/${NAME}"
 lvcreate --name root -L 10G "${NAME}"
 lvcreate --name home -l 100%FREE "${NAME}"
