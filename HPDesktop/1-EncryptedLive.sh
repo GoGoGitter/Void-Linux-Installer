@@ -19,31 +19,31 @@ echo 2 # sets the new primary partition as the second partition on the drive
 echo   # accepts default value for first sector
 echo   # accepts default value for last sector
 echo w # writes partition table to disk
-) | fdisk -W always "${DISK}"
+) | fdisk -W always ${DISK}
 
 echo "-------------------------------------------------"
 echo "-----    Encrypted volume configuration     -----"
 echo "-------------------------------------------------"
-cryptsetup luksFormat --type luks1 "${DISK}2"
+cryptsetup luksFormat --type luks1 ${DISK}2
 echo "Please enter a name for the encrypted volume. This will also serve as the hostname:"
 read NAME # stores the user's input which will be called on by ${NAME}
-cryptsetup luksOpen "${DISK}2" "${NAME}"
-vgcreate "${NAME}" "/dev/mapper/${NAME}"
-lvcreate --name root -L 10G "${NAME}"
-lvcreate --name home -l 100%FREE "${NAME}"
-mkfs.xfs -L root "/dev/${NAME}/root"
-mkfs.xfs -L home "/dev/${NAME}/home"
+cryptsetup luksOpen ${DISK}2 ${NAME}
+vgcreate ${NAME} /dev/mapper/${NAME}
+lvcreate --name root -L 10G ${NAME}
+lvcreate --name home -l 100%FREE ${NAME}
+mkfs.xfs -L root /dev/${NAME}/root
+mkfs.xfs -L home /dev/${NAME}/home
 
 echo "-------------------------------------------------"
 echo "-----          System installation          -----"
 echo "-------------------------------------------------"
-mount "/dev/${NAME}/root" /mnt
+mount /dev/${NAME}/root /mnt
 for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
 mkdir -p /mnt/home
-mount "/dev/${NAME}/home" /mnt/home
-mkfs.vfat "${DISK}1"
+mount /dev/${NAME}/home /mnt/home
+mkfs.vfat ${DISK}1
 mkdir -p /mnt/boot/efi
-mount "${DISK}1" /mnt/boot/efi
+mount ${DISK}1 /mnt/boot/efi
 (
 echo Y
 ) | xbps-install -Sy -R https://repo-us.voidlinux.org/current/musl -r /mnt base-system cryptsetup grub-x86_64-efi lvm2
