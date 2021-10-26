@@ -31,8 +31,8 @@ cryptsetup luksOpen ${DISK}2 ${NAME}
 vgcreate ${NAME} /dev/mapper/${NAME}
 lvcreate --name root -L 10G ${NAME}
 lvcreate --name home -l 100%FREE ${NAME}
-mkfs.xfs -L root /dev/${NAME}/root
-mkfs.xfs -L home /dev/${NAME}/home
+mkfs.ext4 -L root /dev/${NAME}/root
+mkfs.ext4 -L home /dev/${NAME}/home
 
 echo "-------------------------------------------------"
 echo "-----          System installation          -----"
