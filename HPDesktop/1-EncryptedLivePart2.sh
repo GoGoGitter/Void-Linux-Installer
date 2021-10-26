@@ -3,9 +3,6 @@
 echo "Enter name of disk (such as /dev/sda) again:"
 read DISK
 
-echo "Enter password for encrypted volume again:"
-read PASS
-
 echo "Enter name of encrypted volume again:"
 read NAME
 
@@ -29,17 +26,14 @@ echo "-------------------------------------------------"
 echo "-----          GRUB configuration           -----"
 echo "-------------------------------------------------"
 echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
-blkid -o value -s UUID ${DISK}2
-read UUID
+blkid -o value -s UUID ${DISK}2 | UUID=
 sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT=rd.lvm.vg=${NAME} rd.luks.uuid=${UUID}/' /etc/default/grub
 
 echo "-------------------------------------------------"
 echo "-----            LUKS key setup             -----"
 echo "-------------------------------------------------"
 dd bs=1 count=64 if=/dev/urandom of=/boot/volume.key
-(
-echo ${PASS} 
-) | cryptsetup luksAddKey ${DISK}2 /boot/volume.key
+cryptsetup luksAddKey ${DISK}2 /boot/volume.key
 chmod 000 /boot/volume.key
 chmod -R g-rwx,o-rwx /boot
 echo "${NAME}   ${DISK}2   /boot/volume.key   luks" >> /etc/crypttab
