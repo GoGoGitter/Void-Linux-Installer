@@ -18,6 +18,7 @@ echo "LC_COLLATE=C" >> /etc/locale.conf
 echo "-------------------------------------------------"
 echo "-----       Filesystem configuration        -----"
 echo "-------------------------------------------------"
+echo "tmpfs /tmp tmpfs defaults,nosuid,nodev 0 0" > /etc/fstab
 echo "/dev/${NAME}/root / ext4 defaults 0 1" >> /etc/fstab
 echo "/dev/${NAME}/home /home ext4 defaults 0 2" >> /etc/fstab
 echo "${DISK}1 /boot/efi vfat defaults 0 2" >> /etc/fstab
