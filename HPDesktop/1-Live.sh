@@ -6,7 +6,6 @@ echo "-------------------------------------------------"
 touch /etc/xbps.d/settings.conf
 echo "architecture=x86_64-musl" >> /etc/xbps.d/settings.conf
 echo "repository=https://repo-us.voidlinux.org/current/musl" >> /etc/xbps.d/settings.conf
-echo "repository=https://repo-us.voidlinux.org/current/musl/nonfree" >> /etc/xbps.d/settings.conf
 SSL_NO_VERIFY_PEER=true xbps-install -Su
 SSL_NO_VERIFY_PEER=true xbps-install -Su
 
