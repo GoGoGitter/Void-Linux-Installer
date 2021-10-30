@@ -51,3 +51,10 @@ echo "-----     Complete system installation      -----"
 echo "-------------------------------------------------"
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id="Void" --removable
 xbps-reconfigure -fa
+
+echo "-------------------------------------------------"
+echo "-----              More Stuff               -----"
+echo "-------------------------------------------------"
+touch /etc/xbps.d/settings.conf
+echo "architecture=x86_64-musl" >> /etc/xbps.d/settings.conf
+echo "repository=https://repo-us.voidlinux.org/current/musl" >> /etc/xbps.d/settings.conf
