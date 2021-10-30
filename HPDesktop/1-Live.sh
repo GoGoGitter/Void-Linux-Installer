@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 
 echo "-------------------------------------------------"
+echo "-----              Some Stuff               -----"
+echo "-------------------------------------------------" 
+touch /etc/xbps.d/settings.conf
+echo "architecture=x86_64-musl" >> /etc/xbps.d/settings.conf
+echo "repository=https://repo-us.voidlinux.org/current/musl" >> /etc/xbps.d/settings.conf
+echo "repository=https://repo-us.voidlinux.org/current/musl/nonfree" >> /etc/xbps.d/settings.conf
+SSL_NO_VERIFY_PEER=true xbps-install -Su
+SSL_NO_VERIFY_PEER=true xbps-install -Su
+
+echo "-------------------------------------------------"
 echo "-----             Partitioning              -----"
 echo "-------------------------------------------------" 
 fdisk -l # lists all disks
@@ -46,7 +56,7 @@ mkdir -p /mnt/boot/efi
 mount ${DISK}1 /mnt/boot/efi
 (
 echo Y
-) | XBPS_ARCH=x86_64-musl SSL_NO_VERIFY_PEER=true xbps-install -Sy -R https://repo-us.voidlinux.org/current/musl -r /mnt base-system cryptsetup grub-x86_64-efi lvm2
+) | SSL_NO_VERIFY_PEER=true xbps-install -Sy -r /mnt base-system cryptsetup grub-x86_64-efi lvm2
 curl -k -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/1-LivePart2.sh
 mv 1-LivePart2.sh /mnt
 chroot /mnt /bin/bash ./1-LivePart2.sh
