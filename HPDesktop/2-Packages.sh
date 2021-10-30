@@ -17,5 +17,4 @@ SSL_NO_VERIFY_PEER=true xbps-install -Su # If your update includes the xbps pack
 #xbps-reconfigure --force linux<x>.<y> # For subsequent updates, the microcode will be added to the initramfs automatically.
 
 ### for amd microcode
-#xbps-install -y linux-firmware-amd # AMD CPUs and GPUs will automatically load the microcode, no further configuration required.
-
+#SSL_NO_VERIFY_PEER=true xbps-install -y linux-firmware-amd # AMD CPUs and GPUs will automatically load the microcode, no further configuration required.
