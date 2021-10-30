@@ -46,8 +46,8 @@ mkdir -p /mnt/boot/efi
 mount ${DISK}1 /mnt/boot/efi
 (
 echo Y
-) | XBPS_ARCH=x86_64-musl xbps-install -Sy -R https://repo-us.voidlinux.org/current/musl -r /mnt base-system cryptsetup grub-x86_64-efi lvm2
-curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/1-EncryptedLivePart2.sh
+) | XBPS_ARCH=x86_64-musl SSL_NO_VERIFY_PEER=true xbps-install -Sy -R https://repo-us.voidlinux.org/current/musl -r /mnt base-system cryptsetup grub-x86_64-efi lvm2
+curl -k -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/1-EncryptedLivePart2.sh
 mv 1-EncryptedLivePart2.sh /mnt
 chroot /mnt /bin/bash ./1-EncryptedLivePart2.sh
 rm /mnt/1-EncryptedLivePart2.sh
