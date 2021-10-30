@@ -31,7 +31,7 @@ echo "-----          GRUB configuration           -----"
 echo "-------------------------------------------------"
 echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
 UUID=$(blkid -o value -s UUID ${DISK}2)
-sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT=rd.lvm.vg=$NAME rd.luks.uuid=$UUID/" /etc/default/grub
+sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="rd.lvm.vg=$NAME rd.luks.uuid=$UUID"/" /etc/default/grub
 
 echo "-------------------------------------------------"
 echo "-----            LUKS key setup             -----"
