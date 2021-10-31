@@ -66,3 +66,8 @@ echo ${PASS}
 ) | passwd ${NAME}
 touch /etc/doas.conf
 echo "permit nopass ${NAME} as root" > /etc/doas.conf
+
+echo "-------------------------------------------------"
+echo "-----         Network configuration         -----"
+echo "-------------------------------------------------"
+ln -s /etc/sv/NetworkManager /var/service/
