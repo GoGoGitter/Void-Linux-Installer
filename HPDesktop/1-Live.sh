@@ -9,7 +9,7 @@ echo "repository=https://repo-us.voidlinux.org/current/musl" >> /etc/xbps.d/sett
 SSL_NO_VERIFY_PEER=true xbps-install -Su
 SSL_NO_VERIFY_PEER=true xbps-install -Su
 
-#########################Start##########################
+#\/    \/    \/    \/    Install    \/    \/    \/    \/
 echo "-------------------------------------------------"
 echo "-----             Partitioning              -----"
 echo "-------------------------------------------------" 
@@ -66,4 +66,4 @@ umount -R /mnt
 echo "-------------------------------------------------"
 echo "-----   You may now shut down the system    -----"
 echo "-------------------------------------------------"
-##########################End###########################
+#/\    /\    /\    /\    Install    /\    /\    /\    /\
