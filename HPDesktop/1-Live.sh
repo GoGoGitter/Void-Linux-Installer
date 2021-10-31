@@ -4,9 +4,7 @@ echo "-------------------------------------------------"
 echo "-----              Some Stuff               -----"
 echo "-------------------------------------------------" 
 touch /etc/xbps.d/settings.conf # making a config file for XBPS
-echo "architecture=x86_64-musl" >> /etc/xbps.d/settings.conf
-echo "repository=https://repo-us.voidlinux.org/current/musl" >> /etc/xbps.d/settings.conf
-echo "ignorepkg=sudo" >> /etc/xbps.d/settings.conf
+echo "ignorepkg=sudo" > /etc/xbps.d/settings.conf
 
 echo "-------------------------------------------------"
 echo "-----             Partitioning              -----"
@@ -54,7 +52,7 @@ mkdir -p /mnt/boot/efi
 mount ${DISK}1 /mnt/boot/efi
 (
 echo Y # piping the answer to a question about importing keys because the -y flag does not deal with it 
-) | SSL_NO_VERIFY_PEER=true xbps-install -Sy -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 doas NetworkManager
+) | ARCH_XBPS=x86_64-musl SSL_NO_VERIFY_PEER=true xbps-install -Sy -R https://repo-us.voidlinux.org/current/musl -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 doas NetworkManager
 curl -k -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/1-LivePart2.sh
 mv 1-LivePart2.sh /mnt
 chroot /mnt /bin/bash ./1-LivePart2.sh
