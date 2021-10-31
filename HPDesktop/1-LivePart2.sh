@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#\/    \/    \/    \/    Install    \/    \/    \/    \/
+#   v   v   v   v   v   Install   v   v   v   v   v   v
 echo "Enter name of disk (such as /dev/sda) again:"
 read DISK
 
@@ -52,7 +52,7 @@ echo "-----     Complete system installation      -----"
 echo "-------------------------------------------------"
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id="Void" --removable
 xbps-reconfigure -fa
-#/\    /\    /\    /\    Install    /\    /\    /\    /\
+#   ^   ^   ^   ^   ^   Install   ^   ^   ^   ^   ^   ^
 
 echo "-------------------------------------------------"
 echo "-----           Users and groups            -----"
