@@ -55,7 +55,7 @@ xbps-reconfigure -fa
 #^   ^   ^   ^   ^   ^   Install   ^   ^   ^   ^   ^   ^
 
 echo "-------------------------------------------------"
-echo "-----           Users and groups            -----"
+echo "-----           Users and Groups            -----"
 echo "-------------------------------------------------"
 echo "Please enter a username:"
 read NAME # stores the user's input which will be called on by ${NAME}
