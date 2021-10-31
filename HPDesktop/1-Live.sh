@@ -47,13 +47,13 @@ mkfs.ext4 -L home /dev/${NAME}/home # formatting home partition with Ext4 file s
 echo "-------------------------------------------------"
 echo "-----          System installation          -----"
 echo "-------------------------------------------------"
-mount /dev/${NAME}/root /mnt
-for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
-mkdir -p /mnt/home
-mount /dev/${NAME}/home /mnt/home
+mount /dev/${NAME}/root /mnt # mounting the root partition to /mnt
+for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done # 
+mkdir -p /mnt/home # making the directory /mnt/home
+mount /dev/${NAME}/home /mnt/home # mounting the home partition to /mnt/home
 mkfs.vfat ${DISK}1 # formatting boot partition with FAT32 file system
-mkdir -p /mnt/boot/efi
-mount ${DISK}1 /mnt/boot/efi
+mkdir -p /mnt/boot/efi # making the directory /mnt/boot/efi
+mount ${DISK}1 /mnt/boot/efi # mounting the boot partition to /mnt/boot/efi
 (
 echo Y
 ) | SSL_NO_VERIFY_PEER=true xbps-install -Sy -r /mnt base-system cryptsetup grub-x86_64-efi lvm2
