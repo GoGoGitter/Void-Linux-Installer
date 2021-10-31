@@ -53,3 +53,16 @@ echo "-------------------------------------------------"
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id="Void" --removable
 xbps-reconfigure -fa
 ##########################End###########################
+
+echo "-------------------------------------------------"
+echo "-----           Users and groups            -----"
+echo "-------------------------------------------------"
+echo "Please enter a username:"
+read NAME # stores the user's input which will be called on by ${NAME}
+useradd -m ${NAME} # adding new user
+echo "Please enter a password for this user:" # prompt for user's password
+read PASS # stores the user's input which will be called on by ${PASS}
+(
+echo ${PASS}
+echo ${PASS}
+) | passwd ${NAME} # setting the user's password
