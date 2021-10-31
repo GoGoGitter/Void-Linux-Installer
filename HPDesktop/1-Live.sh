@@ -4,19 +4,18 @@ echo "-------------------------------------------------"
 echo "-----              Some Stuff               -----"
 echo "-------------------------------------------------" 
 touch /etc/xbps.d/settings.conf # making a config file for XBPS
-echo "architecture=x86_64-musl" >> /etc/xbps.d/settings.conf # specifies the machine architecture
-echo "repository=https://repo-us.voidlinux.org/current/musl" >> /etc/xbps.d/settings.conf # specifies a US mirror to use as a repository
-SSL_NO_VERIFY_PEER=true xbps-install -Su # syncing the repositories and updating all installed packages to avoid potential dependency issues later
-SSL_NO_VERIFY_PEER=true xbps-install -Su # XBPS must use a separate transaction to update itself. So running this twice will ensure it updates itself and then other packages.
+echo "architecture=x86_64-musl" >> /etc/xbps.d/settings.conf
+echo "repository=https://repo-us.voidlinux.org/current/musl" >> /etc/xbps.d/settings.conf
+SSL_NO_VERIFY_PEER=true xbps-install -Su
+SSL_NO_VERIFY_PEER=true xbps-install -Su
 
-#v   v   v   v   v   v   Install   v   v   v   v   v   v
 echo "-------------------------------------------------"
 echo "-----             Partitioning              -----"
 echo "-------------------------------------------------" 
-fdisk -l # lists all disks
+fdisk -l
 echo "Please enter disk: (example /dev/sda)"
-read DISK # stores the user's input which will be called on by ${DISK}
-( # piping all these would-be-interactive inputs into fdisk
+read DISK 
+(
 echo g # creates a new empty GPT partition table (clears out any partitions on the drive)
 echo n # adds a new partition
 echo 1 # sets the new primary partition as the first partition on the drive
@@ -29,7 +28,7 @@ echo 2 # sets the new primary partition as the second partition on the drive
 echo   # accepts default value for first sector
 echo   # accepts default value for last sector
 echo w # writes partition table to disk
-) | fdisk -W always ${DISK} # partitioning the specified disk and automatically wiping previously existing filesystem signatures upon writing the new partition table
+) | fdisk -W always ${DISK} # -W flag automatically wipes previously existing filesystem signatures upon writing the new partition table
 
 echo "-------------------------------------------------"
 echo "-----    Encrypted volume configuration     -----"
