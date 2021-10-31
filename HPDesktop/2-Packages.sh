@@ -14,7 +14,8 @@ SSL_NO_VERIFY_PEER=true xbps-install -Su # If your update includes the xbps pack
 ### for intel microcode
 #SSL_NO_VERIFY_PEER=true xbps-install -y void-repo-nonfree # Void has a nonfree repository for packages that don't have free licenses. It can enabled by installing the void-repo-nonfree package.
 #SSL_NO_VERIFY_PEER=true xbps-install -y intel-ucode # After installing this package, it is necessary to regenerate your initramfs.
-#xbps-reconfigure --force linux<x>.<y> # For subsequent updates, the microcode will be added to the initramfs automatically.
+#VER=$(echo $(uname -r) | sed 's/\./ /2' | sed 's/ \w*$//')
+#xbps-reconfigure --force linux${VER} # For subsequent updates, the microcode will be added to the initramfs automatically.
 
 ### for amd microcode
 #SSL_NO_VERIFY_PEER=true xbps-install -y linux-firmware-amd # AMD CPUs and GPUs will automatically load the microcode, no further configuration required.
