@@ -7,6 +7,7 @@ touch /etc/xbps.d/settings.conf
 echo "architecture=x86_64-musl" >> /etc/xbps.d/settings.conf
 echo "repository=https://repo-us.voidlinux.org/current/musl" >> /etc/xbps.d/settings.conf
 echo "repository=https://repo-us.voidlinux.org/current/musl/nonfree" >> /etc/xbps.d/settings.conf
+echo "ignorepkg=sudo" >> /etc/xbps.d/settings.conf
 
 SSL_NO_VERIFY_PEER=true xbps-install -Su # XBPS must use a separate transaction to update itself.
 SSL_NO_VERIFY_PEER=true xbps-install -Su # If your update includes the xbps package, you will need to run the command a second time to apply the rest of the updates.
