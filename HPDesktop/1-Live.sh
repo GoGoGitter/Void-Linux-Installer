@@ -7,8 +7,6 @@ touch /etc/xbps.d/settings.conf # making a config file for XBPS
 echo "architecture=x86_64-musl" >> /etc/xbps.d/settings.conf
 echo "repository=https://repo-us.voidlinux.org/current/musl" >> /etc/xbps.d/settings.conf
 echo "ignorepkg=sudo" >> /etc/xbps.d/settings.conf
-SSL_NO_VERIFY_PEER=true xbps-install -Suy
-SSL_NO_VERIFY_PEER=true xbps-install -Suy
 
 echo "-------------------------------------------------"
 echo "-----             Partitioning              -----"
