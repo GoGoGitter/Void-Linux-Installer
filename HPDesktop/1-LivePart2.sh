@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-#v   v   v   v   v   v   Install   v   v   v   v   v   v
 echo "Enter name of disk (such as /dev/sda) again:"
 read DISK
 
@@ -52,17 +51,16 @@ echo "-----     Complete system installation      -----"
 echo "-------------------------------------------------"
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id="Void" --removable
 xbps-reconfigure -fa
-#^   ^   ^   ^   ^   ^   Install   ^   ^   ^   ^   ^   ^
 
 echo "-------------------------------------------------"
 echo "-----           Users and Groups            -----"
 echo "-------------------------------------------------"
 echo "Please enter a username:"
-read NAME # stores the user's input which will be called on by ${NAME}
-useradd -m ${NAME} # adding new user
-echo "Please enter a password for this user:" # prompt for user's password
-read PASS # stores the user's input which will be called on by ${PASS}
+read NAME
+useradd -m ${NAME}
+echo "Please enter a password for this user:"
+read PASS
 (
 echo ${PASS}
 echo ${PASS}
-) | passwd ${NAME} # setting the user's password
+) | passwd ${NAME}
