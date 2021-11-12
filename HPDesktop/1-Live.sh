@@ -50,10 +50,14 @@ mount /dev/${NAME}/home /mnt/home
 mkfs.vfat ${DISK}1
 mkdir -p /mnt/boot/efi
 mount ${DISK}1 /mnt/boot/efi
+echo "Enter city:"
+read CITY
+ln -sf /usr/share/zoneinfo/America/${CITY} /etc/localtime
+hwclock --systohc
 (
 echo Y # piping the answer to a question about importing keys because the -y flag does not deal with it 
-) | ARCH_XBPS=x86_64-musl SSL_NO_VERIFY_PEER=true xbps-install -Sy -R https://repo-us.voidlinux.org/current/musl -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 opendoas NetworkManager
-curl -k -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/1-LivePart2.sh
+) | ARCH_XBPS=x86_64-musl xbps-install -Sy -R https://repo-us.voidlinux.org/current/musl -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 opendoas iwd
+curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/1-LivePart2.sh
 mv 1-LivePart2.sh /mnt
 chroot /mnt /bin/bash ./1-LivePart2.sh
 rm /mnt/1-LivePart2.sh
