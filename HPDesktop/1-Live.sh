@@ -50,9 +50,6 @@ mount /dev/${NAME}/home /mnt/home
 mkfs.vfat ${DISK}1
 mkdir -p /mnt/boot/efi
 mount ${DISK}1 /mnt/boot/efi
-echo "Enter city:"
-read CITY
-ln -sf /usr/share/zoneinfo/America/${CITY} /etc/localtime
 hwclock --systohc
 (
 echo Y # piping the answer to a question about importing keys because the -y flag does not deal with it 
