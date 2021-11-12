@@ -64,6 +64,8 @@ touch /etc/doas.conf
 echo "permit nopass ${NAME} as root" > /etc/doas.conf
 
 echo "-------------------------------------------------"
-echo "-----            NetworkManager             -----"
+echo "-----               Network                 -----"
 echo "-------------------------------------------------"
-ln -s /etc/sv/NetworkManager /var/service/
+ln -s /etc/sv/dbus /var/service/
+ln -s /etc/sv/iwd /var/service/
+ln -s /etc/sv/dhcpcd /var/service/
