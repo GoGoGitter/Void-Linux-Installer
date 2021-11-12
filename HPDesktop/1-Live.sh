@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
 
 echo "-------------------------------------------------"
-echo "-----              Some Stuff               -----"
-echo "-------------------------------------------------" 
-touch /etc/xbps.d/settings.conf # making a config file for XBPS
-echo "ignorepkg=sudo" > /etc/xbps.d/settings.conf
-
-echo "-------------------------------------------------"
 echo "-----             Partitioning              -----"
 echo "-------------------------------------------------" 
 fdisk -l
@@ -51,6 +45,8 @@ mkfs.vfat ${DISK}1
 mkdir -p /mnt/boot/efi
 mount ${DISK}1 /mnt/boot/efi
 hwclock --systohc
+touch /etc/xbps.d/settings.conf # making a config file for XBPS
+echo "ignorepkg=sudo" > /etc/xbps.d/settings.conf
 (
 echo Y # piping the answer to a question about importing keys because the -y flag does not deal with it 
 ) | ARCH_XBPS=x86_64-musl xbps-install -Sy -R https://repo-us.voidlinux.org/current/musl -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 opendoas iwd
