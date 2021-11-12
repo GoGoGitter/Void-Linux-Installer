@@ -39,3 +39,10 @@ doas crontab -l > tmp.txt
 echo "@monthly ID=remove-old-kernels vkpurge rm all" >> tmp.txt
 cat tmp.txt | doas crontab -
 rm tmp.txt
+
+echo "-------------------------------------------------"
+echo "-----           Power Management            -----"
+echo "-------------------------------------------------"
+doas xbps-install -Sy elogind tlp
+doas ln -s /etc/sv/elogind /var/service/
+doas ln -s /etc/sv/tlp /var/service/
