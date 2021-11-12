@@ -41,7 +41,7 @@ cat tmp.txt | doas crontab -
 rm tmp.txt
 
 echo "-------------------------------------------------"
-echo "-----           Power Management            -----"
+echo "-Session and Seat Management + Power Management--"
 echo "-------------------------------------------------"
 doas xbps-install -Sy elogind tlp
 doas ln -s /etc/sv/elogind /var/service/
