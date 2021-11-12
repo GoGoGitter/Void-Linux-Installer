@@ -16,7 +16,6 @@ echo ${ROOT}
 ) | passwd root
 echo ${NAME} > /etc/hostname
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
-echo "LC_COLLATE=C" >> /etc/locale.conf
 
 echo "-------------------------------------------------"
 echo "-----       Filesystem configuration        -----"
