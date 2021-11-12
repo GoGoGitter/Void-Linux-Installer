@@ -64,6 +64,14 @@ touch /etc/doas.conf
 echo "permit nopass ${NAME} as root" > /etc/doas.conf
 
 echo "-------------------------------------------------"
+echo "-----               Time zone               -----"
+echo "-------------------------------------------------"
+echo "Enter city:"
+read CITY
+ln -sf /usr/share/zoneinfo/America/${CITY} /etc/localtime
+hwclock --systohc
+
+echo "-------------------------------------------------"
 echo "-----               Network                 -----"
 echo "-------------------------------------------------"
 ln -s /etc/sv/dbus /var/service/
