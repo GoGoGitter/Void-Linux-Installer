@@ -18,9 +18,9 @@ echo "-----               Microcode               -----"
 echo "-------------------------------------------------"
 
 ### for intel microcode
-#doas xbps-install -Sy intel-ucode # After installing this package, it is necessary to regenerate your initramfs.
-#VER=$(echo $(uname -r) | sed 's/\./ /2' | sed 's/ \w*$//') # uname -r outputs in the form x.y.z_a. This alters the string to the form x.y for the following command
-#doas xbps-reconfigure --force linux${VER} # For subsequent updates, the microcode will be added to the initramfs automatically.
+doas xbps-install -Sy intel-ucode # After installing this package, it is necessary to regenerate your initramfs.
+VER=$(echo $(uname -r) | sed 's/\./ /2' | sed 's/ \w*$//') # uname -r outputs in the form x.y.z_a. This alters the string to the form x.y for the following command
+doas xbps-reconfigure --force linux${VER} # For subsequent updates, the microcode will be added to the initramfs automatically.
 
 ### for amd microcode
 #doas xbps-install -Sy linux-firmware-amd
