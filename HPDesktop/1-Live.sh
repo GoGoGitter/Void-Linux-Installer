@@ -45,7 +45,7 @@ mkfs.vfat ${DISK}1
 mkdir -p /mnt/boot/efi
 mount ${DISK}1 /mnt/boot/efi
 hwclock --systohc
-touch /etc/xbps.d/settings.conf # making a config file for XBPS
+touch /etc/xbps.d/settings.conf
 echo "ignorepkg=sudo" > /etc/xbps.d/settings.conf
 (
 echo Y # piping the answer to a question about importing keys because the -y flag does not deal with it 
