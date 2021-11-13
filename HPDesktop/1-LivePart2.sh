@@ -46,8 +46,6 @@ echo "-------------------------------------------------"
 echo "-----     Complete system installation      -----"
 echo "-------------------------------------------------"
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id="Void" --removable
-touch /etc/xbps.d/settings.conf
-echo "ignorepkg=sudo" > /etc/xbps.d/settings.conf
 xbps-reconfigure -fa
 
 echo "-------------------------------------------------"
