@@ -49,6 +49,11 @@ doas ln -s /etc/sv/elogind /var/service/
 doas ln -s /etc/sv/tlp /var/service/
 
 echo "-------------------------------------------------"
+echo "-----               Network                 -----"
+echo "-------------------------------------------------"
+doas xbps-install -Sy broadcom-wl-dkms
+
+echo "-------------------------------------------------"
 echo "-----           Graphics Drivers            -----"
 echo "-------------------------------------------------"
 doas xbps-install -Sy linux-firmware-intel mesa-dri
