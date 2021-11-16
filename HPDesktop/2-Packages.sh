@@ -66,6 +66,5 @@ doas xbps-install -Sy xorg
 echo "-------------------------------------------------"
 echo "-----           Graphics Drivers            -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy linux-firmware-intel mesa-dri
-#intel-video-accel
+doas xbps-install -Sy linux-firmware-intel mesa-dri #intel-video-accel
 #echo "export LIBVA_DRIVER_NAME=i965" >> ~/.xinitrc
