@@ -89,3 +89,13 @@ echo "-----               Bluetooth               -----"
 echo "-------------------------------------------------"
 doas xbps-install -Sy bluez
 doas ln -s /etc/sv/bluetoothd /var/service/
+
+echo "-------------------------------------------------"
+echo "-----               xbps-src                -----"
+echo "-------------------------------------------------"
+doas xbps-install -Sy git
+mkdir ~/.git-clones
+cd ~/.git-clones
+git clone https://github.com/void-linux/void-packages.git
+cd void-packages
+./xbps-src binary-bootstrap
