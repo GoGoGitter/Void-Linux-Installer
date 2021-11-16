@@ -76,3 +76,10 @@ doas xbps-install -Sy linux-firmware-intel mesa-dri #intel-video-accel
 #echo "-------------------------------------------------"
 #echo "-----                 Icons                 -----"
 #echo "-------------------------------------------------"
+
+echo "-------------------------------------------------"
+echo "-----               PipeWire                -----"
+echo "-------------------------------------------------"
+doas xbps-install -Sy pipewire
+echo "pipewire &" >> ~/.xinitrc
+echo "pipewire-pulse &" >> ~/.xinitrc
