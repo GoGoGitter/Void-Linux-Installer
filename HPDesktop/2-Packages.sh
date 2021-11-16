@@ -80,6 +80,12 @@ doas xbps-install -Sy linux-firmware-intel mesa-dri #intel-video-accel
 echo "-------------------------------------------------"
 echo "-----               PipeWire                -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy pipewire
+doas xbps-install -Sy pipewire #libspa-bluetooth
 echo "pipewire &" >> ~/.xinitrc
 echo "pipewire-pulse &" >> ~/.xinitrc
+
+echo "-------------------------------------------------"
+echo "-----               Bluetooth               -----"
+echo "-------------------------------------------------"
+doas xbps-install -Sy bluez
+doas ln -s /etc/sv/bluetoothd /var/service/
