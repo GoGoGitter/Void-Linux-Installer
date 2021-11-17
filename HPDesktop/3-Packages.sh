@@ -1,5 +1,5 @@
 # Packages
-doas xbps-install -Sy mpv # dependency for a git package: ani-cli
+doas xbps-install -Sy mpv
 doas xbps-install -Sy ffmpeg # dependency for a git package: ani-cli
 
 # Source Packages
