@@ -66,6 +66,7 @@ doas xbps-install --repository hostdir/binpkgs <package_name>
 'surf'               # Browser
 'tabbed'             # 
 #                     # Minecraft Launcher
+echo "exec dwm" >> ~/.xinitrc
 
 ### Git Clones
 cd ~/.git-clones
