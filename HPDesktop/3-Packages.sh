@@ -55,11 +55,14 @@ doas gpasswd -a ${USER} video # adding the user to the video group so that 'ligh
 #doas touch /etc/sv/xboxdrv/down # allowing the service to be run during runtime but not started on boot
 
 ### Source Packages
-#'dwm'                # Window Manager
-#'st'                 # Terminal Emulator
-#'dmenu'              # Application Launcher
-#'slock'              # Screen Locker
-#'slstatus'           # Status Monitor
+cd ~/.git-clones/void-packages
+./xbps-src pkg <package_name>
+doas xbps-install --repository hostdir/binpkgs <package_name>
+'dwm'                # Window Manager
+'st'                 # Terminal Emulator
+'dmenu'              # Application Launcher
+'slock'              # Screen Locker
+'slstatus'           # Status Monitor
 #'surf'               # Browser
 #'tabbed'             # 
 #                     # Minecraft Launcher
