@@ -40,6 +40,10 @@ arc-theme
 #'ffmpeg'                # dependency for a git package: ani-cli
 #'xboxdrv'
 #'protonvpn-cli'
+#'pkgconf'               # dependency for git package: joycond
+#'cmake'                 # dependency for git package: joycond
+#'libevdev-devel'        # dependency for git package: joycond
+#'eudev-libudev-devel'   # dependency for git package: joycond
 
 ### Source Packages
 #'dwm'                # Window Manager
@@ -53,5 +57,10 @@ arc-theme
 ### Git Clones
 cd ~/.git-clones
 git clone https://github.com/pystardust/ani-cli.git
+cd ani-cli
+doas make
+
+cd ~/.git-clones
+git clone https://github.com/DanielOgorchock/joycond.git
 cd ani-cli
 doas make
