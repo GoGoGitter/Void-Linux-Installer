@@ -62,5 +62,6 @@ doas make
 
 cd ~/.git-clones
 git clone https://github.com/DanielOgorchock/joycond.git
-cd ani-cli
-doas make
+cd joycond
+cmake .
+doas make install
