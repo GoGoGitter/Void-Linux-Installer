@@ -1,15 +1,15 @@
 ### Packages
-xdg-user-dirs           # installing general user directories
-light                   # 
-pulsemixer
-#DNSSEC
-xf86-input-mtrack
-#alternative to locate
-font-hack-ttf
-#normal font
-#fontpreviewer
-papirus-icon-theme
-arc-theme
+#'xdg-user-dirs'         # general user directories
+#'light'                 # Manages Screen Brightness
+#'pulsemixer'            # TUI app for controlling volume of applications
+##DNSSEC                 # might use unbound
+#'xf86-input-mtrack'     # Driver for Touchpads
+##alternative to locate  # might go with plocate
+#'font-hack-ttf'         # monospace font
+##normal font            # general font (probably going with deja vu)
+##fontpreviewer          # fontpreviewer
+#'papirus-icon-theme'    # Icons
+#'arc-theme'
 #'firefox'               # Browser
 #'nnn'                   # File Manager
 #'trash-cli'             # Trash Utility
