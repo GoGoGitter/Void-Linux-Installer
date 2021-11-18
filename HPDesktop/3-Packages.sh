@@ -52,6 +52,7 @@ arc-theme
 #'slock'              # Screen Locker
 #'slstatus'           # Status Monitor
 #'surf'               # Browser
+#'tabbed'             # 
 #                     # Minecraft Launcher
 
 ### Git Clones
