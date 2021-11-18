@@ -63,8 +63,8 @@ doas xbps-install --repository hostdir/binpkgs <package_name>
 'dmenu'              # Application Launcher
 'slock'              # Screen Locker
 'slstatus'           # Status Monitor
-#'surf'               # Browser
-#'tabbed'             # 
+'surf'               # Browser
+'tabbed'             # 
 #                     # Minecraft Launcher
 
 ### Git Clones
