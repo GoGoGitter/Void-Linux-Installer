@@ -1,6 +1,6 @@
 ### Packages
 #'xdg-user-dirs'         # general user directories
-#'light'                 # Manages Screen Brightness
+'light'                 # Manages Screen Brightness
 #'pulsemixer'            # TUI app for controlling volume of applications
 ##DNSSEC                 # might use unbound
 #'xf86-input-mtrack'     # Driver for Touchpads
@@ -44,6 +44,10 @@
 #'cmake'                 # dependency for git package: joycond
 #'libevdev-devel'        # dependency for git package: joycond
 #'eudev-libudev-devel'   # dependency for git package: joycond
+
+doas gpasswd -a ${USER} video # adding the user to the video group so that 'light' does not require root permission to work
+#curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh # 'nnn' downloading nnn plugins
+#doas gpasswd -a ${USER} input # 'evtest' adding user to input group to ensure gamepads can be used without root privileges
 
 ### Source Packages
 #'dwm'                # Window Manager
