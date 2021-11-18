@@ -1,6 +1,6 @@
 ### Packages
-xdg-user-dirs # installing general user directories
-light
+xdg-user-dirs           # installing general user directories
+light                   # 
 pulsemixer
 #DNSSEC
 xf86-input-mtrack
