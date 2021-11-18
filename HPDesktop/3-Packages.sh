@@ -38,6 +38,8 @@ arc-theme
 #'nitrogen'              # Wallpaper Setter
 #'openssh'               # OpenBSD Secure Shell
 #'ffmpeg'                # dependency for a git package: ani-cli
+#'xboxdrv'
+#'protonvpn-cli'
 
 ### Source Packages
 #'dwm'                # Window Manager
@@ -46,6 +48,7 @@ arc-theme
 #'slock'              # Screen Locker
 #'slstatus'           # Status Monitor
 #'surf'               # Browser
+#                     # Minecraft Launcher
 
 ### Git Clones
 cd ~/.git-clones
