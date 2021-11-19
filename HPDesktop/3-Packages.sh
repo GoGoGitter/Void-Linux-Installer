@@ -40,10 +40,6 @@
 #'ffmpeg'                # dependency for a git package: ani-cli
 #'xboxdrv'
 #'protonvpn-cli'
-#'pkgconf'               # dependency for git package: joycond
-#'cmake'                 # dependency for git package: joycond
-#'libevdev-devel'        # dependency for git package: joycond
-#'eudev-libudev-devel'   # dependency for git package: joycond
 
 doas gpasswd -a ${USER} video # adding the user to the video group so that 'light' does not require root permission to work
 
