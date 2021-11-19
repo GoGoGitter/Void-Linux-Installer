@@ -22,7 +22,7 @@
 #'redshift'              # Blue Light Filter
 #'gnome-screenshot'      # Screenshot Utility
 #'sxiv'                  # Image Viewer
-#'mpv'                   # Multimedia Player
+'mpv'                   # Multimedia Player
 #'yt-dlp'                # Youtube-dl fork
 #'p7zip'                 # Archiving and Extracting Tool
 #'transmission'          # BitTorrent Client
@@ -37,7 +37,7 @@
 #'evtest'                # Gamepad Support
 #'nitrogen'              # Wallpaper Setter
 #'openssh'               # OpenBSD Secure Shell
-#'ffmpeg'                # dependency for a git package: ani-cli
+'ffmpeg'                # dependency for a git package: ani-cli
 #'xboxdrv'
 #'protonvpn-cli'
 
