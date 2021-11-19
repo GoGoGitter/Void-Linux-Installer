@@ -1,4 +1,5 @@
 ### Packages
+PKGS=(
 #'xdg-user-dirs'         # general user directories
 'light'                 # Manages Screen Brightness
 'pulsemixer'            # TUI app for controlling volume of applications
@@ -40,6 +41,10 @@
 'ffmpeg'                # dependency for a git package: ani-cli
 #'xboxdrv'
 #'protonvpn-cli'
+)
+for PKG in "${PKGS[@]}"; do
+    doas xbps-install -Sy $PKG
+done
 
 doas gpasswd -a ${USER} video # adding the user to the video group so that 'light' does not require root permission to work
 
@@ -52,8 +57,8 @@ doas gpasswd -a ${USER} video # adding the user to the video group so that 'ligh
 
 ### Source Packages
 cd ~/.git-clones/void-packages
-./xbps-src pkg <package_name>
-doas xbps-install --repository hostdir/binpkgs <package_name>
+
+PKGS=(
 'dwm'                # Window Manager
 'st'                 # Terminal Emulator
 'dmenu'              # Application Launcher
@@ -62,6 +67,12 @@ doas xbps-install --repository hostdir/binpkgs <package_name>
 'surf'               # Browser
 'tabbed'             # 
 #                     # Minecraft Launcher
+)
+for PKG in "${PKGS[@]}"; do
+    ./xbps-src pkg $PKG
+    doas xbps-install --repository hostdir/binpkgs $PKG
+done
+
 echo "exec dwm" >> ~/.xinitrc
 
 ### Git Clones
