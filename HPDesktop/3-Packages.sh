@@ -17,7 +17,7 @@ PKGS=(
 #'arc-theme'
 #'firefox'               # Browser
 #'nnn'                   # File Manager
-#'trash-cli'             # Trash Utility
+'trash-cli'             # Trash Utility
 #'udisks2'               # Auto-mounting
 #'udiskie'               # Auto-mounting
 #'ytop'                  # System Monitor
@@ -26,9 +26,9 @@ PKGS=(
 #'xclip'                 # Clipboard Utility (keepass-cli requires it for copying password entries)
 #'redshift'              # Blue Light Filter
 #'gnome-screenshot'      # Screenshot Utility
-#'sxiv'                  # Image Viewer
+'sxiv'                  # Image Viewer
 'mpv'                   # Multimedia Player
-#'yt-dlp'                # Youtube-dl fork
+'yt-dlp'                # Youtube-dl fork
 #'p7zip'                 # Archiving and Extracting Tool
 #'transmission'          # BitTorrent Client
 #'keepassxc'             # Password Manager
