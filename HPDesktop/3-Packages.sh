@@ -80,7 +80,7 @@ done
 echo "exec dwm" >> ~/.xinitrc
 
 echo "-------------------------------------------------"
-echo "-----            Source Packages            -----"
+echo "-----             Git Packages              -----"
 echo "-------------------------------------------------"
 cd ~/.git-clones
 git clone https://github.com/pystardust/ani-cli.git
