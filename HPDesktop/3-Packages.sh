@@ -1,4 +1,6 @@
-### Packages
+echo "-------------------------------------------------"
+echo "-----               Packages                -----"
+echo "-------------------------------------------------"
 PKGS=(
 #'xdg-user-dirs'         # general user directories
 'light'                 # Manages Screen Brightness
@@ -55,7 +57,9 @@ doas gpasswd -a ${USER} video # adding the user to the video group so that 'ligh
 #doas ln -s /etc/sv/xboxdrv /var/service/
 #doas touch /etc/sv/xboxdrv/down # allowing the service to be run during runtime but not started on boot
 
-### Source Packages
+echo "-------------------------------------------------"
+echo "-----            Source Packages            -----"
+echo "-------------------------------------------------"
 cd ~/.git-clones/void-packages
 
 PKGS=(
@@ -75,7 +79,9 @@ done
 
 echo "exec dwm" >> ~/.xinitrc
 
-### Git Clones
+echo "-------------------------------------------------"
+echo "-----            Source Packages            -----"
+echo "-------------------------------------------------"
 cd ~/.git-clones
 git clone https://github.com/pystardust/ani-cli.git
 cd ani-cli
