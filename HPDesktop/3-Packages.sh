@@ -1,7 +1,7 @@
 ### Packages
 #'xdg-user-dirs'         # general user directories
 'light'                 # Manages Screen Brightness
-#'pulsemixer'            # TUI app for controlling volume of applications
+'pulsemixer'            # TUI app for controlling volume of applications
 ##DNSSEC                 # might use unbound
 #'xf86-input-mtrack'     # Driver for Touchpads
 ##alternative to locate  # might go with plocate
