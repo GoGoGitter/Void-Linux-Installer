@@ -57,7 +57,7 @@ curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | s
 #doas gpasswd -a ${USER} input # 'evtest' adding user to input group to ensure gamepads can be used without root privileges
 
 doas mkdir /etc/udev/rules.d/
-doas sh -c "echo '# for xboxdrv to work\nSUBSYSTEM==“usb”,GROUP=“input”,MODE=“0666”\nKERNEL=="uinput",GROUP=“input”' > /etc/udev/rules.d/99-xboxdrv.rules"
+doas sh -c "echo '# for xboxdrv to work\nSUBSYSTEM==“usb”,GROUP=“input”\nKERNEL=="uinput",GROUP=“input”' > /etc/udev/rules.d/99-xboxdrv.rules"
 
 echo "-------------------------------------------------"
 echo "-----            Source Packages            -----"
