@@ -62,7 +62,7 @@ echo "-------------------------------------------------"
 echo "-----                 Xorg                  -----"
 echo "-------------------------------------------------"
 doas xbps-install -Sy xorg
-cp /etc/X11/xinit/xinitrc ~/.xinitrc
+#cp /etc/X11/xinit/xinitrc ~/.xinitrc
 
 
 echo "-------------------------------------------------"
