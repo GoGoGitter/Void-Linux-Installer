@@ -54,10 +54,12 @@ doas gpasswd -a ${USER} video # adding the user to the video group so that 'ligh
 
 curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh # 'nnn' downloading nnn plugins
 
-#doas gpasswd -a ${USER} input # 'evtest' adding user to input group to ensure gamepads can be used without root privileges
+doas gpasswd -a ${USER} input # 'evtest' adding user to input group to ensure gamepads can be used without root privileges
 
-doas mkdir /etc/udev/rules.d/
-doas sh -c "echo '# for xboxdrv to work\nSUBSYSTEM==“usb”,GROUP=“input”\nKERNEL=="uinput",GROUP=“input”' > /etc/udev/rules.d/99-xboxdrv.rules"
+doas mkdir /etc/udev/rules.d/ # adjusting udev rules so xboxdrv may be used without root permissions
+echo -e '# for xboxdrv to work\nSUBSYSTEM==“usb”,GROUP=“input”\nKERNEL=="uinput",GROUP=“input”' > ~/tmp.txt
+doas cp ~/tmp.txt /etc/udev/rules.d/99-xboxdrv.rules
+rm ~/tmp.txt
 
 echo "-------------------------------------------------"
 echo "-----            Source Packages            -----"
