@@ -56,9 +56,6 @@ doas gpasswd -a ${USER} video # adding the user to the video group so that 'ligh
 
 #doas gpasswd -a ${USER} input # 'evtest' adding user to input group to ensure gamepads can be used without root privileges
 
-#doas ln -s /etc/sv/xboxdrv /var/service/
-#doas touch /etc/sv/xboxdrv/down # allowing the service to be run during runtime but not started on boot
-
 echo "-------------------------------------------------"
 echo "-----            Source Packages            -----"
 echo "-------------------------------------------------"
