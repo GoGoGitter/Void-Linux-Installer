@@ -16,7 +16,7 @@ PKGS=(
 #'papirus-icon-theme'    # Icons
 #'arc-theme'
 #'firefox'               # Browser
-#'nnn'                   # File Manager
+'nnn'                   # File Manager
 'trash-cli'             # Trash Utility
 #'udisks2'               # Auto-mounting
 #'udiskie'               # Auto-mounting
