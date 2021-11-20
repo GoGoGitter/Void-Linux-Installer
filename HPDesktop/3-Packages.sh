@@ -60,6 +60,7 @@ doas mkdir /etc/udev/rules.d/ # adjusting udev rules so 'xboxdrv' may be used wi
 echo -e '# for xboxdrv to work\nSUBSYSTEM==“usb”,GROUP=“input”\nKERNEL=="uinput",GROUP=“input”' > ~/tmp.txt
 doas cp ~/tmp.txt /etc/udev/rules.d/99-xboxdrv.rules
 rm ~/tmp.txt
+doas sh -c "echo 'blacklist xpad' > /etc/modprobe.d/xpad.conf"
 
 echo "-------------------------------------------------"
 echo "-----            Source Packages            -----"
