@@ -79,7 +79,7 @@ PKGS=(
 )
 for PKG in "${PKGS[@]}"; do
     ./xbps-src pkg $PKG
-    doas xbps-install --repository hostdir/binpkgs $PKG
+    doas xbps-install -y --repository hostdir/binpkgs $PKG
 done
 
 echo "exec dwm" >> ~/.xinitrc
