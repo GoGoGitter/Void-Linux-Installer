@@ -20,7 +20,7 @@ PKGS=(
 'trash-cli'             # Trash Utility
 #'udisks2'               # Auto-mounting
 #'udiskie'               # Auto-mounting
-#'ytop'                  # System Monitor
+'ytop'                  # System Monitor
 #'dunst'                 # Notification Manager
 #'parcellite'            # Clipboard Manager
 #'xclip'                 # Clipboard Utility (keepass-cli requires it for copying password entries)
@@ -43,7 +43,7 @@ PKGS=(
 #'nitrogen'              # Wallpaper Setter
 #'openssh'               # OpenBSD Secure Shell
 'ffmpeg'                # dependency for a git package: ani-cli
-#'xboxdrv'
+'xboxdrv'
 #'protonvpn-cli'
 )
 for PKG in "${PKGS[@]}"; do
