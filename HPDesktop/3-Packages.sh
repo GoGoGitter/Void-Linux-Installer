@@ -39,7 +39,7 @@ PKGS=(
 #'hunspell-en_US'        # Office Suite
 #'hyphen'                # Office Suite
 #'mythes'                # Office Suite
-#'evtest'                # Gamepad Support
+'evtest'                # Gamepad Support
 #'nitrogen'              # Wallpaper Setter
 #'openssh'               # OpenBSD Secure Shell
 'ffmpeg'                # dependency for a git package: ani-cli
