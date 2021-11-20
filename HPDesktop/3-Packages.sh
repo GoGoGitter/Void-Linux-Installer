@@ -52,7 +52,7 @@ done
 
 doas gpasswd -a ${USER} video # adding the user to the video group so that 'light' does not require root permission to work
 
-#curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh # 'nnn' downloading nnn plugins
+curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh # 'nnn' downloading nnn plugins
 
 #doas gpasswd -a ${USER} input # 'evtest' adding user to input group to ensure gamepads can be used without root privileges
 
