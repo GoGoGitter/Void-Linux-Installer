@@ -8,7 +8,7 @@ PKGS=(
 'light'                 # Manages Screen Brightness
 'pulsemixer'            # TUI app for controlling volume of applications
 ##DNSSEC                 # might use unbound
-#'xf86-input-mtrack'     # Driver for Touchpads
+'xf86-input-mtrack'     # Driver for Touchpads
 ##alternative to locate  # might go with plocate
 #'font-hack-ttf'         # monospace font
 ##normal font            # general font (probably going with deja vu)
