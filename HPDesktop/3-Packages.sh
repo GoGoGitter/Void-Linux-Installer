@@ -82,7 +82,7 @@ for PKG in "${PKGS[@]}"; do
     doas xbps-install -y --repository hostdir/binpkgs $PKG
 done
 
-echo "exec dwm" >> ~/.xinitrc
+echo "exec dbus-run-session dwm" >> ~/.xinitrc
 
 echo "-------------------------------------------------"
 echo "-----             Git Packages              -----"
