@@ -50,7 +50,7 @@ echo Y # piping the answer to a question about importing keys because the -y fla
 ) | ARCH_XBPS=x86_64-musl xbps-install -Sy -R https://repo-us.voidlinux.org/current/musl -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 opendoas iwd vim curl
 curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/1-LivePart2.sh
 mv 1-LivePart2.sh /mnt
-chroot /mnt DISK=${DISK} HOST=${HOST} /bin/bash ./1-LivePart2.sh
+DISK=${DISK} HOST=${HOST} chroot /mnt /bin/bash ./1-LivePart2.sh
 rm /mnt/1-LivePart2.sh
 umount -R /mnt
 
