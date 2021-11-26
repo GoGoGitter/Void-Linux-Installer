@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-#echo "Enter name of disk (such as /dev/sda) again:"
-#read DISK
-
-#echo "Enter name of encrypted volume again:"
-#read HOST
-
 chown root:root /
 chmod 755 /
 echo "Please create new root password:"
