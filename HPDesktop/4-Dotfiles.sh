@@ -5,6 +5,11 @@ mkdir ~/.config
 
 doas sh -c 'curl -o /etc/X11/xorg.conf.d/50-synaptics.conf https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/dotfiles/mtrack'
 
+mkdir -p ~/.config/mpv/script-opts/
+curl -o ~/.config/mpv/mpv.conf https://raw.githubusercontent.com/GoGoGitter/ArchAuto/main/MacBookPro8,1/dotfiles/mpv.conf
+#curl -o ~/.config/mpv/input.conf https://raw.githubusercontent.com/GoGoGitter/ArchAuto/main/MacBookPro8,1/dotfiles/input.conf
+#curl -o ~/.config/mpv/script-opts/osc.conf https://raw.githubusercontent.com/GoGoGitter/ArchAuto/main/MacBookPro8,1/dotfiles/osc.conf
+
 #doas sh -c 'curl -o /etc/default/xboxdrv https://raw.githubusercontent.com/GoGoGitter/ArchAuto/main/MacBookPro8,1/dotfiles/xboxdrv'
 
 #doas sh -c 'curl -o /etc/modprobe.d/i915.conf https://raw.githubusercontent.com/GoGoGitter/ArchAuto/main/MacBookPro8,1/dotfiles/i915.conf'
@@ -24,11 +29,6 @@ doas sh -c 'curl -o /etc/X11/xorg.conf.d/50-synaptics.conf https://raw.githubuse
 #mkdir -p ~/.config/sxiv/exec/
 #curl -o ~/.config/sxiv/exec/key-handler https://raw.githubusercontent.com/GoGoGitter/ArchAuto/main/MacBookPro8,1/dotfiles/key-handler
 #chmod a+x ~/.config/sxiv/exec/key-handler
-
-#mkdir -p ~/.config/mpv/script-opts/
-#curl -o ~/.config/mpv/mpv.conf https://raw.githubusercontent.com/GoGoGitter/ArchAuto/main/MacBookPro8,1/dotfiles/mpv.conf
-#curl -o ~/.config/mpv/input.conf https://raw.githubusercontent.com/GoGoGitter/ArchAuto/main/MacBookPro8,1/dotfiles/input.conf
-#curl -o ~/.config/mpv/script-opts/osc.conf https://raw.githubusercontent.com/GoGoGitter/ArchAuto/main/MacBookPro8,1/dotfiles/osc.conf
 
 #mkdir ~/.config/parcellite/
 #curl -o ~/.config/parcellite/parcelliterc https://raw.githubusercontent.com/GoGoGitter/ArchAuto/main/MacBookPro8,1/dotfiles/parcelliterc
