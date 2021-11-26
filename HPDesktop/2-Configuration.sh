@@ -64,8 +64,9 @@ echo "-------------------------------------------------"
 echo "-----                 Xorg                  -----"
 echo "-------------------------------------------------"
 doas xbps-install -Sy xorg
-#cp /etc/X11/xinit/xinitrc ~/.xinitrc
-
+cp /etc/X11/xinit/xinitrc ~/.xinitrc
+sed -i '/&$/d' ~/.xinitrc
+sed -i '/^exec/d' ~/.xinitrc
 
 echo "-------------------------------------------------"
 echo "-----           Graphics Drivers            -----"
