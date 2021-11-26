@@ -3,7 +3,7 @@
 mkdir ~/.config
 
 
-doas sh -c 'curl -o /etc/X11/xorg.conf.d/50-synaptics.conf https://raw.githubusercontent.com/GoGoGitter/ArchAuto/main/MacBookPro8,1/dotfiles/mtrack'
+doas sh -c 'curl -o /etc/X11/xorg.conf.d/50-synaptics.conf https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/dotfiles/mtrack'
 
 #doas sh -c 'curl -o /etc/default/xboxdrv https://raw.githubusercontent.com/GoGoGitter/ArchAuto/main/MacBookPro8,1/dotfiles/xboxdrv'
 
