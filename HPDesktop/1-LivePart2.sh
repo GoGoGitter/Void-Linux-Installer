@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-echo "Enter name of disk (such as /dev/sda) again:"
-read DISK
+#echo "Enter name of disk (such as /dev/sda) again:"
+#read DISK
 
-echo "Enter name of encrypted volume again:"
-read NAME
+#echo "Enter name of encrypted volume again:"
+#read NAME
 
 chown root:root /
 chmod 755 /
