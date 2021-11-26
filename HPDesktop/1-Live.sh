@@ -26,21 +26,21 @@ echo "-----    Encrypted volume configuration     -----"
 echo "-------------------------------------------------"
 cryptsetup luksFormat --type luks1 ${DISK}2
 echo "Please enter a name for the encrypted volume. This will also serve as the hostname:"
-read NAME
-cryptsetup luksOpen ${DISK}2 ${NAME}
-vgcreate ${NAME} /dev/mapper/${NAME}
-lvcreate --name root -L 10G ${NAME}
-lvcreate --name home -l 100%FREE ${NAME}
-mkfs.ext4 -L root /dev/${NAME}/root
-mkfs.ext4 -L home /dev/${NAME}/home
+read HOST
+cryptsetup luksOpen ${DISK}2 ${HOST}
+vgcreate ${NAME} /dev/mapper/${HOST}
+lvcreate --name root -L 10G ${HOST}
+lvcreate --name home -l 100%FREE ${HOST}
+mkfs.ext4 -L root /dev/${HOST}/root
+mkfs.ext4 -L home /dev/${HOST}/home
 
 echo "-------------------------------------------------"
 echo "-----          System installation          -----"
 echo "-------------------------------------------------"
-mount /dev/${NAME}/root /mnt
+mount /dev/${HOST}/root /mnt
 for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
 mkdir -p /mnt/home
-mount /dev/${NAME}/home /mnt/home
+mount /dev/${HOST}/home /mnt/home
 mkfs.vfat ${DISK}1
 mkdir -p /mnt/boot/efi
 mount ${DISK}1 /mnt/boot/efi
@@ -50,7 +50,7 @@ echo Y # piping the answer to a question about importing keys because the -y fla
 ) | ARCH_XBPS=x86_64-musl xbps-install -Sy -R https://repo-us.voidlinux.org/current/musl -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 opendoas iwd vim curl
 curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/1-LivePart2.sh
 mv 1-LivePart2.sh /mnt
-chroot /mnt DISK=${DISK} NAME=${NAME} /bin/bash ./1-LivePart2.sh
+chroot /mnt DISK=${DISK} HOST=${HOST} /bin/bash ./1-LivePart2.sh
 rm /mnt/1-LivePart2.sh
 umount -R /mnt
 
