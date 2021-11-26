@@ -3,6 +3,7 @@
 mkdir ~/.config
 
 
+doas mkdir /etc/X11/xorg.conf.d/
 doas sh -c 'curl -o /etc/X11/xorg.conf.d/50-synaptics.conf https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/dotfiles/mtrack'
 
 mkdir -p ~/.config/mpv/script-opts/
