@@ -42,7 +42,7 @@ PKGS=(
 'evtest'                # Gamepad Support
 #'nitrogen'              # Wallpaper Setter
 #'openssh'               # OpenBSD Secure Shell
-'ffmpeg'                # dependency for a git package: ani-cli
+'aria2'                 # dependency for a git package: ani-cli
 'xboxdrv'
 #'protonvpn-cli'
 )
