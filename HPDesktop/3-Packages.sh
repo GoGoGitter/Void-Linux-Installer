@@ -20,7 +20,7 @@ PKGS=(
 'trash-cli'             # Trash Utility
 #'udisks2'               # Auto-mounting
 #'udiskie'               # Auto-mounting
-'ytop'                  # System Monitor
+'htop'                  # System Monitor
 #'dunst'                 # Notification Manager
 #'parcellite'            # Clipboard Manager
 #'xclip'                 # Clipboard Utility (keepass-cli requires it for copying password entries)
