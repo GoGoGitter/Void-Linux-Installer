@@ -10,6 +10,8 @@ echo ${ROOT}
 ) | passwd root
 echo ${HOST} > /etc/hostname
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
+sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/default/libc-locales
+xbps-reconfigure -f glibc-locales
 
 echo "-------------------------------------------------"
 echo "-----       Filesystem configuration        -----"
