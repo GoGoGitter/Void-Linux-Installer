@@ -47,7 +47,7 @@ mount ${DISK}1 /mnt/boot/efi
 hwclock --systohc
 (
 echo Y # piping the answer to a question about importing keys because the -y flag does not deal with it 
-) | ARCH_XBPS=x86_64-musl xbps-install -Sy -R https://repo-us.voidlinux.org/current/musl -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 opendoas iwd vim curl
+) | ARCH_XBPS=x86_64 xbps-install -Sy -R https://repo-us.voidlinux.org/current -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 opendoas iwd vim curl
 curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/1-LivePart2.sh
 mv 1-LivePart2.sh /mnt
 DISK=${DISK} HOST=${HOST} chroot /mnt /bin/bash ./1-LivePart2.sh
