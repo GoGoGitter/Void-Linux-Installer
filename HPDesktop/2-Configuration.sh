@@ -49,6 +49,11 @@ cat tmp.txt | doas crontab -
 rm tmp.txt
 
 echo "-------------------------------------------------"
+echo "-----          Solid State Drives           -----"
+echo "-------------------------------------------------"
+
+
+echo "-------------------------------------------------"
 echo "-Session and Seat Management + Power Management--"
 echo "-------------------------------------------------"
 doas xbps-install -Sy elogind tlp
