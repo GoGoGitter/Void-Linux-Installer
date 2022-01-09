@@ -33,12 +33,6 @@ doas ln -s /etc/sv/socklog-unix /var/service/
 doas ln -s /etc/sv/nanoklogd /var/service/
 
 echo "-------------------------------------------------"
-echo "-----                  NTP                  -----"
-echo "-------------------------------------------------"
-doas xbps-install -Sy chrony
-doas ln -s /etc/sv/chronyd /var/service/
-
-echo "-------------------------------------------------"
 echo "-----                 Cron                  -----"
 echo "-------------------------------------------------"
 doas xbps-install -Sy dcron
@@ -52,6 +46,12 @@ echo "-------------------------------------------------"
 echo "-----          Solid State Drives           -----"
 echo "-------------------------------------------------"
 
+
+echo "-------------------------------------------------"
+echo "-----                  NTP                  -----"
+echo "-------------------------------------------------"
+doas xbps-install -Sy chrony
+doas ln -s /etc/sv/chronyd /var/service/
 
 echo "-------------------------------------------------"
 echo "-Session and Seat Management + Power Management--"
