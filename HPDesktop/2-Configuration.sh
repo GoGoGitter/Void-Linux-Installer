@@ -26,6 +26,13 @@ doas xbps-reconfigure --force linux${VER} # For subsequent updates, the microcod
 #doas xbps-install -Sy linux-firmware-amd
 
 echo "-------------------------------------------------"
+echo "-----                Logging                -----"
+echo "-------------------------------------------------"
+doas xbps-install -Sy socklog-void
+doas ln -s /etc/sv/socklog-unix /var/service/
+doas ln -s /etc/sv/nanoklogd /var/service/
+
+echo "-------------------------------------------------"
 echo "-----                  NTP                  -----"
 echo "-------------------------------------------------"
 doas xbps-install -Sy chrony
