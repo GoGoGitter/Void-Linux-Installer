@@ -56,8 +56,9 @@ read PASS
 echo ${PASS}
 echo ${PASS}
 ) | passwd ${NAME}
+gpasswd -a ${NAME} wheel
 touch /etc/doas.conf
-echo "permit nopass ${NAME} as root" > /etc/doas.conf
+echo "permit nopass :wheel as root" > /etc/doas.conf
 
 echo "-------------------------------------------------"
 echo "-----               Time zone               -----"
