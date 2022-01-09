@@ -37,14 +37,15 @@ echo "-----                 Cron                  -----"
 echo "-------------------------------------------------"
 doas xbps-install -Sy dcron
 doas ln -s /etc/sv/dcron /var/service/
-doas crontab -l > tmp.txt
-echo "@monthly ID=remove-old-kernels vkpurge rm all" >> tmp.txt
-cat tmp.txt | doas crontab -
-rm tmp.txt
 
-echo "-------------------------------------------------"
-echo "-----          Solid State Drives           -----"
-echo "-------------------------------------------------"
+#echo "-------------------------------------------------"
+#echo "-----          Solid State Drives           -----"
+#echo "-------------------------------------------------"
+
+
+#echo "-------------------------------------------------"
+#echo "-----               Security                -----"
+#echo "-------------------------------------------------"
 
 
 echo "-------------------------------------------------"
@@ -52,6 +53,14 @@ echo "-----                  NTP                  -----"
 echo "-------------------------------------------------"
 doas xbps-install -Sy chrony
 doas ln -s /etc/sv/chronyd /var/service/
+
+echo "-------------------------------------------------"
+echo "-----         Removing old kernels          -----"
+echo "-------------------------------------------------"
+doas crontab -l > tmp.txt
+echo "@monthly ID=remove-old-kernels vkpurge rm all" >> tmp.txt
+cat tmp.txt | doas crontab -
+rm tmp.txt
 
 echo "-------------------------------------------------"
 echo "-Session and Seat Management + Power Management--"
