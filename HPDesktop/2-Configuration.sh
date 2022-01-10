@@ -38,9 +38,10 @@ echo "-------------------------------------------------"
 doas xbps-install -Sy dcron
 doas ln -s /etc/sv/dcron /var/service/
 
-#echo "-------------------------------------------------"
-#echo "-----          Solid State Drives           -----"
-#echo "-------------------------------------------------"
+echo "-------------------------------------------------"
+echo "-----          Solid State Drives           -----"
+echo "-------------------------------------------------"
+doas sed -i 's|/boot/efi vfat defaults|/boot/efi vfat defaults,discard|' /etc/fstab
 
 
 #echo "-------------------------------------------------"
