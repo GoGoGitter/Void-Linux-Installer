@@ -42,7 +42,7 @@ echo "-------------------------------------------------"
 echo "-----          Solid State Drives           -----"
 echo "-------------------------------------------------"
 doas sed -i 's|/boot/efi vfat defaults|/boot/efi vfat defaults,discard|' /etc/fstab
-doas sed -i 's/issue_discards/issue_discards=1/' /etc/lvm/lvm.conf
+doas sed -i 's/issue_discards.*/issue_discards=1/' /etc/lvm/lvm.conf
 
 #echo "-------------------------------------------------"
 #echo "-----               Security                -----"
