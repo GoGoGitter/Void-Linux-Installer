@@ -44,7 +44,8 @@ echo "-------------------------------------------------"
 doas sed -i 's|/boot/efi vfat defaults|/boot/efi vfat defaults,discard|' /etc/fstab
 doas sed -i 's/issue_discards.*/issue_discards=1/' /etc/lvm/lvm.conf
 grep GRUB_CMDLINE_LINUX_DEFAULT.* /etc/default/grub > tmp.txt
-sed "s/'\([^']*\)$/ rd.luks.allow-discards'\1/" tmp.txt
+DISC=$(sed "s/'\([^']*\)$/ rd.luks.allow-discards'\1/" tmp.txt)
+sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=.*/$DISC/" /etc/default/grub
 
 #echo "-------------------------------------------------"
 #echo "-----               Security                -----"
