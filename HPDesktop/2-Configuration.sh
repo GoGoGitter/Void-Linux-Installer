@@ -42,7 +42,7 @@ echo "-------------------------------------------------"
 echo "-----          Solid State Drives           -----"
 echo "-------------------------------------------------"
 doas crontab -l > tmp.txt
-echo "@daily ID=TRIM 'fstrim /'" >> tmp.txt
+echo "@daily ID=TRIM fstrim /" >> tmp.txt
 cat tmp.txt | doas crontab -
 rm tmp.txt
 
@@ -61,7 +61,7 @@ echo "-------------------------------------------------"
 echo "-----         Removing old kernels          -----"
 echo "-------------------------------------------------"
 doas crontab -l > tmp.txt
-echo "@monthly ID=remove-old-kernels 'vkpurge rm all'" >> tmp.txt
+echo "@monthly ID=remove-old-kernels vkpurge rm all" >> tmp.txt
 cat tmp.txt | doas crontab -
 rm tmp.txt
 
