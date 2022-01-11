@@ -126,6 +126,11 @@ doas ln -s /etc/sv/bluetoothd /var/service/
 #doas gpasswd -a ${USER} bluetooth
 
 echo "-------------------------------------------------"
+echo "-----                Flatpak                -----"
+echo "-------------------------------------------------"
+
+
+echo "-------------------------------------------------"
 echo "-----               xbps-src                -----"
 echo "-------------------------------------------------"
 doas xbps-install -Sy git
