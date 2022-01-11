@@ -83,13 +83,10 @@ doas xbps-install -Sy broadcom-wl-dkms
 #echo "-------------------------------------------------"
 
 echo "-------------------------------------------------"
-echo "-----Session and Seat Management-----"
+echo "-----      Session and Seat Management      -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy elogind tlp
-doas ln -s /etc/sv/elogind /var/service/
-doas ln -s /etc/sv/tlp /var/service/
-sed -i 's/#SATA_LINKPWR_DENYLIST=.*/SATA_LINKPWR_DENYLIST="host0"/' /etc/tlp.conf
-sed -i 's/#AHCI_RUNTIME_PM_ON_BAT=.*/AHCI_RUNTIME_PM_ON_BAT=on/' /etc/tlp.conf
+rm /var/service/acpid
+doas xbps-install -Sy elogind
 
 echo "-------------------------------------------------"
 echo "-----                 Xorg                  -----"
