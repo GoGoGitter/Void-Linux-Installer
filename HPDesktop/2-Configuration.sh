@@ -3,6 +3,7 @@
 echo "-------------------------------------------------"
 echo "-----          XBPS configuration          -----"
 echo "-------------------------------------------------"
+doas mkdir -p /etc/xbps.d
 doas touch /etc/xbps.d/settings.conf
 doas sh -c 'echo "architecture=x86_64" >> /etc/xbps.d/settings.conf'
 doas sh -c 'echo "ignorepkg=sudo" >> /etc/xbps.d/settings.conf'
@@ -10,10 +11,9 @@ doas xbps-remove -Rfy sudo
 doas xbps-install -Suy # XBPS must use a separate transaction to update itself.
 doas xbps-install -Suy # If your update includes the xbps package, you will need to run the command a second time to apply the rest of the updates.
 doas xbps-install -Sy void-repo-nonfree void-repo-multilib void-repo-multilib-nonfree
-#doas sh -c 'echo "repository=https://repo-us.voidlinux.org/current" >> /etc/xbps.d/settings.conf'
-#doas sh -c 'echo "repository=https://repo-us.voidlinux.org/current/nonfree" >> /etc/xbps.d/settings.conf'
-#doas sh -c 'echo "repository=https://repo-us.voidlinux.org/current/multilib" >> /etc/xbps.d/settings.conf'
-#doas sh -c 'echo "repository=https://repo-us.voidlinux.org/current/multilib/nonfree" >> /etc/xbps.d/settings.conf'
+doas cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
+doas sed -i 's|https://alpha.de.repo.voidlinux.org|https://repo-us.voidlinux.org|g' /etc/xbps.d/*-repository-*.conf
+doas xbps-install -S
 
 echo "-------------------------------------------------"
 echo "-----               Microcode               -----"
