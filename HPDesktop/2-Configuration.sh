@@ -131,6 +131,20 @@ doas ln -s /etc/sv/bluetoothd /var/service/
 #doas xbps-install -Sy flatpak
 #flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
+#echo "-------------------------------------------------"
+#echo "-----               Printing                -----"
+#echo "-------------------------------------------------"
+
+
+#echo "-------------------------------------------------"
+#echo "-----                libvirt                -----"
+#echo "-------------------------------------------------"
+#doas xbps-install -Sy libvirt virt-manager #virt-manager-tools
+#doas ln -s /etc/sv/libvirtd /var/service/
+#doas ln -s /etc/sv/virtlockd /var/service/
+#doas ln -s /etc/sv/virtlogd /var/service/
+
+
 echo "-------------------------------------------------"
 echo "-----               xbps-src                -----"
 echo "-------------------------------------------------"
