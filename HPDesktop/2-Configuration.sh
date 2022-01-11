@@ -121,8 +121,8 @@ echo "-------------------------------------------------"
 echo "-----               Bluetooth               -----"
 echo "-------------------------------------------------"
 doas xbps-install -Sy bluez
-doas ln -s /etc/sv/bluetoothd /var/service/
 doas touch /etc/sv/bluetoothd/down
+doas ln -s /etc/sv/bluetoothd /var/service/
 
 echo "-------------------------------------------------"
 echo "-----               xbps-src                -----"
