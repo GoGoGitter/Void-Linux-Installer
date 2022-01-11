@@ -41,11 +41,10 @@ doas ln -s /etc/sv/dcron /var/service/
 echo "-------------------------------------------------"
 echo "-----          Solid State Drives           -----"
 echo "-------------------------------------------------"
-doas sed -i 's|/boot/efi vfat defaults|/boot/efi vfat defaults,discard|' /etc/fstab
-doas sed -i 's/issue_discards.*/issue_discards=1/' /etc/lvm/lvm.conf
-grep GRUB_CMDLINE_LINUX_DEFAULT.* /etc/default/grub > tmp.txt
-DISC=$(sed "s/'\([^']*\)$/ rd.luks.allow-discards'\1/" tmp.txt)
-doas sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=.*/$DISC/" /etc/default/grub
+doas crontab -l > tmp.txt
+echo "@daily ID=TRIM 'fstrim /'" >> tmp.txt
+cat tmp.txt | doas crontab -
+rm tmp.txt
 
 #echo "-------------------------------------------------"
 #echo "-----               Security                -----"
@@ -62,7 +61,7 @@ echo "-------------------------------------------------"
 echo "-----         Removing old kernels          -----"
 echo "-------------------------------------------------"
 doas crontab -l > tmp.txt
-echo "@monthly ID=remove-old-kernels vkpurge rm all" >> tmp.txt
+echo "@monthly ID=remove-old-kernels 'vkpurge rm all'" >> tmp.txt
 cat tmp.txt | doas crontab -
 rm tmp.txt
 
