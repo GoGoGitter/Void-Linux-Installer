@@ -123,6 +123,7 @@ echo "-------------------------------------------------"
 doas xbps-install -Sy bluez
 doas touch /etc/sv/bluetoothd/down
 doas ln -s /etc/sv/bluetoothd /var/service/
+#doas gpasswd -a ${USER} bluetooth
 
 echo "-------------------------------------------------"
 echo "-----               xbps-src                -----"
