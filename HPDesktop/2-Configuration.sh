@@ -144,7 +144,6 @@ doas ln -s /etc/sv/bluetoothd /var/service/
 #doas ln -s /etc/sv/virtlockd /var/service/
 #doas ln -s /etc/sv/virtlogd /var/service/
 
-
 echo "-------------------------------------------------"
 echo "-----               xbps-src                -----"
 echo "-------------------------------------------------"
