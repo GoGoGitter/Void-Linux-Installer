@@ -71,6 +71,6 @@ hwclock --systohc
 echo "-------------------------------------------------"
 echo "-----               Network                 -----"
 echo "-------------------------------------------------"
-ln -s /etc/sv/dbus /var/service/
 ln -s /etc/sv/dhcpcd /var/service/
+ln -s /etc/sv/dbus /var/service/
 ln -s /etc/sv/iwd /var/service/
