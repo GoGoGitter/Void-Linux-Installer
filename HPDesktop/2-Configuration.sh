@@ -80,9 +80,12 @@ echo "-----               Network                 -----"
 echo "-------------------------------------------------"
 doas xbps-install -Sy broadcom-wl-dkms
 
-#echo "-------------------------------------------------"
-#echo "-----               Firewalls               -----"
-#echo "-------------------------------------------------"
+echo "-------------------------------------------------"
+echo "-----               Firewalls               -----"
+echo "-------------------------------------------------"
+doas xbps-install -Sy ufw
+doas ln -s /etc/sv/ufw /var/service/
+doas ufw enable
 
 echo "-------------------------------------------------"
 echo "-----      Session and Seat Management      -----"
