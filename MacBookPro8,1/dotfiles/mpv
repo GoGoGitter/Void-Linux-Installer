@@ -1,0 +1,2 @@
+script-opts-append=ytdl hook-ytdl path=yt-dlp
+fs=yes

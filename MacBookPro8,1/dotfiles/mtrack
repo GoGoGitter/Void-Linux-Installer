@@ -1,0 +1,23 @@
+Section "InputClass"
+    MatchIsTouchpad "on"
+    Identifier "Touchpads"
+    Driver "mtrack"
+
+    Option "Sensitivity" "0.1"
+
+    Option "ClickFinger2" "3"
+    Option "ClickFinger3" "2"
+
+    Option "ScrollUpButton" "5"
+    Option "ScrollDownButton" "4"
+    Option "ScrollLeftButton" "7"
+    Option "ScrollRightButton" "6"
+
+    Option "SwipeDistance" "1"
+    Option "SwipeUpButton" "1"
+    Option "SwipeDownButton" "1"
+    Option "SwipeLeftButton" "1"
+    Option "SwipeRightButton" "1"
+    Option "SwipeClickTime" "0"
+    Option "SwipeSensitivity" "1000"
+EndSection
