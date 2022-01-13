@@ -110,7 +110,8 @@ doas xbps-install -Sy linux-firmware-intel mesa-dri #intel-video-accel
 echo "-------------------------------------------------"
 echo "-----                  KDE                  -----"
 echo "-------------------------------------------------"
-
+doas xbps-install -Sy kde5 #kde5-baseapps
+doas ln -s /etc/sv/sddm /var/service/
 
 #echo "-------------------------------------------------"
 #echo "-----                 Fonts                 -----"
