@@ -65,28 +65,28 @@ doas gpasswd -a ${USER} input # 'evtest' adding user to input group to ensure ga
 
 doas dracut --force --add-drivers bcm5974 # 'xf86-input-mtrack' without this, trackpad only moves up and down despite configuration given "because of some dracut driver inclusion issue" (from void wiki)
 
-echo "-------------------------------------------------"
-echo "-----            Source Packages            -----"
-echo "-------------------------------------------------"
-cd ~/.git-clones/void-packages
-
-PKGS=(
-'dwm'                # Window Manager
-'st'                 # Terminal Emulator
-'dmenu'              # Application Launcher
-'slock'              # Screen Locker
-'slstatus'           # Status Monitor
-'surf'               # Browser
-'tabbed'             # 
-#                     # Minecraft Launcher
-)
-for PKG in "${PKGS[@]}"; do
-    ./xbps-src pkg $PKG
-    doas xbps-install -y --repository hostdir/binpkgs $PKG
-done
-
-echo "exec dbus-run-session dwm" >> ~/.xinitrc
-
+#echo "-------------------------------------------------"
+#echo "-----            Source Packages            -----"
+#echo "-------------------------------------------------"
+#cd ~/.git-clones/void-packages
+#
+#PKGS=(
+#'dwm'                # Window Manager
+#'st'                 # Terminal Emulator
+#'dmenu'              # Application Launcher
+#'slock'              # Screen Locker
+#'slstatus'           # Status Monitor
+#'surf'               # Browser
+#'tabbed'             # 
+##                     # Minecraft Launcher
+#)
+#for PKG in "${PKGS[@]}"; do
+#    ./xbps-src pkg $PKG
+#    doas xbps-install -y --repository hostdir/binpkgs $PKG
+#done
+#
+#echo "exec dbus-run-session dwm" >> ~/.xinitrc
+#
 echo "-------------------------------------------------"
 echo "-----             Git Packages              -----"
 echo "-------------------------------------------------"
