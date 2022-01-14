@@ -83,7 +83,9 @@ echo "-------------------------------------------------"
 echo "-----           Graphical Session           -----"
 echo "-------------------------------------------------"
 doas xbps-install -Sy xfce4 lightdm lightdm-gtk3
-
+doas touch /etc/sv/lightdm/down
+doas ln -s /etc/sv/lightdm /var/service/
+doas rm /etc/sv/lightdm/down
 
 echo "-------------------------------------------------"
 echo "-----           Graphics Drivers            -----"
