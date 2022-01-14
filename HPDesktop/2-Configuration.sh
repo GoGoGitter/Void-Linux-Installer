@@ -82,7 +82,7 @@ sed -i '/^exec/d' ~/.xinitrc
 echo "-------------------------------------------------"
 echo "-----           Graphical Session           -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy xfce4 lightdm lightdm-gtk3
+doas xbps-install -Sy xfce4 xfce4-battery-plugin xfce4-clipman-plugin xfce4-screenshooter-plugin xfce4-pulseaudio-plugin lightdm lightdm-gtk3
 doas touch /etc/sv/lightdm/down
 doas ln -s /etc/sv/lightdm /var/service/
 doas rm /etc/sv/lightdm/down
