@@ -106,8 +106,8 @@ echo "-------------------------------------------------"
 echo "-----               PipeWire                -----"
 echo "-------------------------------------------------"
 doas xbps-install -Sy pipewire #libspa-bluetooth
-echo "pipewire &" >> ~/.xinitrc
-echo "pipewire-pulse &" >> ~/.xinitrc
+echo "pipewire &" >> ~/.xprofile
+echo "pipewire-pulse &" >> ~/.xprofile
 
 echo "-------------------------------------------------"
 echo "-----               Bluetooth               -----"
