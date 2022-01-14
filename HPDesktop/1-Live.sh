@@ -43,7 +43,7 @@ mount ${DISK}4 /mnt/home/
 mkswap ${DISK}3
 
 echo "-------------------------------------------------"
-echo "-----          System installation          -----"
+echo "-----Base installation + Entering the Chroot-----"
 echo "-------------------------------------------------"
 for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
 hwclock --systohc
