@@ -5,12 +5,12 @@ echo "-----          XBPS configuration          -----"
 echo "-------------------------------------------------"
 doas mkdir -p /etc/xbps.d
 doas touch /etc/xbps.d/settings.conf
-doas sh -c 'echo "architecture=x86_64" >> /etc/xbps.d/settings.conf'
+doas sh -c 'echo "architecture=x86_64-musl" >> /etc/xbps.d/settings.conf'
 doas sh -c 'echo "ignorepkg=sudo" >> /etc/xbps.d/settings.conf'
 doas xbps-remove -Rfy sudo
 doas xbps-install -Suy # XBPS must use a separate transaction to update itself.
 doas xbps-install -Suy # If your update includes the xbps package, you will need to run the command a second time to apply the rest of the updates.
-doas xbps-install -Sy void-repo-nonfree void-repo-multilib void-repo-multilib-nonfree
+doas xbps-install -Sy void-repo-nonfree
 doas cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
 doas sed -i 's|https://alpha.de.repo.voidlinux.org|https://repo-us.voidlinux.org|g' /etc/xbps.d/*-repository-*.conf
 doas xbps-install -S
@@ -40,14 +40,6 @@ echo "-------------------------------------------------"
 doas xbps-install -Sy dcron
 doas ln -s /etc/sv/dcron /var/service/
 
-echo "-------------------------------------------------"
-echo "-----          Solid State Drives           -----"
-echo "-------------------------------------------------"
-doas crontab -l > tmp.txt
-echo "@daily ID=TRIM fstrim /" >> tmp.txt
-cat tmp.txt | doas crontab -
-rm tmp.txt
-
 #echo "-------------------------------------------------"
 #echo "-----               Security                -----"
 #echo "-------------------------------------------------"
@@ -66,19 +58,6 @@ doas crontab -l > tmp.txt
 echo "@monthly ID=remove-old-kernels vkpurge rm all" >> tmp.txt
 cat tmp.txt | doas crontab -
 rm tmp.txt
-
-echo "-------------------------------------------------"
-echo "-----           Power Management            -----"
-echo "-------------------------------------------------"
-doas xbps-install -Sy tlp
-doas ln -s /etc/sv/tlp /var/service/
-doas sed -i 's/#SATA_LINKPWR_DENYLIST=.*/SATA_LINKPWR_DENYLIST="host0"/' /etc/tlp.conf
-doas sed -i 's/#AHCI_RUNTIME_PM_ON_BAT=.*/AHCI_RUNTIME_PM_ON_BAT=on/' /etc/tlp.conf
-
-echo "-------------------------------------------------"
-echo "-----               Network                 -----"
-echo "-------------------------------------------------"
-doas xbps-install -Sy broadcom-wl-dkms
 
 echo "-------------------------------------------------"
 echo "-----               Firewalls               -----"
@@ -102,16 +81,17 @@ sed -i '/&$/d' ~/.xinitrc
 sed -i '/^exec/d' ~/.xinitrc
 
 echo "-------------------------------------------------"
+echo "-----           Graphical Session           -----"
+echo "-------------------------------------------------"
+doas xbps-install -Sy xfce4 lightdm lightdm-gtk3
+
+
+echo "-------------------------------------------------"
 echo "-----           Graphics Drivers            -----"
 echo "-------------------------------------------------"
 doas xbps-install -Sy linux-firmware-intel mesa-dri #intel-video-accel
 #echo "export LIBVA_DRIVER_NAME=i965" >> ~/.xinitrc
-
-echo "-------------------------------------------------"
-echo "-----                  KDE                  -----"
-echo "-------------------------------------------------"
-doas xbps-install -Sy kde5 #kde5-baseapps
-doas ln -s /etc/sv/sddm /var/service/
+###
 
 #echo "-------------------------------------------------"
 #echo "-----                 Fonts                 -----"
@@ -154,13 +134,3 @@ doas ln -s /etc/sv/bluetoothd /var/service/
 #doas ln -s /etc/sv/libvirtd /var/service/
 #doas ln -s /etc/sv/virtlockd /var/service/
 #doas ln -s /etc/sv/virtlogd /var/service/
-
-echo "-------------------------------------------------"
-echo "-----               xbps-src                -----"
-echo "-------------------------------------------------"
-doas xbps-install -Sy git
-mkdir ~/.git-clones
-cd ~/.git-clones
-git clone https://github.com/void-linux/void-packages.git
-cd void-packages
-./xbps-src binary-bootstrap
