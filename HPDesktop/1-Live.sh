@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "-------------------------------------------------"
-echo "-----             Partitioning              -----"
+echo "-----          Prepare Filesystems          -----"
 echo "-------------------------------------------------" 
 fdisk -l
 echo "Please enter disk: (example /dev/sda)"
@@ -17,40 +17,42 @@ echo 1 # specifies what partition type partition 1 is being changed to (1 = EFI 
 echo n # adds a new partition
 echo 2 # sets the new primary partition as the second partition on the drive
 echo   # accepts default value for first sector
+echo +10G # specifies last sector as 10G from first sector
+echo n # adds a new partition
+echo 3 # sets the new primary partition as the second partition on the drive
+echo   # accepts default value for first sector
+echo +8G # specifies last sector as 8G from first sector
+echo n # adds a new partition
+echo 4 # sets the new primary partition as the fourth partition on the drive
+echo   # accepts default value for first sector
 echo   # accepts default value for last sector
 echo w # writes partition table to disk
 ) | fdisk -W always ${DISK} # -W flag automatically wipes previously existing filesystem signatures upon writing the new partition table
+mkfs.vfat ${DISK}1
+mkfs.ext4 ${DISK}2
+mkfs.ext4 ${DISK}4
 
 echo "-------------------------------------------------"
-echo "-----    Encrypted volume configuration     -----"
+echo "-----Create a New Root and Mount Filesystems-----"
 echo "-------------------------------------------------"
-cryptsetup luksFormat --type luks1 ${DISK}2
-echo "Please enter a name for the encrypted volume. This will also serve as the hostname:"
-read HOST
-cryptsetup luksOpen ${DISK}2 ${HOST}
-vgcreate ${HOST} /dev/mapper/${HOST}
-lvcreate --name root -L 10G ${HOST}
-lvcreate --name home -l 100%FREE ${HOST}
-mkfs.ext4 -L root /dev/${HOST}/root
-mkfs.ext4 -L home /dev/${HOST}/home
+mount ${DISK}2 /mnt/
+mkdir -p /mnt/boot/efi/
+mount ${DISK}1 /mnt/boot/efi/
+mkdir -p /mnt/home/
+mount ${DISK}4 /mnt/home/
+mkswap ${DISK}3
 
 echo "-------------------------------------------------"
 echo "-----          System installation          -----"
 echo "-------------------------------------------------"
-mount /dev/${HOST}/root /mnt
 for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
-mkdir -p /mnt/home
-mount /dev/${HOST}/home /mnt/home
-mkfs.vfat ${DISK}1
-mkdir -p /mnt/boot/efi
-mount ${DISK}1 /mnt/boot/efi
 hwclock --systohc
 (
 echo Y # piping the answer to a question about importing keys because the -y flag does not deal with it 
-) | XBPS_ARCH=x86_64 xbps-install -Sy -R https://repo-us.voidlinux.org/current -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 opendoas iwd vim curl
+) | XBPS_ARCH=x86_64-musl xbps-install -Sy -R https://repo-us.voidlinux.org/current/musl -r /mnt base-system grub-x86_64-efi opendoas iwd vim curl
 curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/1-LivePart2.sh
 mv 1-LivePart2.sh /mnt
-DISK=${DISK} HOST=${HOST} chroot /mnt /bin/bash ./1-LivePart2.sh
+DISK=${DISK} chroot /mnt /bin/bash ./1-LivePart2.sh
 rm /mnt/1-LivePart2.sh
 umount -R /mnt
 
