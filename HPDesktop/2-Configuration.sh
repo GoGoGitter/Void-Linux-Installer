@@ -5,7 +5,7 @@ echo "-----          XBPS configuration          -----"
 echo "-------------------------------------------------"
 doas mkdir -p /etc/xbps.d
 doas touch /etc/xbps.d/settings.conf
-doas sh -c 'echo "architecture=x86_64-musl" >> /etc/xbps.d/settings.conf'
+doas sh -c 'echo "architecture=x86_64" >> /etc/xbps.d/settings.conf'
 doas sh -c 'echo "ignorepkg=sudo" >> /etc/xbps.d/settings.conf'
 doas xbps-remove -Rfy sudo
 doas xbps-install -Suy # XBPS must use a separate transaction to update itself.
