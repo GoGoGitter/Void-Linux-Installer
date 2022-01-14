@@ -87,6 +87,7 @@ xfconf-query --create -c xfce4-session -p /general/LockCommand -t string -s "lig
 doas touch /etc/sv/lightdm/down
 doas ln -s /etc/sv/lightdm /var/service/
 doas rm /etc/sv/lightdm/down
+echo "light-locker &" >> ~/.xprofile
 
 echo "-------------------------------------------------"
 echo "-----           Graphics Drivers            -----"
