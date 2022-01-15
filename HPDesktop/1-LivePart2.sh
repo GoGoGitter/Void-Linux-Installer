@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+chown root:root /
+chmod 755 /
+
 echo "-------------------------------------------------"
 echo "-----      Installation Configuration       -----"
 echo "-------------------------------------------------"
