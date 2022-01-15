@@ -10,8 +10,8 @@ echo "Please enter a hostname:"
 read HOST
 echo ${HOST} > /etc/hostname
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
-echo "en_US.UTF-8 UTF-8" >> /etc/default/libc-locales
-xbps-reconfigure -f glibc-locales
+#echo "en_US.UTF-8 UTF-8" >> /etc/default/libc-locales
+#xbps-reconfigure -f glibc-locales
 
 echo "-------------------------------------------------"
 echo "-----          Set a Root Password          -----"
