@@ -4,28 +4,13 @@ echo "-------------------------------------------------"
 echo "-----               Packages                -----"
 echo "-------------------------------------------------"
 PKGS=(
-#'xdg-user-dirs'         # general user directories
-#'light'                 # Manages Screen Brightness
-#'pulsemixer'            # TUI app for controlling volume of applications
 ##DNSSEC                 # might use unbound
-'xf86-input-mtrack'     # Driver for Touchpads
 ##alternative to locate  # might go with plocate
-#'font-hack-ttf'         # monospace font
-##normal font            # general font (probably going with deja vu)
-##fontpreviewer          # fontpreviewer
-#'papirus-icon-theme'    # Icons
+'papirus-icon-theme'    # Icons
 #'arc-theme'
 'firefox'               # Browser
-#'nnn'                   # File Manager
-#'trash-cli'             # Trash Utility
-#'udisks2'               # Auto-mounting
-#'udiskie'               # Auto-mounting
+'gvfs'                  # auto-mounting + trash Support for Thunar
 'htop'                  # System Monitor
-#'dunst'                 # Notification Manager
-#'parcellite'            # Clipboard Manager
-#'xclip'                 # Clipboard Utility (keepass-cli requires it for copying password entries)
-#'redshift'              # Blue Light Filter
-#'gnome-screenshot'      # Screenshot Utility
 'sxiv'                  # Image Viewer
 'mpv'                   # Multimedia Player
 'yt-dlp'                # Youtube-dl fork
