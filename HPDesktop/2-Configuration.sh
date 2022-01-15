@@ -94,7 +94,7 @@ echo "-------------------------------------------------"
 doas xbps-install -Sy linux-firmware-intel mesa-dri #intel-video-accel
 #echo "export LIBVA_DRIVER_NAME=i965" >> ~/.xinitrc
 ###
-doas xbps-install -Sy linux-firmware-amd mesa-dri ... mesa-vaapi mesa-vdpau
+# doas xbps-install -Sy linux-firmware-amd mesa-dri ... mesa-vaapi mesa-vdpau
 
 #echo "-------------------------------------------------"
 #echo "-----                 Fonts                 -----"
