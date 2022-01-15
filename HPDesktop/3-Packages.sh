@@ -5,8 +5,8 @@ echo "-----               Packages                -----"
 echo "-------------------------------------------------"
 PKGS=(
 #'xdg-user-dirs'         # general user directories
-'light'                 # Manages Screen Brightness
-'pulsemixer'            # TUI app for controlling volume of applications
+#'light'                 # Manages Screen Brightness
+#'pulsemixer'            # TUI app for controlling volume of applications
 ##DNSSEC                 # might use unbound
 'xf86-input-mtrack'     # Driver for Touchpads
 ##alternative to locate  # might go with plocate
@@ -15,9 +15,9 @@ PKGS=(
 ##fontpreviewer          # fontpreviewer
 #'papirus-icon-theme'    # Icons
 #'arc-theme'
-#'firefox'               # Browser
-'nnn'                   # File Manager
-'trash-cli'             # Trash Utility
+'firefox'               # Browser
+#'nnn'                   # File Manager
+#'trash-cli'             # Trash Utility
 #'udisks2'               # Auto-mounting
 #'udiskie'               # Auto-mounting
 'htop'                  # System Monitor
@@ -43,18 +43,18 @@ PKGS=(
 #'nitrogen'              # Wallpaper Setter
 #'openssh'               # OpenBSD Secure Shell
 'aria2'                 # dependency for a git package: ani-cli
-'xboxdrv'
+#'xboxdrv'
 #'protonvpn-cli'
 )
 for PKG in "${PKGS[@]}"; do
     doas xbps-install -Sy $PKG
 done
 
-doas gpasswd -a ${USER} video # adding the user to the video group so that 'light' does not require root permission to work
+#doas gpasswd -a ${USER} video # adding the user to the video group so that 'light' does not require root permission to work
 
 #curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh # 'nnn' downloading nnn plugins
 
-doas gpasswd -a ${USER} input # 'evtest' adding user to input group to ensure gamepads can be used without root privileges
+#doas gpasswd -a ${USER} input # 'evtest' adding user to input group to ensure gamepads can be used without root privileges
 
 #doas mkdir /etc/udev/rules.d/ # adjusting udev rules so 'xboxdrv' may be used without root permissions
 #echo -e '# for xboxdrv to work\nSUBSYSTEM==“usb”,GROUP=“input”\nKERNEL=="uinput",GROUP=“input”' > ~/tmp.txt
@@ -65,28 +65,6 @@ doas gpasswd -a ${USER} input # 'evtest' adding user to input group to ensure ga
 
 doas dracut --force --add-drivers bcm5974 # 'xf86-input-mtrack' without this, trackpad only moves up and down despite configuration given "because of some dracut driver inclusion issue" (from void wiki)
 
-#echo "-------------------------------------------------"
-#echo "-----            Source Packages            -----"
-#echo "-------------------------------------------------"
-#cd ~/.git-clones/void-packages
-#
-#PKGS=(
-#'dwm'                # Window Manager
-#'st'                 # Terminal Emulator
-#'dmenu'              # Application Launcher
-#'slock'              # Screen Locker
-#'slstatus'           # Status Monitor
-#'surf'               # Browser
-#'tabbed'             # 
-##                     # Minecraft Launcher
-#)
-#for PKG in "${PKGS[@]}"; do
-#    ./xbps-src pkg $PKG
-#    doas xbps-install -y --repository hostdir/binpkgs $PKG
-#done
-#
-#echo "exec dbus-run-session dwm" >> ~/.xinitrc
-#
 echo "-------------------------------------------------"
 echo "-----             Git Packages              -----"
 echo "-------------------------------------------------"
