@@ -21,16 +21,20 @@ echo +10G # specifies last sector as 10G from first sector
 echo n # adds a new partition
 echo 3 # sets the new primary partition as the second partition on the drive
 echo   # accepts default value for first sector
-echo +8G # specifies last sector as 8G from first sector
-echo n # adds a new partition
-echo 4 # sets the new primary partition as the fourth partition on the drive
-echo   # accepts default value for first sector
+
 echo   # accepts default value for last sector
+
+#echo +8G # specifies last sector as 8G from first sector
+#echo n # adds a new partition
+#echo 4 # sets the new primary partition as the fourth partition on the drive
+#echo   # accepts default value for first sector
+#echo   # accepts default value for last sector
 echo w # writes partition table to disk
 ) | fdisk -W always ${DISK} # -W flag automatically wipes previously existing filesystem signatures upon writing the new partition table
 mkfs.vfat ${DISK}1
 mkfs.ext4 ${DISK}2
-mkfs.ext4 ${DISK}4
+#mkfs.ext4 ${DISK}4
+mkfs.ext4 ${DISK}3
 
 echo "-------------------------------------------------"
 echo "-----Create a New Root and Mount Filesystems-----"
@@ -40,11 +44,15 @@ mkdir -p /mnt/boot/efi/
 mount ${DISK}1 /mnt/boot/efi/
 mkdir -p /mnt/home/
 mount ${DISK}4 /mnt/home/
-mkswap ${DISK}3
+mount ${DISK}3 /mnt/home/
+#mkswap ${DISK}3
 
 echo "-------------------------------------------------"
 echo "-----           Base installation           -----"
 echo "-------------------------------------------------"
+
+for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
+
 hwclock --systohc
 (
 echo Y # piping the answer to a question about importing keys because the -y flag does not deal with it 
@@ -53,9 +61,9 @@ echo Y # piping the answer to a question about importing keys because the -y fla
 echo "-------------------------------------------------"
 echo "-----          Entering the Chroot          -----"
 echo "-------------------------------------------------"
-mount --rbind /sys /mnt/sys && mount --make-rslave /mnt/sys
-mount --rbind /dev /mnt/dev && mount --make-rslave /mnt/dev
-mount --rbind /proc /mnt/proc && mount --make-rslave /mnt/proc
+#mount --rbind /sys /mnt/sys && mount --make-rslave /mnt/sys
+#mount --rbind /dev /mnt/dev && mount --make-rslave /mnt/dev
+#mount --rbind /proc /mnt/proc && mount --make-rslave /mnt/proc
 curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/1-LivePart2.sh
 mv 1-LivePart2.sh /mnt
 DISK=${DISK} chroot /mnt /bin/bash ./1-LivePart2.sh
