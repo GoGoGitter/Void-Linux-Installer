@@ -3,11 +3,11 @@
 mkdir ~/.config
 
 
-doas mkdir /etc/X11/xorg.conf.d/
-doas sh -c 'curl -o /etc/X11/xorg.conf.d/50-synaptics.conf https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/dotfiles/mtrack'
+#doas mkdir /etc/X11/xorg.conf.d/
+#doas sh -c 'curl -o /etc/X11/xorg.conf.d/50-synaptics.conf https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/dotfiles/mtrack'
 
-mkdir -p ~/.config/mpv/script-opts/
-curl -o ~/.config/mpv/mpv.conf https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/dotfiles/mpv
+#mkdir -p ~/.config/mpv/script-opts/
+#curl -o ~/.config/mpv/mpv.conf https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/dotfiles/mpv
 #curl -o ~/.config/mpv/input.conf https://raw.githubusercontent.com/GoGoGitter/ArchAuto/main/MacBookPro8,1/dotfiles/input.conf
 #curl -o ~/.config/mpv/script-opts/osc.conf https://raw.githubusercontent.com/GoGoGitter/ArchAuto/main/MacBookPro8,1/dotfiles/osc.conf
 
