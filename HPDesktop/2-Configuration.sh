@@ -118,11 +118,11 @@ doas touch /etc/sv/bluetoothd/down
 doas ln -s /etc/sv/bluetoothd /var/service/
 #doas gpasswd -a ${USER} bluetooth
 
-#echo "-------------------------------------------------"
-#echo "-----                Flatpak                -----"
-#echo "-------------------------------------------------"
-#doas xbps-install -Sy flatpak
-#flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+echo "-------------------------------------------------"
+echo "-----                Flatpak                -----"
+echo "-------------------------------------------------"
+doas xbps-install -Sy flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 #echo "-------------------------------------------------"
 #echo "-----               Printing                -----"
