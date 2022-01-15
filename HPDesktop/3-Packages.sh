@@ -14,6 +14,7 @@ PKGS=(
 'xarchiver'             # desktop independent archive manager
 'yt-dlp'                # Youtube-dl fork
 'xreader'               # PDF viewer
+'iwgtk'                 # GUI frontend for iwd
 #'keepassxc'             # Password Manager
 #'bleachbit'             # Disk Cleaning Utility
 'libreoffice'           # Office Suite
