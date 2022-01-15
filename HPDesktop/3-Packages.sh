@@ -13,6 +13,7 @@ PKGS=(
 'thunar-archive-plugin' # frontend for archivers
 'xarchiver'             # desktop independent archive manager
 'yt-dlp'                # Youtube-dl fork
+''                # PDF viewer
 #'keepassxc'             # Password Manager
 #'bleachbit'             # Disk Cleaning Utility
 'libreoffice'           # Office Suite
