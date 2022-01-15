@@ -48,7 +48,7 @@ hwclock --systohc
 (
 echo Y # piping the answer to a question about importing keys because the -y flag does not deal with it 
 ) | XBPS_ARCH=x86_64 xbps-install -Sy -R https://repo-us.voidlinux.org/current -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 opendoas iwd vim curl
-curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/1-LivePart2.sh
+curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/1-LivePart2.sh
 mv 1-LivePart2.sh /mnt
 DISK=${DISK} HOST=${HOST} chroot /mnt /bin/bash ./1-LivePart2.sh
 rm /mnt/1-LivePart2.sh
