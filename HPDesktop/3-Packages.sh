@@ -18,6 +18,7 @@ PKGS=(
 #'bleachbit'             # Disk Cleaning Utility
 'libreoffice'           # Office Suite
 'hunspell-en_US'        # Office Suite
+'hunspell-es_ES'        # Office Suite
 #'openssh'               # OpenBSD Secure Shell
 )
 for PKG in "${PKGS[@]}"; do
