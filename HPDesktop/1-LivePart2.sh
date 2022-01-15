@@ -28,9 +28,12 @@ echo "-----            Configure fstab            -----"
 echo "-------------------------------------------------"
 echo "tmpfs /tmp tmpfs defaults,nosuid,nodev 0 0" > /etc/fstab
 echo "UUID=$(blkid -o value -s UUID ${DISK}2) / ext4 defaults 0 1" >> /etc/fstab
-echo "UUID=$(blkid -o value -s UUID ${DISK}4) /home ext4 defaults 0 2" >> /etc/fstab
+
+echo "UUID=$(blkid -o value -s UUID ${DISK}3) /home ext4 defaults 0 2" >> /etc/fstab
+
+#echo "UUID=$(blkid -o value -s UUID ${DISK}4) /home ext4 defaults 0 2" >> /etc/fstab
 echo "UUID=$(blkid -o value -s UUID ${DISK}1) /boot/efi vfat defaults 0 2" >> /etc/fstab
-echo "UUID=$(blkid -o value -s UUID ${DISK}3) swap swap defaults 0 0" >> /etc/fstab
+#echo "UUID=$(blkid -o value -s UUID ${DISK}3) swap swap defaults 0 0" >> /etc/fstab
 
 echo "-------------------------------------------------"
 echo "-----            Installing GRUB            -----"
