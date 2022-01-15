@@ -43,13 +43,19 @@ mount ${DISK}4 /mnt/home/
 mkswap ${DISK}3
 
 echo "-------------------------------------------------"
-echo "-----Base installation + Entering the Chroot-----"
+echo "-----           Base installation           -----"
 echo "-------------------------------------------------"
-for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
 hwclock --systohc
 (
 echo Y # piping the answer to a question about importing keys because the -y flag does not deal with it 
 ) | XBPS_ARCH=x86_64 xbps-install -Sy -R https://repo-us.voidlinux.org/current -r /mnt base-system grub-x86_64-efi opendoas iwd vim curl
+
+echo "-------------------------------------------------"
+echo "-----          Entering the Chroot          -----"
+echo "-------------------------------------------------"
+mount --rbind /sys /mnt/sys && mount --make-rslave /mnt/sys
+mount --rbind /dev /mnt/dev && mount --make-rslave /mnt/dev
+mount --rbind /proc /mnt/proc && mount --make-rslave /mnt/proc
 curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/HPDesktop/1-LivePart2.sh
 mv 1-LivePart2.sh /mnt
 DISK=${DISK} chroot /mnt /bin/bash ./1-LivePart2.sh
