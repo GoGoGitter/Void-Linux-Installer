@@ -18,14 +18,9 @@ doas xbps-install -S
 echo "-------------------------------------------------"
 echo "-----               Microcode               -----"
 echo "-------------------------------------------------"
-
-### for intel microcode
 doas xbps-install -Sy intel-ucode # After installing this package, it is necessary to regenerate your initramfs.
 VER=$(echo $(uname -r) | sed 's/\./ /2' | sed 's/ \w*$//') # uname -r outputs in the form x.y.z_a. This alters the string to the form x.y for the following command
 doas xbps-reconfigure --force linux${VER} # For subsequent updates, the microcode will be added to the initramfs automatically.
-
-### for amd microcode
-#doas xbps-install -Sy linux-firmware-amd
 
 echo "-------------------------------------------------"
 echo "-----                Logging                -----"
@@ -101,8 +96,8 @@ sed -i '/^exec/d' ~/.xinitrc
 echo "-------------------------------------------------"
 echo "-----           Graphics Drivers            -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy linux-firmware-intel mesa-dri #intel-video-accel
-#echo "export LIBVA_DRIVER_NAME=i965" >> ~/.xinitrc
+doas xbps-install -Sy linux-firmware-intel mesa-dri intel-video-accel
+echo "export LIBVA_DRIVER_NAME=i965" >> ~/.xinitrc
 
 #echo "-------------------------------------------------"
 #echo "-----                 Fonts                 -----"
@@ -127,24 +122,24 @@ doas touch /etc/sv/bluetoothd/down
 doas ln -s /etc/sv/bluetoothd /var/service/
 #doas gpasswd -a ${USER} bluetooth
 
-#echo "-------------------------------------------------"
-#echo "-----                Flatpak                -----"
-#echo "-------------------------------------------------"
-#doas xbps-install -Sy flatpak
-#flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+echo "-------------------------------------------------"
+echo "-----                Flatpak                -----"
+echo "-------------------------------------------------"
+doas xbps-install -Sy flatpak
+doas flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 #echo "-------------------------------------------------"
 #echo "-----               Printing                -----"
 #echo "-------------------------------------------------"
 
 
-#echo "-------------------------------------------------"
-#echo "-----                libvirt                -----"
-#echo "-------------------------------------------------"
-#doas xbps-install -Sy libvirt virt-manager #virt-manager-tools
-#doas ln -s /etc/sv/libvirtd /var/service/
-#doas ln -s /etc/sv/virtlockd /var/service/
-#doas ln -s /etc/sv/virtlogd /var/service/
+echo "-------------------------------------------------"
+echo "-----                libvirt                -----"
+echo "-------------------------------------------------"
+doas xbps-install -Sy libvirt virt-manager #virt-manager-tools
+doas ln -s /etc/sv/libvirtd /var/service/
+doas ln -s /etc/sv/virtlockd /var/service/
+doas ln -s /etc/sv/virtlogd /var/service/
 
 echo "-------------------------------------------------"
 echo "-----               xbps-src                -----"
