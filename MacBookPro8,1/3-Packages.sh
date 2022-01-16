@@ -35,10 +35,7 @@ PKGS=(
 #'bleachbit'             # Disk Cleaning Utility
 #'tor'                   # Tor
 #'libreoffice'           # Office Suite
-#'hunspell'              # Office Suite
 #'hunspell-en_US'        # Office Suite
-#'hyphen'                # Office Suite
-#'mythes'                # Office Suite
 'evtest'                # Gamepad Support
 #'nitrogen'              # Wallpaper Setter
 #'openssh'               # OpenBSD Secure Shell
