@@ -6,8 +6,8 @@ echo "-------------------------------------------------"
 PKGS=(
 ##DNSSEC                 # might use unbound
 ##alternative to locate  # might go with plocate
-'papirus-icon-theme'    # Icons
-#'arc-theme'
+'breeze-gtk'            # GTK theme
+'paper-icon-theme'      # for the cursor icon
 'firefox'               # Browser
 'gvfs'                  # auto-mounting + trash Support for Thunar
 'thunar-archive-plugin' # frontend for archivers
