@@ -15,7 +15,7 @@ PKGS=(
 ##fontpreviewer          # fontpreviewer
 #'papirus-icon-theme'    # Icons
 #'arc-theme'
-#'firefox'               # Browser
+'firefox'               # Browser
 'nnn'                   # File Manager
 'trash-cli'             # Trash Utility
 #'udisks2'               # Auto-mounting
