@@ -6,6 +6,7 @@ echo "-------------------------------------------------"
 PKGS=(
 'xdg-user-dirs'         # general user directories
 'light'                 # Manages Screen Brightness
+'rtkit'                 # 
 'pulsemixer'            # TUI app for controlling volume of applications
 ##DNSSEC                 # might use unbound
 'xf86-input-mtrack'     # Driver for Touchpads
