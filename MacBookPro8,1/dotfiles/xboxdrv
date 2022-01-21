@@ -1,0 +1,14 @@
+[xboxdrv]
+mimic-xpad=true
+
+[controller0/config0/buttonmap]
+A=B
+B=A
+X=Y
+Y=X
+
+[controller0/config1/buttonmap]
+A=A
+B=B
+X=X
+Y=Y

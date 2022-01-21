@@ -1,0 +1,27 @@
+# Options
+set hidden
+set ifs "\n"
+set icons on
+# Commands
+
+cmd open $xdg-open $fx
+
+cmd trash &trash-put $fx
+
+cmd mkdir %mkdir $@
+
+cmd 7z-archive &7z a $@ $fx
+
+cmd zip-archive &7z a -tzip $@ $fx
+
+cmd unzip $7z x "$f"
+
+cmd cd $lf $@
+
+# Mappings
+map T trash
+map N push :mkdir<space>
+map Z7 push :7z-archive<space>
+map Zz push :zip-archive<space>
+map Zu unzip
+map S push :cd<space>

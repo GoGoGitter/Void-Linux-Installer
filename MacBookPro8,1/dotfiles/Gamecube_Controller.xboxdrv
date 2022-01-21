@@ -1,0 +1,26 @@
+[xboxdrv]
+# silent=true
+mimic-xpad=true
+# deadzone=
+
+[evdev-absmap]
+ABS_X=X1
+ABS_Y=Y1
+ABS_RZ=X2
+ABS_Z=Y2
+ABS_HAT0X=DPAD_X
+ABS_HAT0Y=DPAD_Y
+ABS_RX=LT
+ABS_RY=RT
+
+[axismap]
+-Y1=Y1
+-Y2=Y2
+
+[evdev-keymap]
+BTN_THUMB=A
+BTN_THUMB2=B
+BTN_TRIGGER=X
+BTN_TOP=Y
+BTN_BASE2=RB
+BTN_BASE4=Start
