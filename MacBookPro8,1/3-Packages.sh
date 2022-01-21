@@ -14,7 +14,7 @@ PKGS=(
 'font-hack-ttf'         # monospace font
 ##normal font            # general font (probably going with deja vu)
 ##fontpreviewer          # fontpreviewer
-#'papirus-icon-theme'    # Icons
+'papirus-icon-theme'    # Icons
 'arc-theme'
 'firefox'               # Browser
 'chromium'              # Browser
