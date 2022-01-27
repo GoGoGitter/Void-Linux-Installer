@@ -75,7 +75,6 @@ PKGS=(
 'dmenu'              # Application Launcher
 'slock'              # Screen Locker
 'slstatus'           # Status Monitor
-#'surf'               # Browser
 'tabbed'             # 
 #                     # Minecraft Launcher
 )
