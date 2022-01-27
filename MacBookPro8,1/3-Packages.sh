@@ -19,6 +19,7 @@ PKGS=(
 'firefox'               # Browser
 'chromium'              # Browser
 'nnn'                   # File Manager
+'xdotool'               # for nnn's preview-tabbed plugin
 'trash-cli'             # Trash Utility
 'udisks2'               # Auto-mounting
 'udiskie'               # Auto-mounting
@@ -38,12 +39,12 @@ PKGS=(
 'tor'                   # Tor
 'libreoffice'           # Office Suite
 'hunspell-en_US'        # Office Suite
-'evtest'                # Gamepad Support
+'evtest'                # for use with xboxdrv
 'nitrogen'              # Wallpaper Setter
 'openssh'               # OpenBSD Secure Shell
 'aria2'                 # dependency for a git package: ani-cli
-'xboxdrv'
-'protonvpn-cli'
+'xboxdrv'               # Xbox Gamepad Userspace Driver
+'protonvpn-cli'         # ProtonVPN
 )
 for PKG in "${PKGS[@]}"; do
     doas xbps-install -Sy $PKG
