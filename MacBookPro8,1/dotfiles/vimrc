@@ -1,0 +1,5 @@
+filetype plugin on
+syntax on
+set whichwrap=b,s,<,>,[,]
+set hlsearch
+colors delek
