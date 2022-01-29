@@ -46,6 +46,7 @@ PKGS=(
 'xboxdrv'               # Xbox Gamepad Userspace Driver
 'protonvpn-cli'         # ProtonVPN
 'melonDS'               # Nintendo DS emulator
+'dolphin-emu'           # Gamecube/Wii emulator
 )
 for PKG in "${PKGS[@]}"; do
     doas xbps-install -Sy $PKG
