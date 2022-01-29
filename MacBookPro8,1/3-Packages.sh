@@ -45,6 +45,7 @@ PKGS=(
 'aria2'                 # dependency for a git package: ani-cli
 'xboxdrv'               # Xbox Gamepad Userspace Driver
 'protonvpn-cli'         # ProtonVPN
+'melonDS'               # Nintendo DS emulator
 )
 for PKG in "${PKGS[@]}"; do
     doas xbps-install -Sy $PKG
