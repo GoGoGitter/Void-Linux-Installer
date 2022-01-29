@@ -11,8 +11,6 @@ curl -o ~/.config/mpv/mpv.conf https://raw.githubusercontent.com/GoGoGitter/Void
 curl -o ~/.config/mpv/input.conf https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/input.conf
 curl -o ~/.config/mpv/script-opts/osc.conf https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/osc.conf
 
-#doas sh -c 'curl -o /etc/default/xboxdrv https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/xboxdrv'
-
 #doas sh -c 'curl -o /etc/modprobe.d/i915.conf https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/i915.conf'
 
 #mkdir ~/.config/rofi/
@@ -34,6 +32,7 @@ curl -o ~/.config/parcellite/parcelliterc https://raw.githubusercontent.com/GoGo
 curl -o ~/.config/mimeapps.list https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/mimeapps.list
 
 mkdir ~/.config/xboxdrv/
+curl -o ~/.config/xboxdrv/daemon.xboxdrv https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/xboxdrv
 curl -o ~/.config/xboxdrv/all_options.xboxdrv https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/all_options.xboxdrv
 curl -o ~/.config/xboxdrv/Red_M.xboxdrv https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/Red_M.xboxdrv
 curl -o ~/.config/xboxdrv/Blue_Pro.xboxdrv https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/Blue_Pro.xboxdrv
