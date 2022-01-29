@@ -5,11 +5,16 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
+# nnn configuration
 export NNN_BMS=".:~/.config;v:~/Videos"
 export NNN_COLORS='#0e090a0b;4123'
 export NNN_TRASH=1
-export NNN_PLUG='p:preview-tui'
-export SPLIT='v'
+export NNN_PLUG='p:preview-tabbed'
+export SPLIT='h'
+
+# aliases
+alias ls='ls --color=auto'
+alias XboxD='xboxdrv -D --detach --dbus disabled'
+alias FixTrackpad='doas dracut --force --add-drivers bcm5974'
