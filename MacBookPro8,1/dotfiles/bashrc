@@ -15,5 +15,4 @@ export NNN_PLUG='p:preview-tabbed'
 
 # aliases
 alias ls='ls --color=auto'
-alias XboxD='xboxdrv -D --detach --dbus disabled'
 alias FixTrackpad='doas dracut --force --add-drivers bcm5974'
