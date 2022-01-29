@@ -33,6 +33,7 @@ curl -o ~/.config/mimeapps.list https://raw.githubusercontent.com/GoGoGitter/Voi
 
 mkdir ~/.config/xboxdrv/
 curl -o ~/.config/xboxdrv/daemon.xboxdrv https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/daemon.xboxdrv
+curl -o ~/.config/xboxdrv/Xbox360-Nintendo.xboxdrv https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/Xbox360-Nintendo.xboxdrv
 curl -o ~/.config/xboxdrv/all_options.xboxdrv https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/all_options.xboxdrv
 curl -o ~/.config/xboxdrv/Red_M.xboxdrv https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/Red_M.xboxdrv
 curl -o ~/.config/xboxdrv/Blue_Pro.xboxdrv https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/Blue_Pro.xboxdrv
