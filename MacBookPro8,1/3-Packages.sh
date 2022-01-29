@@ -52,6 +52,7 @@ PKGS=(
 'libstdc++-32bit'       # for steam
 'libdrm-32bit'          # for steam
 'libglvnd-32bit'        # for steam
+'mesa-dri-32bit'        # for steam
 )
 for PKG in "${PKGS[@]}"; do
     doas xbps-install -Sy $PKG
