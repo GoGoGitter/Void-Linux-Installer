@@ -48,9 +48,10 @@ PKGS=(
 'melonDS'               # Nintendo DS emulator
 'dolphin-emu'           # Gamecube/Wii emulator
 'steam'                 # Valve's steam client
-'glibc-32bit'           #
-'libglvnd-32bit'        #
-'libdrm-32bit'          #
+'libgcc-32bit'          # for steam
+'libstdc++-32bit'       # for steam
+'libdrm-32bit'          # for steam
+'libglvnd-32bit'        # for steam
 )
 for PKG in "${PKGS[@]}"; do
     doas xbps-install -Sy $PKG
