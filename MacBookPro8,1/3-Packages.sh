@@ -47,6 +47,7 @@ PKGS=(
 'protonvpn-cli'         # ProtonVPN
 'melonDS'               # Nintendo DS emulator
 'dolphin-emu'           # Gamecube/Wii emulator
+'steam'                 # Valve's steam client
 )
 for PKG in "${PKGS[@]}"; do
     doas xbps-install -Sy $PKG
