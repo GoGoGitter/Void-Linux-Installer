@@ -113,7 +113,7 @@ echo "export LIBVA_DRIVER_NAME=i965" >> ~/.xinitrc
 echo "-------------------------------------------------"
 echo "-----               PipeWire                -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy pipewire #libspa-bluetooth
+doas xbps-install -Sy pipewire libspa-bluetooth
 echo "pipewire &" >> ~/.xinitrc
 echo "pipewire-pulse &" >> ~/.xinitrc
 
@@ -123,7 +123,6 @@ echo "-------------------------------------------------"
 doas xbps-install -Sy bluez
 doas touch /etc/sv/bluetoothd/down
 doas ln -s /etc/sv/bluetoothd /var/service/
-#doas gpasswd -a ${USER} bluetooth
 
 echo "-------------------------------------------------"
 echo "-----                Flatpak                -----"
