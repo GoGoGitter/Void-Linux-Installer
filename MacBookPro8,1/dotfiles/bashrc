@@ -12,7 +12,6 @@ export NNN_BMS=".:~/.config;v:~/Videos"
 export NNN_COLORS='#0e090a0b;4123'
 export NNN_TRASH=1
 export NNN_PLUG='p:preview-tabbed'
-export SPLIT='h'
 
 # aliases
 alias ls='ls --color=auto'
