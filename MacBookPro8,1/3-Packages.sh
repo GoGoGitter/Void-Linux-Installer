@@ -50,6 +50,7 @@ PKGS=(
 'steam'                 # Valve's steam client
 'glibc-32bit'           #
 'libglvnd-32bit'        #
+'libdrm-32bit'          #
 )
 for PKG in "${PKGS[@]}"; do
     doas xbps-install -Sy $PKG
