@@ -43,6 +43,7 @@ PKGS=(
 'nitrogen'              # Wallpaper Setter
 'openssh'               # OpenBSD Secure Shell
 'aria2'                 # dependency for a git package: ani-cli
+'jq'                    # dependency for a git package: ani-cli
 'xboxdrv'               # Xbox Gamepad Userspace Driver
 'protonvpn-cli'         # ProtonVPN
 'melonDS'               # Nintendo DS emulator
