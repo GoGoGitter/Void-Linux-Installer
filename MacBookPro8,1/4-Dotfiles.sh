@@ -42,7 +42,7 @@ doas sh -c 'curl -o /etc/X11/xorg.conf.d/50-synaptics.conf https://raw.githubuse
 #curl -o ~/.config/xboxdrv/Gamecube_Controller.xboxdrv https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/Gamecube_Controller.xboxdrv
 #curl -o ~/.config/xboxdrv/Joycon_Pair.xboxdrv https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/Joycon_Pair.xboxdrv
 
-curl -o ~/.bashrc https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/.bashrc
+curl -o ~/.bashrc https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/bashrc
 
 #mkdir ~/.config/fontconfig/
 #curl -o ~/.config/fontconfig/fonts.conf https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/fonts.conf
@@ -50,7 +50,7 @@ curl -o ~/.bashrc https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Instal
 #mkdir ~/.config/gtk-3.0/
 #curl -o ~/.config/gtk-3.0/settings.ini https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/settings.ini
 
-curl -o ~/.vimrc https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/.vimrc
+curl -o ~/.vimrc https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/vimrc
 
 #mkdir ~/.config/udiskie/
 #curl -o ~/.config/udiskie/config.yml https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/MacBookPro8,1/dotfiles/config.yml
