@@ -1,0 +1,19 @@
+[xboxdrv]
+mimic-xpad = true
+alt-config = /home/USER/.config/xboxdrv/Xbox360-Nintendo.xboxdrv
+
+next-controller = true
+mimic-xpad = true
+alt-config = /home/USER/.config/xboxdrv/Xbox360-Nintendo.xboxdrv
+
+next-controller = true
+mimic-xpad = true
+alt-config = /home/USER/.config/xboxdrv/Xbox360-Nintendo.xboxdrv
+
+next-controller = true
+mimic-xpad = true
+alt-config = /home/USER/.config/xboxdrv/Xbox360-Nintendo.xboxdrv
+
+[xboxdrv-daemon]
+dbus = disabled
+detach = true
