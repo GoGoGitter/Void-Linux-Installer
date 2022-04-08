@@ -29,7 +29,7 @@ echo "Please enter a name for the encrypted volume. This will also serve as the 
 read HOST
 cryptsetup luksOpen ${DISK}2 ${HOST}
 vgcreate ${HOST} /dev/mapper/${HOST}
-lvcreate --name root -L 10G ${HOST}
+lvcreate --name root -L 50G ${HOST}
 lvcreate --name home -l 100%FREE ${HOST}
 mkfs.ext4 -L root /dev/${HOST}/root
 mkfs.ext4 -L home /dev/${HOST}/home
