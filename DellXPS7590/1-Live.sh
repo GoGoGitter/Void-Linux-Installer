@@ -24,10 +24,10 @@ echo w # writes partition table to disk
 echo "-------------------------------------------------"
 echo "-----    Encrypted volume configuration     -----"
 echo "-------------------------------------------------"
-cryptsetup luksFormat --type luks1 ${DISK}2
+cryptsetup luksFormat --type luks1 ${DISK}p2
 echo "Please enter a name for the encrypted volume. This will also serve as the hostname:"
 read HOST
-cryptsetup luksOpen ${DISK}2 ${HOST}
+cryptsetup luksOpen ${DISK}p2 ${HOST}
 vgcreate ${HOST} /dev/mapper/${HOST}
 lvcreate --name root -L 50G ${HOST}
 lvcreate --name home -l 100%FREE ${HOST}
@@ -41,9 +41,9 @@ mount /dev/${HOST}/root /mnt
 for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
 mkdir -p /mnt/home
 mount /dev/${HOST}/home /mnt/home
-mkfs.vfat ${DISK}1
+mkfs.vfat ${DISK}p1
 mkdir -p /mnt/boot/efi
-mount ${DISK}1 /mnt/boot/efi
+mount ${DISK}p1 /mnt/boot/efi
 hwclock --systohc
 (
 echo Y # piping the answer to a question about importing keys because the -y flag does not deal with it 
