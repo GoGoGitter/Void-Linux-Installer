@@ -99,7 +99,7 @@ sed -i '/^exec/d' ~/.xinitrc
 echo "-------------------------------------------------"
 echo "-----           Graphics Drivers            -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy xf86-video-nouveau mesa-dri-32bit
+doas xbps-install -Sy nvidia nvidia-libs-32bit
 
 #echo "-------------------------------------------------"
 #echo "-----                 Fonts                 -----"
