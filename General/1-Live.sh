@@ -11,7 +11,7 @@ echo g # creates a new empty GPT partition table (clears out any partitions on t
 echo n # adds a new partition
 echo 1 # sets the new primary partition as the first partition on the drive
 echo   # accepts default value for first sector
-echo +256M # specifies last sector as 260M from first sector
+echo +300M # specifies last sector as 260M from first sector
 echo t # changes a partition's type (defaults to selecting partition 1 as it is the only existing one for now)
 echo 1 # specifies what partition type partition 1 is being changed to (1 = EFI System)
 echo n # adds a new partition
