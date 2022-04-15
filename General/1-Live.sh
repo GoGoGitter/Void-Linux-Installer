@@ -29,9 +29,33 @@ PART2=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==2) {print}}'
 cryptsetup luksFormat --type luks1 ${PART2)
 echo "Please enter a name for the encrypted volume. This will also serve as the hostname:"
 read HOST
-cryptsetup luksOpen $${PART2) ${HOST}
+cryptsetup luksOpen ${PART2) ${HOST}
 vgcreate ${HOST} /dev/mapper/${HOST}
 lvcreate --name root -L 50G ${HOST}
 lvcreate --name home -l 100%FREE ${HOST}
 mkfs.ext4 -L root /dev/${HOST}/root
 mkfs.ext4 -L home /dev/${HOST}/home
+
+echo "-------------------------------------------------"
+echo "-----          System installation          -----"
+echo "-------------------------------------------------"
+mount /dev/${HOST}/root /mnt
+for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
+mkdir -p /mnt/home
+mount /dev/${HOST}/home /mnt/home
+mkfs.vfat ${PART1)
+mkdir -p /mnt/boot/efi
+mount ${PART1) /mnt/boot/efi
+hwclock --systohc
+(
+echo Y # piping the answer to a question about importing keys because the -y flag does not deal with it 
+) | XBPS_ARCH=x86_64 xbps-install -Sy -R https://repo-us.voidlinux.org/current -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 opendoas iwd vim curl
+curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/DellXPS7590/1-LivePart2.sh
+mv 1-LivePart2.sh /mnt
+DISK=${DISK} HOST=${HOST} chroot /mnt /bin/bash ./1-LivePart2.sh
+rm /mnt/1-LivePart2.sh
+umount -R /mnt
+
+echo "-------------------------------------------------"
+echo "-----   You may now shut down the system    -----"
+echo "-------------------------------------------------"
