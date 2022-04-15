@@ -29,7 +29,7 @@ PART2=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==2) {print}}'
 cryptsetup luksFormat --type luks1 ${PART2)
 echo -e "Please enter a name for the encrypted volume.\nThis will also serve as the hostname\nNote:Valid characters for hostnames are lowercase letters from a to z,the digits\n     from 0 to 9, and the hyphen (-); a hostname may not start with a hyphen."
 read HOST
-cryptsetup luksOpen ${PART2) ${HOST}
+cryptsetup luksOpen ${PART2} ${HOST}
 vgcreate ${HOST} /dev/mapper/${HOST}
 lvcreate --name root -L 50G ${HOST}
 lvcreate --name home -l 100%FREE ${HOST}
@@ -43,7 +43,7 @@ mount /dev/${HOST}/root /mnt
 for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
 mkdir -p /mnt/home
 mount /dev/${HOST}/home /mnt/home
-mkfs.vfat ${PART1)
+mkfs.vfat ${PART1}
 mkdir -p /mnt/boot/efi
 mount ${PART1) /mnt/boot/efi
 hwclock --systohc
