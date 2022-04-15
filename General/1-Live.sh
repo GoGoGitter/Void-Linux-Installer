@@ -24,10 +24,12 @@ echo w # writes partition table to disk
 echo "-------------------------------------------------"
 echo "-----    Encrypted volume configuration     -----"
 echo "-------------------------------------------------"
-cryptsetup luksFormat --type luks1 ${DISK}2
+PART1=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==1) {print}}')
+PART2=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==2) {print}}')
+cryptsetup luksFormat --type luks1 ${PART2)
 echo "Please enter a name for the encrypted volume. This will also serve as the hostname:"
 read HOST
-cryptsetup luksOpen ${DISK}2 ${HOST}
+cryptsetup luksOpen $${PART2) ${HOST}
 vgcreate ${HOST} /dev/mapper/${HOST}
 lvcreate --name root -L 50G ${HOST}
 lvcreate --name home -l 100%FREE ${HOST}
