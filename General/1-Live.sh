@@ -26,10 +26,11 @@ echo "-----    Encrypted volume configuration     -----"
 echo "-------------------------------------------------"
 PART1=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==1) {print}}')
 PART2=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==2) {print}}')
-cryptsetup luksFormat --type luks1 ${PART2}
+touch temp-key.txt
+cryptsetup luksFormat --type luks1 ${PART2} temp-key.txt
 echo -e "Please enter a name for the encrypted volume.\nThis will also serve as the hostname\nNote:Valid characters for hostnames are lowercase letters from a to z,the digits\n     from 0 to 9, and the hyphen (-); a hostname may not start with a hyphen."
 read HOST
-cryptsetup luksOpen ${PART2} ${HOST}
+cryptsetup luksOpen ${PART2} ${HOST} --key-file temp-key.txt
 vgcreate ${HOST} /dev/mapper/${HOST}
 lvcreate --name root -L 50G ${HOST}
 lvcreate --name home -l 100%FREE ${HOST}
@@ -45,7 +46,7 @@ mkdir -p /mnt/home
 mount /dev/${HOST}/home /mnt/home
 mkfs.vfat ${PART1}
 mkdir -p /mnt/boot/efi
-mount ${PART1) /mnt/boot/efi
+mount ${PART1} /mnt/boot/efi
 hwclock --systohc
 (
 echo Y # piping the answer to a question about importing keys because the -y flag does not deal with it 
