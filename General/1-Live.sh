@@ -27,7 +27,7 @@ echo "-------------------------------------------------"
 PART1=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==1) {print}}')
 PART2=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==2) {print}}')
 cryptsetup luksFormat --type luks1 ${PART2)
-echo "Please enter a name for the encrypted volume. This will also serve as the hostname:"
+echo -e "Please enter a name for the encrypted volume.\nThis will also serve as the hostname\nNote:Valid characters for hostnames are lowercase letters from a to z,the digits\n     from 0 to 9, and the hyphen (-); a hostname may not start with a hyphen."
 read HOST
 cryptsetup luksOpen ${PART2) ${HOST}
 vgcreate ${HOST} /dev/mapper/${HOST}
