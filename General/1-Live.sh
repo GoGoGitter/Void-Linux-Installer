@@ -3,12 +3,12 @@
 ##################################################
 ######              Variables               ######
 ##################################################
-Disk_Num= # Number of disks to be used in filesystem. Script only supports 1 or 2
+DISK_NUM= # Number of disks to be used in filesystem. Script only supports 1 or 2
 HOST= # hostname and name of primary disk's encrypted volume
 # leave the following blank if you're going to automate partitioning
-PART1= # boot partition. e.g /dev/sda1
-PART2= # partition to be encrypted (will contain root and home partitions if using 1 disk only)
-Part3= # home partition to be encrypted (use only if you want home partiton on a separate disk)
+BOOT_PART= # boot partition. e.g /dev/sda1
+ROOT_PART= # partition to be encrypted (will contain root and home partitions if using 1 disk only)
+HOME_PART= # home partition to be encrypted (use only if you want home partiton on a separate disk)
 
 
 # Uncomment the Partitioning section if you wish to use a single drive and automate the partitioning.
@@ -36,13 +36,16 @@ Part3= # home partition to be encrypted (use only if you want home partiton on a
 echo "-------------------------------------------------"
 echo "-----    Encrypted volume configuration     -----"
 echo "-------------------------------------------------"
-PART1=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==1) {print}}')
-PART2=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==2) {print}}')
+if [ $BOOT_PART == "" ] && [ $ROOT_PART == "" ]
+then
+  BOOT_PART=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==1) {print}}')
+  ROOT_PART=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==2) {print}}')
+fi
 touch temp-key.txt
-cryptsetup luksFormat --type luks1 ${PART2} temp-key.txt
+cryptsetup luksFormat --type luks1 ${ROOT_PART} temp-key.txt
 echo -e "Please enter a name for the encrypted volume.\nThis will also serve as the hostname\nNote:Valid characters for hostnames are lowercase letters from a to z,the digits\n     from 0 to 9, and the hyphen (-); a hostname may not start with a hyphen."
 read HOST
-cryptsetup luksOpen ${PART2} ${HOST} --key-file temp-key.txt
+cryptsetup luksOpen ${ROOT_PART} ${HOST} --key-file temp-key.txt
 vgcreate ${HOST} /dev/mapper/${HOST}
 lvcreate --name root -L 50G ${HOST}
 lvcreate --name home -l 100%FREE ${HOST}
@@ -56,16 +59,16 @@ mount /dev/${HOST}/root /mnt
 for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
 mkdir -p /mnt/home
 mount /dev/${HOST}/home /mnt/home
-mkfs.vfat ${PART1}
+mkfs.vfat ${BOOT_PART}
 mkdir -p /mnt/boot/efi
-mount ${PART1} /mnt/boot/efi
+mount ${BOOT_PART} /mnt/boot/efi
 hwclock --systohc
 (
 echo Y # piping the answer to a question about importing keys because the -y flag does not deal with it 
 ) | XBPS_ARCH=x86_64 xbps-install -Sy -R https://repo-us.voidlinux.org/current -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 opendoas iwd vim curl
 curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/DellXPS7590/1-LivePart2.sh
 mv 1-LivePart2.sh /mnt
-PART1=${PART1} PART2=${PART2} HOST=${HOST} chroot /mnt /bin/bash ./1-LivePart2.sh
+BOOT_PART=${BOOT_PART} ROOT_PART=${ROOT_PART} HOST=${HOST} chroot /mnt /bin/bash ./1-LivePart2.sh
 rm /mnt/1-LivePart2.sh
 umount -R /mnt
 
