@@ -79,25 +79,19 @@ ln -s /etc/sv/iwd /var/service/
 echo "-------------------------------------------------"
 echo "-----               Passwords               -----"
 echo "-------------------------------------------------"
-echo "Please create new root password:"
-read ROOT # stores the user's input which will be called on by ${ROOT}
-(
-echo ${ROOT}
-echo ${ROOT}
-) | passwd root
+echo "Set a new root password:"
+passwd root
 
+echo "Set password for primary encrypted volume"
 cryptsetup luksChangeKey ${ROOT_PART} --key-file temp-key.txt
 rm temp-key.txt
 
 if [ "$DISK_NUM" = "2" ]
 then
+  echo "Set password for secondary encrypted volume"
   cryptsetup luksChangeKey ${HOME_PART} --key-file temp-key2.txt
   rm temp-key2.txt
 fi
 
-echo "Please enter a password for this user:"
-read PASS
-(
-echo ${PASS}
-echo ${PASS}
-) | passwd ${NAME}
+echo "Set a password for ${NAME}:"
+passwd ${NAME}
