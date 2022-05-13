@@ -3,11 +3,11 @@
 ##################################################
 ######              Variables               ######
 ##################################################
-DISK_NUM= # Number of disks to be used in filesystem. Script only supports 1 or 2
-HOST= # hostname and name of primary disk's encrypted volume
+DISK_NUM=1 # Number of disks to be used in filesystem. Script only supports 1 or 2
+HOST=clever-hostname # hostname and name of primary disk's encrypted volume
 # Valid characters for hostnames are lowercase letters from a to z,the digits from 0 to 9, and the hyphen (-); a hostname may not start with a hyphen
 NAME= # username of user to be created and put in the wheel group
-TIME= # timezone. acceptable values are given in /usr/share/zoneinfo. e.g Canada/Eastern
+TIME=Canada/Eastern # timezone. acceptable values are given in /usr/share/zoneinfo. e.g Canada/Eastern
 
 # leave the following blank if you're going to automate partitioning
 BOOT_PART= # boot partition. e.g /dev/sda1
