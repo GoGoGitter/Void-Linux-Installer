@@ -18,15 +18,21 @@ echo "-----       Filesystem configuration        -----"
 echo "-------------------------------------------------"
 echo "tmpfs /tmp tmpfs defaults,nosuid,nodev 0 0" > /etc/fstab
 echo "UUID=$(blkid -o value -s UUID /dev/${HOST}/root) / ext4 defaults 0 1" >> /etc/fstab
-echo "UUID=$(blkid -o value -s UUID /dev/${HOST}/home) /home ext4 defaults 0 2" >> /etc/fstab
-echo "UUID=$(blkid -o value -s UUID ${DISK}p1) /boot/efi vfat defaults 0 2" >> /etc/fstab
+echo "UUID=$(blkid -o value -s UUID /dev/${HOST2}/home) /home ext4 defaults 0 2" >> /etc/fstab
+echo "UUID=$(blkid -o value -s UUID ${BOOT_PART}) /boot/efi vfat defaults 0 2" >> /etc/fstab
 
 echo "-------------------------------------------------"
 echo "-----          GRUB configuration           -----"
 echo "-------------------------------------------------"
 echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
-UUID=$(blkid -o value -s UUID ${DISK}p2)
-sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT='rd.lvm.vg=$HOST rd.luks.uuid=$UUID'/" /etc/default/grub
+UUID=$(blkid -o value -s UUID ${ROOT_PART})
+if [ "$DISK_NUM" = "1" ]
+then
+  sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT='rd.lvm.vg=$HOST rd.luks.uuid=$UUID'/" /etc/default/grub
+elif [ "$DISK_NUM" = "2" ]
+then
+UUID2=$(blkid -o value -s UUID ${HOME_PART})
+sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT='rd.lvm.vg=$HOST rd.luks.uuid=$UUID rd.lvm.vg=$HOST2 rd.luks.uuid=$UUID2'/" /etc/default/grub
 
 echo "-------------------------------------------------"
 echo "-----            LUKS key setup             -----"
