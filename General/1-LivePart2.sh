@@ -43,6 +43,8 @@ cryptsetup luksAddKey ${ROOT_PART} /boot/volume.key --key-file temp-key.txt
 chmod 000 /boot/volume.key
 echo "${HOST}   ${ROOT_PART}   /boot/volume.key   luks" >> /etc/crypttab
 echo 'install_items+=" /boot/volume.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf
+cryptsetup luksChangeKey ${ROOT_PART} --key-file temp-key.txt
+rm temp-key.txt
 if [ "$DISK_NUM" = "2" ]
 then
   dd bs=1 count=64 if=/dev/urandom of=/boot/volume2.key
@@ -50,6 +52,8 @@ then
   chmod 000 /boot/volume2.key
   echo "${HOST2}   ${HOME_PART}   /boot/volume2.key   luks" >> /etc/crypttab
   echo 'install_items+=" /boot/volume.key /boot/volume2.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf  
+  cryptsetup luksChangeKey ${HOME_PART} --key-file temp-key2.txt
+  rm temp-key2.txt
 fi
 chmod -R g-rwx,o-rwx /boot
 
