@@ -82,6 +82,8 @@ echo Y # piping the answer to a question about importing keys because the -y fla
 ) | XBPS_ARCH=x86_64 xbps-install -Sy -R https://repo-us.voidlinux.org/current -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 opendoas iwd vim curl
 curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/DellXPS7590/1-LivePart2.sh
 mv 1-LivePart2.sh /mnt
+mv temp-key.txt /mnt
+mv temp-key2.txt /mnt
 DISK_NUM=${DISK_NUM} HOST=${HOST} HOST2=${HOST2} NAME=${NAME} TIME=${TIME} BOOT_PART=${BOOT_PART} ROOT_PART=${ROOT_PART} HOME_PART=${HOME_PART} chroot /mnt /bin/bash ./1-LivePart2.sh
 rm /mnt/1-LivePart2.sh
 umount -R /mnt
