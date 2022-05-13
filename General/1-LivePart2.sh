@@ -39,14 +39,14 @@ echo "-------------------------------------------------"
 echo "-----            LUKS key setup             -----"
 echo "-------------------------------------------------"
 dd bs=1 count=64 if=/dev/urandom of=/boot/volume.key
-cryptsetup luksAddKey ${ROOT_PART} /boot/volume.key
+cryptsetup luksAddKey ${ROOT_PART} /boot/volume.key --key-file temp-key.txt
 chmod 000 /boot/volume.key
 echo "${HOST}   ${ROOT_PART}   /boot/volume.key   luks" >> /etc/crypttab
 echo 'install_items+=" /boot/volume.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf
 if [ "$DISK_NUM" = "2" ]
 then
   dd bs=1 count=64 if=/dev/urandom of=/boot/volume2.key
-  cryptsetup luksAddKey ${HOME_PART} /boot/volume2.key
+  cryptsetup luksAddKey ${HOME_PART} /boot/volume2.key --key-file temp-key2.txt
   chmod 000 /boot/volume2.key
   echo "${HOST2}   ${HOME_PART}   /boot/volume2.key   luks" >> /etc/crypttab
   echo 'install_items+=" /boot/volume.key /boot/volume2.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf  
