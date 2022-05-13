@@ -5,10 +5,12 @@
 ##################################################
 DISK_NUM= # Number of disks to be used in filesystem. Script only supports 1 or 2
 HOST= # hostname and name of primary disk's encrypted volume
+# Valid characters for hostnames are lowercase letters from a to z,the digits from 0 to 9, and the hyphen (-); a hostname may not start with a hyphen
+
 # leave the following blank if you're going to automate partitioning
 BOOT_PART= # boot partition. e.g /dev/sda1
-ROOT_PART= # partition to be encrypted (will contain root and home partitions if using 1 disk only)
-HOME_PART= # home partition to be encrypted (use only if you want home partiton on a separate disk)
+ROOT_PART= # root partition to be encrypted (will also contain home partition if DISK_NUM was set to 1)
+HOME_PART= # home partition to be encrypted (used only if you set DISK_NUM to 2)
 
 
 # Uncomment the Partitioning section if you wish to use a single drive and automate the partitioning.
@@ -43,14 +45,27 @@ then
 fi
 touch temp-key.txt
 cryptsetup luksFormat --type luks1 ${ROOT_PART} temp-key.txt
-echo -e "Please enter a name for the encrypted volume.\nThis will also serve as the hostname\nNote:Valid characters for hostnames are lowercase letters from a to z,the digits\n     from 0 to 9, and the hyphen (-); a hostname may not start with a hyphen."
-read HOST
 cryptsetup luksOpen ${ROOT_PART} ${HOST} --key-file temp-key.txt
 vgcreate ${HOST} /dev/mapper/${HOST}
-lvcreate --name root -L 50G ${HOST}
-lvcreate --name home -l 100%FREE ${HOST}
-mkfs.ext4 -L root /dev/${HOST}/root
-mkfs.ext4 -L home /dev/${HOST}/home
+if [ "$DISK_NUM" = "1" ]
+then
+  lvcreate --name root -L 50G ${HOST}
+  lvcreate --name home -l 100%FREE ${HOST}
+  mkfs.ext4 -L root /dev/${HOST}/root
+  mkfs.ext4 -L home /dev/${HOST}/home
+elif [ "$DISK_NUM" = "2" ]
+then 
+  lvcreate --name root -l 100%FREE ${HOST}
+  mkfs.ext4 -L root /dev/${HOST}/root
+  
+  touch temp-key2.txt
+  cryptsetup luksFormat --type luks1 ${HOME_PART} temp-key2.txt
+  cryptsetup luksOpen ${HOME_PART} ${HOST}2 --key-file temp-key2.txt
+  vgcreate ${HOST}2 /dev/mapper/${HOST}2
+  lvcreate --name home -l 100%FREE ${HOST}2
+  mkfs.ext4 -L home /dev/${HOST}2/home
+fi
+
 
 echo "-------------------------------------------------"
 echo "-----          System installation          -----"
