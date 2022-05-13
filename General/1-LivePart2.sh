@@ -50,7 +50,7 @@ then
   chmod 000 /boot/volume2.key
   chmod -R g-rwx,o-rwx /boot
   echo "${HOST2}   ${HOME_PART}   /boot/volume2.key   luks" >> /etc/crypttab
-  echo 'install_items+=" /boot/volume2.key /etc/crypttab "' >> /etc/dracut.conf.d/10-crypt.conf  
+  echo 'install_items+=" /boot/volume.key /boot/volume2.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf  
 fi
 
 echo "-------------------------------------------------"
@@ -62,8 +62,6 @@ xbps-reconfigure -fa
 echo "-------------------------------------------------"
 echo "-----           Users and Groups            -----"
 echo "-------------------------------------------------"
-echo "Please enter a username:"
-read NAME
 useradd -m ${NAME}
 echo "Please enter a password for this user:"
 read PASS
@@ -78,9 +76,7 @@ echo "permit nopass :wheel as root" > /etc/doas.conf
 echo "-------------------------------------------------"
 echo "-----               Time zone               -----"
 echo "-------------------------------------------------"
-echo "Enter city:"
-read CITY
-ln -sf /usr/share/zoneinfo/America/${CITY} /etc/localtime
+ln -sf /usr/share/zoneinfo/${TIME} /etc/localtime
 hwclock --systohc
 
 echo "-------------------------------------------------"
