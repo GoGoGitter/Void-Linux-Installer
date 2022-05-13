@@ -1,5 +1,16 @@
 #!/usr/bin/env bash
 
+##################################################
+######              Variables               ######
+##################################################
+Disk_Num= # Number of disks to be used in filesystem. Script only supports 1 or 2
+HOST= # hostname and name of primary disk's encrypted volume
+# leave the following blank if you're going to automate partitioning
+PART1= # boot partition. e.g /dev/sda1
+PART2= # partition to be encrypted (will contain root and home partitions if using 1 disk only)
+Part3= # home partition to be encrypted (use only if you want home partiton on a separate disk)
+
+
 # Uncomment the Partitioning section if you wish to use a single drive and automate the partitioning.
 ##################################################
 ######             Partitioning             ######
