@@ -49,23 +49,20 @@ cryptsetup luksOpen ${ROOT_PART} ${HOST} --key-file temp-key.txt
 vgcreate ${HOST} /dev/mapper/${HOST}
 if [ "$DISK_NUM" = "1" ]
 then
+  HOST2=${HOST}
   lvcreate --name root -L 50G ${HOST}
-  lvcreate --name home -l 100%FREE ${HOST}
-  mkfs.ext4 -L root /dev/${HOST}/root
-  mkfs.ext4 -L home /dev/${HOST}/home
 elif [ "$DISK_NUM" = "2" ]
-then 
-  lvcreate --name root -l 100%FREE ${HOST}
-  mkfs.ext4 -L root /dev/${HOST}/root
-  
+then
+  HOST2=${HOST}2
+  lvcreate --name root -l 100%FREE ${HOST}  
   touch temp-key2.txt
   cryptsetup luksFormat --type luks1 ${HOME_PART} temp-key2.txt
-  cryptsetup luksOpen ${HOME_PART} ${HOST}2 --key-file temp-key2.txt
-  vgcreate ${HOST}2 /dev/mapper/${HOST}2
-  lvcreate --name home -l 100%FREE ${HOST}2
-  mkfs.ext4 -L home /dev/${HOST}2/home
+  cryptsetup luksOpen ${HOME_PART} ${HOST2} --key-file temp-key2.txt
+  vgcreate ${HOST2} /dev/mapper/${HOST2}
 fi
-
+lvcreate --name home -l 100%FREE ${HOST2}
+mkfs.ext4 -L root /dev/${HOST}/root
+mkfs.ext4 -L home /dev/${HOST2}/home
 
 echo "-------------------------------------------------"
 echo "-----          System installation          -----"
@@ -73,7 +70,7 @@ echo "-------------------------------------------------"
 mount /dev/${HOST}/root /mnt
 for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
 mkdir -p /mnt/home
-mount /dev/${HOST}/home /mnt/home
+mount /dev/${HOST2}/home /mnt/home
 mkfs.vfat ${BOOT_PART}
 mkdir -p /mnt/boot/efi
 mount ${BOOT_PART} /mnt/boot/efi
