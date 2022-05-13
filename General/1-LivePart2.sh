@@ -2,12 +2,6 @@
 
 chown root:root /
 chmod 755 /
-echo "Please create new root password:"
-read ROOT # stores the user's input which will be called on by ${ROOT}
-(
-echo ${ROOT}
-echo ${ROOT}
-) | passwd root
 echo ${HOST} > /etc/hostname
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 echo "en_US.UTF-8 UTF-8" >> /etc/default/libc-locales
@@ -43,17 +37,13 @@ cryptsetup luksAddKey ${ROOT_PART} /boot/volume.key --key-file temp-key.txt
 chmod 000 /boot/volume.key
 echo "${HOST}   ${ROOT_PART}   /boot/volume.key   luks" >> /etc/crypttab
 echo 'install_items+=" /boot/volume.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf
-cryptsetup luksChangeKey ${ROOT_PART} --key-file temp-key.txt
-rm temp-key.txt
 if [ "$DISK_NUM" = "2" ]
 then
   dd bs=1 count=64 if=/dev/urandom of=/boot/volume2.key
   cryptsetup luksAddKey ${HOME_PART} /boot/volume2.key --key-file temp-key2.txt
   chmod 000 /boot/volume2.key
   echo "${HOST2}   ${HOME_PART}   /boot/volume2.key   luks" >> /etc/crypttab
-  echo 'install_items+=" /boot/volume.key /boot/volume2.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf  
-  cryptsetup luksChangeKey ${HOME_PART} --key-file temp-key2.txt
-  rm temp-key2.txt
+  echo 'install_items+=" /boot/volume.key /boot/volume2.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf
 fi
 chmod -R g-rwx,o-rwx /boot
 
@@ -67,12 +57,6 @@ echo "-------------------------------------------------"
 echo "-----           Users and Groups            -----"
 echo "-------------------------------------------------"
 useradd -m ${NAME}
-echo "Please enter a password for this user:"
-read PASS
-(
-echo ${PASS}
-echo ${PASS}
-) | passwd ${NAME}
 gpasswd -a ${NAME} wheel
 touch /etc/doas.conf
 echo "permit nopass :wheel as root" > /etc/doas.conf
@@ -84,8 +68,34 @@ ln -sf /usr/share/zoneinfo/${TIME} /etc/localtime
 hwclock --systohc
 
 echo "-------------------------------------------------"
-echo "-----               Network                 -----"
+echo "-----                Network                -----"
 echo "-------------------------------------------------"
 ln -s /etc/sv/dhcpcd /var/service/
 ln -s /etc/sv/dbus /var/service/
 ln -s /etc/sv/iwd /var/service/
+
+echo "-------------------------------------------------"
+echo "-----               Passwords               -----"
+echo "-------------------------------------------------"
+echo "Please create new root password:"
+read ROOT # stores the user's input which will be called on by ${ROOT}
+(
+echo ${ROOT}
+echo ${ROOT}
+) | passwd root
+
+cryptsetup luksChangeKey ${ROOT_PART} --key-file temp-key.txt
+rm temp-key.txt
+
+if [ "$DISK_NUM" = "2" ]
+then
+  cryptsetup luksChangeKey ${HOME_PART} --key-file temp-key2.txt
+  rm temp-key2.txt
+fi
+
+echo "Please enter a password for this user:"
+read PASS
+(
+echo ${PASS}
+echo ${PASS}
+) | passwd ${NAME}
