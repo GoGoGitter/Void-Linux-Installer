@@ -31,8 +31,9 @@ then
   sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT='rd.lvm.vg=$HOST rd.luks.uuid=$UUID'/" /etc/default/grub
 elif [ "$DISK_NUM" = "2" ]
 then
-UUID2=$(blkid -o value -s UUID ${HOME_PART})
-sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT='rd.lvm.vg=$HOST rd.luks.uuid=$UUID rd.lvm.vg=$HOST2 rd.luks.uuid=$UUID2'/" /etc/default/grub
+  UUID2=$(blkid -o value -s UUID ${HOME_PART})
+  sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT='rd.lvm.vg=$HOST rd.luks.uuid=$UUID rd.lvm.vg=$HOST2 rd.luks.uuid=$UUID2'/" /etc/default/grub
+fi
 
 echo "-------------------------------------------------"
 echo "-----            LUKS key setup             -----"
