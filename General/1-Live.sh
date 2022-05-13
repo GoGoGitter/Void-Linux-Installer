@@ -36,7 +36,7 @@ HOME_PART= # home partition to be encrypted (use only if you want home partiton 
 echo "-------------------------------------------------"
 echo "-----    Encrypted volume configuration     -----"
 echo "-------------------------------------------------"
-if [ $BOOT_PART == "" ] && [ $ROOT_PART == "" ]
+if [ "$BOOT_PART" == "" ] && [ "$ROOT_PART" == "" ]
 then
   BOOT_PART=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==1) {print}}')
   ROOT_PART=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==2) {print}}')
