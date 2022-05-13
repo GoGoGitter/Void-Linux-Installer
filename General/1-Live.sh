@@ -11,11 +11,6 @@ HOST=clever-hostname # hostname and name of primary disk's encrypted volume
 NAME=cool-username # username of user to be created and put in the wheel group
 TIME=Canada/Eastern # timezone. acceptable values are given in /usr/share/zoneinfo. e.g Canada/Eastern
 
-# leave the following blank if you're going to automate partitioning
-BOOT_PART= # boot partition. e.g /dev/sda1
-ROOT_PART= # root partition to be encrypted (will also contain home partition if DISK_NUM was set to 1)
-HOME_PART= # home partition to be encrypted (used only if you set DISK_NUM to 2)
-
 ##################################################
 ######             Partitioning             ######
 ################################################## 
@@ -48,10 +43,11 @@ fi
 echo "-------------------------------------------------"
 echo "-----    Encrypted volume configuration     -----"
 echo "-------------------------------------------------"
-if [ "$BOOT_PART" == "" ] && [ "$ROOT_PART" == "" ]
+BOOT_PART=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==1) {print}}')
+ROOT_PART=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==2) {print}}')
+if [ "$DISK_NUM" = "2" ]
 then
-  BOOT_PART=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==1) {print}}')
-  ROOT_PART=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==2) {print}}')
+  HOME_PART=$(fdisk -l | grep ^${DISK2} | awk '{print $1}' | awk '{if (NR==1) {print}}')
 fi
 touch temp-key.txt
 cryptsetup luksFormat --type luks1 ${ROOT_PART} temp-key.txt
