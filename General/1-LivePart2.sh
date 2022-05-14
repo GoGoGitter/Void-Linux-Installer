@@ -19,8 +19,7 @@ echo "-------------------------------------------------"
 echo "-----          GRUB configuration           -----"
 echo "-------------------------------------------------"
 echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
-UUID=$(blkid -o value -s UUID ${ROOT_PART})
-sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT='rd.lvm.vg=$HOST rd.luks.uuid=$UUID'/" /etc/default/grub
+sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT='rd.lvm.vg=$HOST rd.luks.uuid=$(blkid -o value -s UUID ${ROOT_PART})'/" /etc/default/grub
 
 echo "-------------------------------------------------"
 echo "-----            LUKS key setup             -----"
@@ -29,7 +28,7 @@ dd bs=1 count=64 if=/dev/urandom of=/boot/root-volume.key
 cryptsetup luksAddKey ${ROOT_PART} /boot/root-volume.key --key-file temp-key.txt
 chmod 000 /boot/root-volume.key
 chmod -R g-rwx,o-rwx /boot
-echo "${HOST}   ${ROOT_PART}   /boot/root-volume.key   luks" >> /etc/crypttab
+echo "${HOST}   UUID=$(blkid -o value -s UUID ${ROOT_PART})   /boot/root-volume.key   luks" >> /etc/crypttab
 if [ "$DISK_NUM" = "1" ]
 then
   echo 'install_items+=" /boot/root-volume.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf
@@ -39,7 +38,7 @@ then
   dd bs=1 count=64 if=/dev/urandom of=/etc/cryptsetup-keys.d/home-volume.key
   cryptsetup luksAddKey ${HOME_PART} /etc/cryptsetup-keys.d/home-volume.key --key-file temp-key2.txt
   chmod 000 /etc/cryptsetup-keys.d/home-volume.key
-  echo "${HOST2}   ${HOME_PART}   /etc/cryptsetup-keys.d/home-volume.key   luks" >> /etc/crypttab
+  echo "${HOST2}   UUID=$(blkid -o value -s UUID ${HOME_PART})   /etc/cryptsetup-keys.d/home-volume.key   luks" >> /etc/crypttab
   echo 'install_items+=" /boot/root-volume.key /etc/cryptsetup-keys.d/home-volume.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf
 fi
 
