@@ -84,7 +84,7 @@ hwclock --systohc
 (
 echo Y # piping the answer to a question about importing keys because the -y flag does not deal with it 
 ) | XBPS_ARCH=x86_64 xbps-install -Sy -R https://repo-us.voidlinux.org/current -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 opendoas iwd vim curl
-curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/DellXPS7590/1-LivePart2.sh
+curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/General/1-LivePart2.sh
 mv 1-LivePart2.sh /mnt
 mv temp-key.txt /mnt
 mv temp-key2.txt /mnt
