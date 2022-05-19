@@ -8,9 +8,10 @@ doas touch /etc/xbps.d/settings.conf
 doas sh -c 'echo "architecture=x86_64" >> /etc/xbps.d/settings.conf'
 doas sh -c 'echo "ignorepkg=sudo" >> /etc/xbps.d/settings.conf'
 doas xbps-remove -Rfy sudo
-doas xbps-install -Suy # XBPS must use a separate transaction to update itself.
-doas xbps-install -Suy # If your update includes the xbps package, you will need to run the command a second time to apply the rest of the updates.
-doas xbps-install -Sy void-repo-nonfree void-repo-multilib void-repo-multilib-nonfree
+doas xbps-install -S
+doas xbps-install -uy # XBPS must use a separate transaction to update itself.
+doas xbps-install -uy # If your update includes the xbps package, you will need to run the command a second time to apply the rest of the updates.
+doas xbps-install -y void-repo-nonfree void-repo-multilib void-repo-multilib-nonfree
 doas cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
 doas sed -i 's|https://alpha.de.repo.voidlinux.org|https://repo-us.voidlinux.org|g' /etc/xbps.d/*-repository-*.conf
 doas xbps-install -S
@@ -18,21 +19,21 @@ doas xbps-install -S
 echo "-------------------------------------------------"
 echo "-----               Microcode               -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy intel-ucode # After installing this package, it is necessary to regenerate your initramfs.
+doas xbps-install -y intel-ucode # After installing this package, it is necessary to regenerate your initramfs.
 VER=$(echo $(uname -r) | sed 's/\./ /2' | sed 's/ \w*$//') # uname -r outputs in the form x.y.z_a. This alters the string to the form x.y for the following command
 doas xbps-reconfigure --force linux${VER} # For subsequent updates, the microcode will be added to the initramfs automatically.
 
 echo "-------------------------------------------------"
 echo "-----                Logging                -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy socklog-void
+doas xbps-install -y socklog-void
 doas ln -s /etc/sv/socklog-unix /var/service/
 doas ln -s /etc/sv/nanoklogd /var/service/
 
 echo "-------------------------------------------------"
 echo "-----                 Cron                  -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy dcron
+doas xbps-install -y dcron
 doas ln -s /etc/sv/dcron /var/service/
 
 echo "-------------------------------------------------"
@@ -51,7 +52,7 @@ rm tmp.txt
 echo "-------------------------------------------------"
 echo "-----                  NTP                  -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy chrony
+doas xbps-install -y chrony
 doas ln -s /etc/sv/chronyd /var/service/
 
 echo "-------------------------------------------------"
@@ -65,7 +66,7 @@ rm tmp.txt
 echo "-------------------------------------------------"
 echo "-----           Power Management            -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy tlp
+doas xbps-install -y tlp
 doas ln -s /etc/sv/tlp /var/service/
 doas sed -i 's/#SATA_LINKPWR_DENYLIST=.*/SATA_LINKPWR_DENYLIST="host0"/' /etc/tlp.conf
 doas sed -i 's/#AHCI_RUNTIME_PM_ON_BAT=.*/AHCI_RUNTIME_PM_ON_BAT=on/' /etc/tlp.conf
@@ -73,12 +74,12 @@ doas sed -i 's/#AHCI_RUNTIME_PM_ON_BAT=.*/AHCI_RUNTIME_PM_ON_BAT=on/' /etc/tlp.c
 echo "-------------------------------------------------"
 echo "-----               Network                 -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy broadcom-wl-dkms
+doas xbps-install -y broadcom-wl-dkms
 
 echo "-------------------------------------------------"
 echo "-----               Firewalls               -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy ufw
+doas xbps-install -y ufw
 doas ln -s /etc/sv/ufw /var/service/
 doas ufw enable
 
@@ -86,12 +87,12 @@ echo "-------------------------------------------------"
 echo "-----      Session and Seat Management      -----"
 echo "-------------------------------------------------"
 rm /var/service/acpid
-doas xbps-install -Sy elogind
+doas xbps-install -y elogind
 
 echo "-------------------------------------------------"
 echo "-----                 Xorg                  -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy xorg
+doas xbps-install -y xorg
 cp /etc/X11/xinit/xinitrc ~/.xinitrc
 sed -i '/&$/d' ~/.xinitrc
 sed -i '/^exec/d' ~/.xinitrc
@@ -99,7 +100,7 @@ sed -i '/^exec/d' ~/.xinitrc
 echo "-------------------------------------------------"
 echo "-----           Graphics Drivers            -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy linux-firmware-intel mesa-dri intel-video-accel
+doas xbps-install -y linux-firmware-intel mesa-dri intel-video-accel
 echo "export LIBVA_DRIVER_NAME=i965" >> ~/.xinitrc
 
 #echo "-------------------------------------------------"
@@ -113,21 +114,21 @@ echo "export LIBVA_DRIVER_NAME=i965" >> ~/.xinitrc
 echo "-------------------------------------------------"
 echo "-----               PipeWire                -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy pipewire libspa-bluetooth
+doas xbps-install -y pipewire libspa-bluetooth
 echo "pipewire &" >> ~/.xinitrc
 echo "pipewire-pulse &" >> ~/.xinitrc
 
 echo "-------------------------------------------------"
 echo "-----               Bluetooth               -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy bluez
+doas xbps-install -y bluez
 doas touch /etc/sv/bluetoothd/down
 doas ln -s /etc/sv/bluetoothd /var/service/
 
 echo "-------------------------------------------------"
 echo "-----                Flatpak                -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy flatpak
+doas xbps-install -y flatpak
 doas flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 #echo "-------------------------------------------------"
@@ -138,7 +139,7 @@ doas flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub
 echo "-------------------------------------------------"
 echo "-----                libvirt                -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy libvirt virt-manager #virt-manager-tools
+doas xbps-install -y libvirt virt-manager #virt-manager-tools
 doas ln -s /etc/sv/libvirtd /var/service/
 doas ln -s /etc/sv/virtlockd /var/service/
 doas ln -s /etc/sv/virtlogd /var/service/
@@ -146,7 +147,7 @@ doas ln -s /etc/sv/virtlogd /var/service/
 echo "-------------------------------------------------"
 echo "-----               xbps-src                -----"
 echo "-------------------------------------------------"
-doas xbps-install -Sy git
+doas xbps-install -y git
 mkdir ~/.git-clones
 cd ~/.git-clones
 git clone https://github.com/void-linux/void-packages.git
