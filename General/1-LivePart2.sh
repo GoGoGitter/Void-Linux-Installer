@@ -29,10 +29,7 @@ cryptsetup luksAddKey ${ROOT_PART} /boot/root-volume.key --key-file temp-key.txt
 chmod 000 /boot/root-volume.key
 chmod -R g-rwx,o-rwx /boot
 echo "${HOST}   UUID=$(blkid -o value -s UUID ${ROOT_PART})   /boot/root-volume.key   luks" >> /etc/crypttab
-if [ "$DISK_NUM" = "1" ]
-then
-  echo 'install_items+=" /boot/root-volume.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf
-elif [ "$DISK_NUM" = "2" ]
+if [ "$DISK2" ~= "" ]
 then
   mkdir /etc/cryptsetup-keys.d
   dd bs=1 count=64 if=/dev/urandom of=/etc/cryptsetup-keys.d/home-volume.key
@@ -40,6 +37,8 @@ then
   chmod 000 /etc/cryptsetup-keys.d/home-volume.key
   echo "${HOST2}   UUID=$(blkid -o value -s UUID ${HOME_PART})   /etc/cryptsetup-keys.d/home-volume.key   luks" >> /etc/crypttab
   echo 'install_items+=" /boot/root-volume.key /etc/cryptsetup-keys.d/home-volume.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf
+else
+  echo 'install_items+=" /boot/root-volume.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf
 fi
 
 echo "-------------------------------------------------"
@@ -79,7 +78,7 @@ echo "Set password for primary encrypted volume"
 cryptsetup luksChangeKey ${ROOT_PART} --key-file temp-key.txt
 rm temp-key.txt
 
-if [ "$DISK_NUM" = "2" ]
+if [ "$DISK2" ~= "" ]
 then
   echo "Set password for secondary encrypted volume"
   cryptsetup luksChangeKey ${HOME_PART} --key-file temp-key2.txt
