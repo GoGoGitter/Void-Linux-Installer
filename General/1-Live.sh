@@ -3,7 +3,7 @@
 ##################################################
 ######              Variables               ######
 ##################################################
-DISK_NUM=1 # Number of disks to be used in filesystem. Script only supports 1 or 2
+# This script supports up to two disks, one for root(/) and one for home. If only using one disk, leave DISK2 blank
 DISK=
 DISK2=
 # Valid characters for hostnames and usernames are lowercase letters from a to z,the digits from 0 to 9, and the hyphen (-); the name may not start with a hyphen
@@ -11,9 +11,9 @@ HOST=clever-hostname # hostname and name of primary disk's encrypted volume
 NAME=cool-username # username of user to be created and put in the wheel group
 TIME=Canada/Eastern # timezone. acceptable values are given in /usr/share/zoneinfo. e.g Canada/Eastern
 
-##################################################
-######             Partitioning             ######
-################################################## 
+echo '-------------------------------------------------'
+echo '-----             Partitioning              -----'
+echo '-------------------------------------------------'
 (
 echo g # creates a new empty GPT partition table (clears out any partitions on the drive)
 echo n # adds a new partition
@@ -28,7 +28,7 @@ echo   # accepts default value for first sector
 echo   # accepts default value for last sector
 echo w # writes partition table to disk
 ) | fdisk -W always ${DISK} # -W flag automatically wipes previously existing filesystem signatures upon writing the new partition table
-if [ "$DISK_NUM" = "2" ]
+if [ "$DISK2" ~= "" ]
 then
   (
   echo g # creates a new empty GPT partition table (clears out any partitions on the drive)
@@ -45,7 +45,7 @@ echo "-----    Encrypted volume configuration     -----"
 echo "-------------------------------------------------"
 BOOT_PART=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==1) {print}}')
 ROOT_PART=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==2) {print}}')
-if [ "$DISK_NUM" = "2" ]
+if [ "$DISK2" = "" ]
 then
   HOME_PART=$(fdisk -l | grep ^${DISK2} | awk '{print $1}' | awk '{if (NR==1) {print}}')
 fi
@@ -53,11 +53,7 @@ touch temp-key.txt
 cryptsetup luksFormat --type luks1 ${ROOT_PART} temp-key.txt
 cryptsetup luksOpen ${ROOT_PART} ${HOST} --key-file temp-key.txt
 vgcreate ${HOST} /dev/mapper/${HOST}
-if [ "$DISK_NUM" = "1" ]
-then
-  HOST2=${HOST}
-  lvcreate --name root -L 50G ${HOST}
-elif [ "$DISK_NUM" = "2" ]
+if [ "$DISK2" ~= "" ]
 then
   HOST2=${HOST}2
   lvcreate --name root -l 100%FREE ${HOST}  
@@ -65,6 +61,10 @@ then
   cryptsetup luksFormat --type luks1 ${HOME_PART} temp-key2.txt
   cryptsetup luksOpen ${HOME_PART} ${HOST2} --key-file temp-key2.txt
   vgcreate ${HOST2} /dev/mapper/${HOST2}
+else
+then
+  HOST2=${HOST}
+  lvcreate --name root -L 50G ${HOST}
 fi
 lvcreate --name home -l 100%FREE ${HOST2}
 mkfs.ext4 -L root /dev/${HOST}/root
