@@ -45,7 +45,7 @@ echo "-----    Encrypted volume configuration     -----"
 echo "-------------------------------------------------"
 BOOT_PART=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==1) {print}}')
 ROOT_PART=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==2) {print}}')
-if [ "$DISK2" = "" ]
+if [ "$DISK2" ~= "" ]
 then
   HOME_PART=$(fdisk -l | grep ^${DISK2} | awk '{print $1}' | awk '{if (NR==1) {print}}')
 fi
@@ -62,7 +62,6 @@ then
   cryptsetup luksOpen ${HOME_PART} ${HOST2} --key-file temp-key2.txt
   vgcreate ${HOST2} /dev/mapper/${HOST2}
 else
-then
   HOST2=${HOST}
   lvcreate --name root -L 50G ${HOST}
 fi
