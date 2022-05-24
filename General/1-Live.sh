@@ -28,7 +28,7 @@ echo   # accepts default value for first sector
 echo   # accepts default value for last sector
 echo w # writes partition table to disk
 ) | fdisk -W always $DISK # -W flag automatically wipes previously existing filesystem signatures upon writing the new partition table
-if [ "$DISK2" ~= "" ]
+if [ "$DISK2" != "" ]
 then
   (
   echo g # creates a new empty GPT partition table (clears out any partitions on the drive)
@@ -45,7 +45,7 @@ echo "-----    Encrypted volume configuration     -----"
 echo "-------------------------------------------------"
 BOOT_PART=$(fdisk -l | grep ^$DISK | awk '{print $1}' | awk '{if (NR==1) {print}}')
 ROOT_PART=$(fdisk -l | grep ^$DISK | awk '{print $1}' | awk '{if (NR==2) {print}}')
-if [ "$DISK2" ~= "" ]
+if [ "$DISK2" != "" ]
 then
   HOME_PART=$(fdisk -l | grep ^$DISK2 | awk '{print $1}' | awk '{if (NR==1) {print}}')
 fi
@@ -53,7 +53,7 @@ touch temp-key.txt
 cryptsetup luksFormat --type luks1 $ROOT_PART temp-key.txt
 cryptsetup luksOpen $ROOT_PART $HOST --key-file temp-key.txt
 vgcreate $HOST /dev/mapper/$HOST
-if [ "$DISK2" ~= "" ]
+if [ "$DISK2" != "" ]
 then
   HOST2=${HOST}2
   lvcreate --name root -l 100%FREE $HOST  
