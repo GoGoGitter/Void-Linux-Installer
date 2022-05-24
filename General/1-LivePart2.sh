@@ -29,7 +29,7 @@ cryptsetup luksAddKey $ROOT_PART /boot/root-volume.key --key-file temp-key.txt
 chmod 000 /boot/root-volume.key
 chmod -R g-rwx,o-rwx /boot
 echo "$HOST   UUID=$(blkid -o value -s UUID $ROOT_PART)   /boot/root-volume.key   luks" >> /etc/crypttab
-if [ "$DISK2" ~= "" ]
+if [ "$DISK2" != "" ]
 then
   mkdir /etc/cryptsetup-keys.d
   dd bs=1 count=64 if=/dev/urandom of=/etc/cryptsetup-keys.d/home-volume.key
@@ -78,7 +78,7 @@ echo "Set password for primary encrypted volume"
 cryptsetup luksChangeKey $ROOT_PART --key-file temp-key.txt
 rm temp-key.txt
 
-if [ "$DISK2" ~= "" ]
+if [ "$DISK2" != "" ]
 then
   echo "Set password for secondary encrypted volume"
   cryptsetup luksChangeKey $HOME_PART --key-file temp-key2.txt
