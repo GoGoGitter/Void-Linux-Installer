@@ -11,8 +11,8 @@ echo "-------------------------------------------------"
 echo "-----       Filesystem configuration        -----"
 echo "-------------------------------------------------"
 echo "tmpfs /tmp tmpfs defaults,nosuid,nodev 0 0" > /etc/fstab
-echo "UUID=$(blkid -o value -s UUID /dev/${HOST}/root) / ext4 defaults 0 1" >> /etc/fstab
-echo "UUID=$(blkid -o value -s UUID /dev/${HOST2}/home) /home ext4 defaults 0 2" >> /etc/fstab
+echo "UUID=$(blkid -o value -s UUID /dev/$HOST/root) / ext4 defaults 0 1" >> /etc/fstab
+echo "UUID=$(blkid -o value -s UUID /dev/$HOST2/home) /home ext4 defaults 0 2" >> /etc/fstab
 echo "UUID=$(blkid -o value -s UUID $BOOT_PART) /boot/efi vfat defaults 0 2" >> /etc/fstab
 
 echo "-------------------------------------------------"
