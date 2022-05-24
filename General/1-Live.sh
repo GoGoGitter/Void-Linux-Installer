@@ -72,10 +72,10 @@ mkfs.ext4 -L home /dev/$HOST2/home
 echo "-------------------------------------------------"
 echo "-----          System installation          -----"
 echo "-------------------------------------------------"
-mount /dev/${HOST}/root /mnt
+mount /dev/$HOST/root /mnt
 for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
 mkdir -p /mnt/home
-mount /dev/${HOST2}/home /mnt/home
+mount /dev/$HOST2/home /mnt/home
 mkfs.vfat $BOOT_PART
 mkdir -p /mnt/boot/efi
 mount $BOOT_PART /mnt/boot/efi
