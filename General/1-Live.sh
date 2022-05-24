@@ -27,7 +27,7 @@ echo 2 # sets the new primary partition as the second partition on the drive
 echo   # accepts default value for first sector
 echo   # accepts default value for last sector
 echo w # writes partition table to disk
-) | fdisk -W always ${DISK} # -W flag automatically wipes previously existing filesystem signatures upon writing the new partition table
+) | fdisk -W always $DISK # -W flag automatically wipes previously existing filesystem signatures upon writing the new partition table
 if [ "$DISK2" ~= "" ]
 then
   (
@@ -37,35 +37,35 @@ then
   echo   # accepts default value for first sector
   echo   # accepts default value for last sector
   echo w # writes partition table to disk
-  ) | fdisk -W always ${DISK2} # -W flag automatically wipes previously existing filesystem signatures upon writing the new partition table
+  ) | fdisk -W always $DISK2 # -W flag automatically wipes previously existing filesystem signatures upon writing the new partition table
 fi
 
 echo "-------------------------------------------------"
 echo "-----    Encrypted volume configuration     -----"
 echo "-------------------------------------------------"
-BOOT_PART=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==1) {print}}')
-ROOT_PART=$(fdisk -l | grep ^${DISK} | awk '{print $1}' | awk '{if (NR==2) {print}}')
+BOOT_PART=$(fdisk -l | grep ^$DISK | awk '{print $1}' | awk '{if (NR==1) {print}}')
+ROOT_PART=$(fdisk -l | grep ^$DISK | awk '{print $1}' | awk '{if (NR==2) {print}}')
 if [ "$DISK2" ~= "" ]
 then
-  HOME_PART=$(fdisk -l | grep ^${DISK2} | awk '{print $1}' | awk '{if (NR==1) {print}}')
+  HOME_PART=$(fdisk -l | grep ^$DISK2 | awk '{print $1}' | awk '{if (NR==1) {print}}')
 fi
 touch temp-key.txt
-cryptsetup luksFormat --type luks1 ${ROOT_PART} temp-key.txt
-cryptsetup luksOpen ${ROOT_PART} ${HOST} --key-file temp-key.txt
-vgcreate ${HOST} /dev/mapper/${HOST}
+cryptsetup luksFormat --type luks1 $ROOT_PART temp-key.txt
+cryptsetup luksOpen $ROOT_PART $HOST --key-file temp-key.txt
+vgcreate $HOST /dev/mapper/$HOST
 if [ "$DISK2" ~= "" ]
 then
   HOST2=${HOST}2
-  lvcreate --name root -l 100%FREE ${HOST}  
+  lvcreate --name root -l 100%FREE $HOST  
   touch temp-key2.txt
-  cryptsetup luksFormat --type luks1 ${HOME_PART} temp-key2.txt
-  cryptsetup luksOpen ${HOME_PART} ${HOST2} --key-file temp-key2.txt
-  vgcreate ${HOST2} /dev/mapper/${HOST2}
+  cryptsetup luksFormat --type luks1 $HOME_PART temp-key2.txt
+  cryptsetup luksOpen $HOME_PART $HOST2 --key-file temp-key2.txt
+  vgcreate $HOST2 /dev/mapper/$HOST2
 else
-  HOST2=${HOST}
-  lvcreate --name root -L 50G ${HOST}
+  HOST2=$HOST
+  lvcreate --name root -L 50G $HOST
 fi
-lvcreate --name home -l 100%FREE ${HOST2}
+lvcreate --name home -l 100%FREE $HOST2
 mkfs.ext4 -L root /dev/${HOST}/root
 mkfs.ext4 -L home /dev/${HOST2}/home
 
@@ -76,9 +76,9 @@ mount /dev/${HOST}/root /mnt
 for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
 mkdir -p /mnt/home
 mount /dev/${HOST2}/home /mnt/home
-mkfs.vfat ${BOOT_PART}
+mkfs.vfat $BOOT_PART
 mkdir -p /mnt/boot/efi
-mount ${BOOT_PART} /mnt/boot/efi
+mount $BOOT_PART /mnt/boot/efi
 hwclock --systohc
 mkdir -p /mnt/var/db/xbps/keys
 cp /var/db/xbps/keys/* /mnt/var/db/xbps/keys/
@@ -87,7 +87,7 @@ curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/G
 mv 1-LivePart2.sh /mnt
 mv temp-key.txt /mnt
 mv temp-key2.txt /mnt
-DISK_NUM=${DISK_NUM} HOST=${HOST} HOST2=${HOST2} NAME=${NAME} TIME=${TIME} BOOT_PART=${BOOT_PART} ROOT_PART=${ROOT_PART} HOME_PART=${HOME_PART} chroot /mnt /bin/bash ./1-LivePart2.sh
+DISK_NUM=$DISK_NUM HOST=$HOST HOST2=$HOST2 NAME=$NAME TIME=$TIME BOOT_PART=$BOOT_PART ROOT_PART=$ROOT_PART HOME_PART=$HOME_PART chroot /mnt /bin/bash ./1-LivePart2.sh
 rm /mnt/1-LivePart2.sh
 umount -R /mnt
 
