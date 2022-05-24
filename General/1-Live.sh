@@ -66,8 +66,8 @@ else
   lvcreate --name root -L 50G $HOST
 fi
 lvcreate --name home -l 100%FREE $HOST2
-mkfs.ext4 -L root /dev/${HOST}/root
-mkfs.ext4 -L home /dev/${HOST2}/home
+mkfs.ext4 -L root /dev/$HOST/root
+mkfs.ext4 -L home /dev/$HOST2/home
 
 echo "-------------------------------------------------"
 echo "-----          System installation          -----"
