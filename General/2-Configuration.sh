@@ -70,13 +70,13 @@ doas touch /etc/cron.monthly/vkpurge
 doas bash -c "echo -e '#!/bin/sh\n\nvkpurge rm all' > /etc/cron.monthly/vkpurge"
 doas chmod u+x /etc/cron.monthly/vkpurge
 
-echo "-------------------------------------------------"
-echo "-----           Power Management            -----"
-echo "-------------------------------------------------"
-doas xbps-install -y tlp
-doas ln -s /etc/sv/tlp /var/service/
-doas sed -i 's/#SATA_LINKPWR_DENYLIST=.*/SATA_LINKPWR_DENYLIST="host0"/' /etc/tlp.conf
-doas sed -i 's/#AHCI_RUNTIME_PM_ON_BAT=.*/AHCI_RUNTIME_PM_ON_BAT=on/' /etc/tlp.conf
+#echo "-------------------------------------------------"
+#echo "-----           Power Management            -----"
+#echo "-------------------------------------------------"
+#doas xbps-install -y tlp
+#doas ln -s /etc/sv/tlp /var/service/
+#doas sed -i 's/#SATA_LINKPWR_DENYLIST=.*/SATA_LINKPWR_DENYLIST="host0"/' /etc/tlp.conf
+#doas sed -i 's/#AHCI_RUNTIME_PM_ON_BAT=.*/AHCI_RUNTIME_PM_ON_BAT=on/' /etc/tlp.conf
 
 echo "-------------------------------------------------"
 echo "-----               Network                 -----"
