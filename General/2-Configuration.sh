@@ -66,10 +66,9 @@ doas ln -s /etc/sv/chronyd /var/service/
 echo "-------------------------------------------------"
 echo "-----         Removing old kernels          -----"
 echo "-------------------------------------------------"
-doas crontab -l > tmp.txt
-echo "@monthly ID=remove-old-kernels vkpurge rm all" >> tmp.txt
-cat tmp.txt | doas crontab -
-rm tmp.txt
+doas touch /etc/cron.monthly/vkpurge
+doas bash -c "echo -e '#!/bin/sh\n\nvkpurge rm all' > /etc/cron.monthly/vkpurge"
+doas chmod u+x /etc/cron.monthly/vkpurge
 
 echo "-------------------------------------------------"
 echo "-----           Power Management            -----"
