@@ -46,7 +46,7 @@ echo "-------------------------------------------------"
 echo "-----          Solid State Drives           -----"
 echo "-------------------------------------------------"
 doas touch /etc/cron.weekly/fstrim
-doas bash -c "echo -e '#!/bin/sh\n\nfstrim /' > /etc/cron.weekly/fstrim"
+doas bash -c "echo -e '#!/bin/sh\n\nfstrim /boot/efi\nfstrim /' > /etc/cron.weekly/fstrim"
 doas chmod u+x /etc/cron.weekly/fstrim
 
 #echo "-------------------------------------------------"
