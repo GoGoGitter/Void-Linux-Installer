@@ -19,7 +19,12 @@ echo "-------------------------------------------------"
 echo "-----          GRUB configuration           -----"
 echo "-------------------------------------------------"
 echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
-sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT='rd.lvm.vg=$HOST rd.luks.uuid=$(blkid -o value -s UUID $ROOT_PART)'/" /etc/default/grub
+if [ "$(lsblk --discard | grep "${DISK:5} " | grep 0B)" = "" ]
+then
+  sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT='rd.lvm.vg=$HOST rd.luks.uuid=$(blkid -o value -s UUID $ROOT_PART) rd.luks.allow-discards'/" /etc/default/grub
+else
+  sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT='rd.lvm.vg=$HOST rd.luks.uuid=$(blkid -o value -s UUID $ROOT_PART)'/" /etc/default/grub
+fi
 
 echo "-------------------------------------------------"
 echo "-----            LUKS key setup             -----"
@@ -35,7 +40,12 @@ then
   dd bs=1 count=64 if=/dev/urandom of=/etc/cryptsetup-keys.d/home-volume.key
   cryptsetup luksAddKey $HOME_PART /etc/cryptsetup-keys.d/home-volume.key --key-file temp-key2.txt
   chmod 000 /etc/cryptsetup-keys.d/home-volume.key
-  echo "$HOST2   UUID=$(blkid -o value -s UUID $HOME_PART)   /etc/cryptsetup-keys.d/home-volume.key   luks" >> /etc/crypttab
+  if [ "$(lsblk --discard | grep "${DISK2:5} " | grep 0B)" = "" ]
+  then
+    echo "$HOST2   UUID=$(blkid -o value -s UUID $HOME_PART)   /etc/cryptsetup-keys.d/home-volume.key   luks,discard" >> /etc/crypttab
+  else
+    echo "$HOST2   UUID=$(blkid -o value -s UUID $HOME_PART)   /etc/cryptsetup-keys.d/home-volume.key   luks" >> /etc/crypttab
+  fi
   echo 'install_items+=" /boot/root-volume.key /etc/cryptsetup-keys.d/home-volume.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf
 else
   echo 'install_items+=" /boot/root-volume.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf
