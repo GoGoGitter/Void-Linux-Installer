@@ -145,7 +145,7 @@ echo "-------------------------------------------------"
 echo "-----                Flatpak                -----"
 echo "-------------------------------------------------"
 doas xbps-install -y flatpak
-doas flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+#flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 #echo "-------------------------------------------------"
 #echo "-----               Printing                -----"
