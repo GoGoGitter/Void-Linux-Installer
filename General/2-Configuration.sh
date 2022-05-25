@@ -99,7 +99,7 @@ doas xbps-install -y elogind
 echo "-------------------------------------------------"
 echo "-----                 Xorg                  -----"
 echo "-------------------------------------------------"
-doas xbps-install -y xorg
+doas xbps-install -y xorg-minimal
 cp /etc/X11/xinit/xinitrc ~/.xinitrc
 sed -i '/&$/d' ~/.xinitrc
 sed -i '/^exec/d' ~/.xinitrc
