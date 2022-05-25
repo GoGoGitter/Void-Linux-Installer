@@ -45,10 +45,12 @@ doas ln -s /etc/sv/dcron /var/service/
 echo "-------------------------------------------------"
 echo "-----          Solid State Drives           -----"
 echo "-------------------------------------------------"
-if [
-doas touch /etc/cron.weekly/fstrim
-doas bash -c "echo -e '#!/bin/sh\n\nfstrim -v -a' > /etc/cron.weekly/fstrim"
-doas chmod u+x /etc/cron.weekly/fstrim
+if [[ "$(cat /etc/default/grub | grep 'rd.luks.allow-discards')" != "" ]] || [[ "$(cat /etc/crypttab | grep discard)" != "" ]]
+then
+  doas touch /etc/cron.weekly/fstrim
+  doas bash -c "echo -e '#!/bin/sh\n\nfstrim -v -a' > /etc/cron.weekly/fstrim"
+  doas chmod u+x /etc/cron.weekly/fstrim
+fi
 
 #echo "-------------------------------------------------"
 #echo "-----               Security                -----"
