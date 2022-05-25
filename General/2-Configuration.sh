@@ -45,8 +45,9 @@ doas ln -s /etc/sv/dcron /var/service/
 echo "-------------------------------------------------"
 echo "-----          Solid State Drives           -----"
 echo "-------------------------------------------------"
+if [
 doas touch /etc/cron.weekly/fstrim
-doas bash -c "echo -e '#!/bin/sh\n\nfstrim /boot/efi\nfstrim /' > /etc/cron.weekly/fstrim"
+doas bash -c "echo -e '#!/bin/sh\n\nfstrim -v -a' > /etc/cron.weekly/fstrim"
 doas chmod u+x /etc/cron.weekly/fstrim
 
 #echo "-------------------------------------------------"
