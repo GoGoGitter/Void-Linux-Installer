@@ -45,10 +45,9 @@ doas ln -s /etc/sv/dcron /var/service/
 echo "-------------------------------------------------"
 echo "-----          Solid State Drives           -----"
 echo "-------------------------------------------------"
-doas crontab -l > tmp.txt
-echo "@daily ID=TRIM fstrim /" >> tmp.txt
-cat tmp.txt | doas crontab -
-rm tmp.txt
+doas touch /etc/cron.weekly/fstrim
+doas bash -c "echo -e '#!/bin/sh\n\nfstrim /' > /etc/cron.weekly/fstrim"
+doas chmod u+x /etc/cron.weekly/fstrim
 
 #echo "-------------------------------------------------"
 #echo "-----               Security                -----"
