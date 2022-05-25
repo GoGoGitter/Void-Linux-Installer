@@ -104,11 +104,20 @@ cp /etc/X11/xinit/xinitrc ~/.xinitrc
 sed -i '/&$/d' ~/.xinitrc
 sed -i '/^exec/d' ~/.xinitrc
 
-echo "-------------------------------------------------"
-echo "-----           Graphics Drivers            -----"
-echo "-------------------------------------------------"
-doas xbps-install -y linux-firmware-intel mesa-dri intel-video-accel
-echo "export LIBVA_DRIVER_NAME=i965" >> ~/.xinitrc
+#echo "-------------------------------------------------"
+#echo "-----           Graphics Drivers            -----"
+#echo "-------------------------------------------------"
+#if AMD
+#then
+#  doas xbps-install -y mesa-dri vulkan-loader mesa-vulkan-radeon amdvlk xf86-video-amdgpu xf86-video-ati mesa-vaapi mesa-vdpau
+#elif Intel
+#then
+#  doas xbps-install -y mesa-dri vulkan-loader mesa-vulkan-intel intel-video-accel
+#  # echo "export LIBVA_DRIVER_NAME=i965" >> ~/.xinitrc
+#elif NVIDIA
+#then
+#  doas xbps-install -y 
+#fi
 
 #echo "-------------------------------------------------"
 #echo "-----                 Fonts                 -----"
