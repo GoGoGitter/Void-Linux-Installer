@@ -97,3 +97,10 @@ fi
 
 echo "Set a password for $NAME:"
 passwd $NAME
+
+echo "-------------------------------------------------"
+echo "-----         System Configuration          -----"
+echo "-------------------------------------------------"
+curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/General/2-Configuration.sh
+DISK=$DISK DISK2=$DISK2 HOST=$HOST HOST2=$HOST2 NAME=$NAME TIME=$TIME BOOT_PART=$BOOT_PART ROOT_PART=$ROOT_PART HOME_PART=$HOME_PART /bin/bash 2-Configuration.sh
+rm 2-Configuration.sh
