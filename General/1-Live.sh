@@ -82,6 +82,9 @@ mount $BOOT_PART /mnt/boot/efi
 mkdir -p /etc/xbps.d
 touch /etc/xbps.d/ignore_sudo.conf
 echo ignorepkg=sudo > /etc/xbps.d/ignore_sudo.conf
+mkdir -p /mnt/etc/xbps.d
+touch /mnt/etc/xbps.d/ignore_sudo.conf
+echo ignorepkg=sudo > /mnt/etc/xbps.d/ignore_sudo.conf
 mkdir -p /mnt/var/db/xbps/keys
 cp /var/db/xbps/keys/* /mnt/var/db/xbps/keys/
 hwclock --systohc
