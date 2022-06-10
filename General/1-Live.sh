@@ -79,14 +79,14 @@ mount /dev/$HOST2/home /mnt/home
 mkfs.vfat $BOOT_PART
 mkdir -p /mnt/boot/efi
 mount $BOOT_PART /mnt/boot/efi
-hwclock --systohc
-mkdir -p /mnt/var/db/xbps/keys
-cp /var/db/xbps/keys/* /mnt/var/db/xbps/keys/
-cp /etc/resolv.conf /mnt/etc/
 mkdir -p /etc/xbps.d
 touch /etc/xbps.d/ignore_sudo.conf
 echo ignorepkg=sudo > /etc/xbps.d/ignore_sudo.conf
+mkdir -p /mnt/var/db/xbps/keys
+cp /var/db/xbps/keys/* /mnt/var/db/xbps/keys/
+hwclock --systohc
 XBPS_ARCH=x86_64 xbps-install -Sy -R https://mirrors.servercentral.com/voidlinux/current -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 vim curl
+cp /etc/resolv.conf /mnt/etc/
 curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/General/1-LivePart2.sh
 mv 1-LivePart2.sh /mnt
 mv temp-key.txt /mnt
