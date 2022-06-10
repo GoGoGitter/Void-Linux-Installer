@@ -155,7 +155,9 @@ echo "-------------------------------------------------"
 echo "-----                Flatpak                -----"
 echo "-------------------------------------------------"
 xbps-install -y flatpak
-#flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+su - $NAME <<BOI
+	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+BOI
 
 #echo "-------------------------------------------------"
 #echo "-----               Printing                -----"
