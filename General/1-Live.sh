@@ -95,13 +95,13 @@ DISK=$DISK DISK2=$DISK2 HOST=$HOST HOST2=$HOST2 NAME=$NAME TIME=$TIME BOOT_PART=
 rm /mnt/1-LivePart2.sh
 #umount -R /mnt
 
-echo "-------------------------------------------------"
-echo "-----         System Configuration          -----"
-echo "-------------------------------------------------"
-curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/General/2-Configuration.sh
-mv 2-Configuration.sh /mnt
-DISK=$DISK DISK2=$DISK2 HOST=$HOST HOST2=$HOST2 NAME=$NAME TIME=$TIME BOOT_PART=$BOOT_PART ROOT_PART=$ROOT_PART HOME_PART=$HOME_PART chroot /mnt /bin/bash ./2-Configuration.sh
-rm /mnt/2-Configuration.sh
+#echo "-------------------------------------------------"
+#echo "-----         System Configuration          -----"
+#echo "-------------------------------------------------"
+#curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/General/2-Configuration.sh
+#mv 2-Configuration.sh /mnt
+#DISK=$DISK DISK2=$DISK2 HOST=$HOST HOST2=$HOST2 NAME=$NAME TIME=$TIME BOOT_PART=$BOOT_PART ROOT_PART=$ROOT_PART HOME_PART=$HOME_PART chroot /mnt /bin/bash ./2-Configuration.sh
+#rm /mnt/2-Configuration.sh
 
 echo "-------------------------------------------------"
 echo "-----   You may now shut down the system    -----"
