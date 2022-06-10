@@ -6,8 +6,8 @@ echo "-------------------------------------------------"
 mkdir -p /etc/xbps.d
 cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
 sed -i 's|https://repo-default.voidlinux.org|https://mirrors.servercentral.com/voidlinux|g' /etc/xbps.d/*-repository-*.conf
-touch /etc/xbps.d/ignore_sudo.conf
-echo ignorepkg=sudo > /etc/xbps.d/ignore_sudo.conf
+#touch /etc/xbps.d/ignore_sudo.conf
+#echo ignorepkg=sudo > /etc/xbps.d/ignore_sudo.conf
 xbps-install -Suy
 xbps-install -y void-repo-nonfree void-repo-multilib void-repo-multilib-nonfree
 
