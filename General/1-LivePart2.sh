@@ -57,26 +57,26 @@ echo "-------------------------------------------------"
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id="Void" --removable
 xbps-reconfigure -fa
 
-echo "-------------------------------------------------"
-echo "-----           Users and Groups            -----"
-echo "-------------------------------------------------"
-useradd -m $NAME
-gpasswd -a $NAME wheel
-touch /etc/doas.conf
-echo "permit nopass :wheel as root" > /etc/doas.conf
+#echo "-------------------------------------------------"
+#echo "-----           Users and Groups            -----"
+#echo "-------------------------------------------------"
+#useradd -m $NAME
+#gpasswd -a $NAME wheel
+#touch /etc/doas.conf
+#echo "permit nopass :wheel as root" > /etc/doas.conf
 
-echo "-------------------------------------------------"
-echo "-----               Time zone               -----"
-echo "-------------------------------------------------"
-ln -sf /usr/share/zoneinfo/$TIME /etc/localtime
-hwclock --systohc
+#echo "-------------------------------------------------"
+#echo "-----               Time zone               -----"
+#echo "-------------------------------------------------"
+#ln -sf /usr/share/zoneinfo/$TIME /etc/localtime
+#hwclock --systohc
 
-echo "-------------------------------------------------"
-echo "-----                Network                -----"
-echo "-------------------------------------------------"
-ln -s /etc/sv/dhcpcd /var/service/
-ln -s /etc/sv/dbus /var/service/
-ln -s /etc/sv/iwd /var/service/
+#echo "-------------------------------------------------"
+#echo "-----                Network                -----"
+#echo "-------------------------------------------------"
+#ln -s /etc/sv/dhcpcd /var/service/
+#ln -s /etc/sv/dbus /var/service/
+#ln -s /etc/sv/iwd /var/service/
 
 echo "-------------------------------------------------"
 echo "-----               Passwords               -----"

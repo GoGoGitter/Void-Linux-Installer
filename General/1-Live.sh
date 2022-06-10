@@ -70,7 +70,7 @@ mkfs.ext4 -L root /dev/$HOST/root
 mkfs.ext4 -L home /dev/$HOST2/home
 
 echo "-------------------------------------------------"
-echo "-----          System installation          -----"
+echo "-----          System Installation          -----"
 echo "-------------------------------------------------"
 mount /dev/$HOST/root /mnt
 for dir in dev proc sys run; do mkdir -p /mnt/$dir ; mount --rbind /$dir /mnt/$dir ; mount --make-rslave /mnt/$dir ; done
@@ -82,14 +82,26 @@ mount $BOOT_PART /mnt/boot/efi
 hwclock --systohc
 mkdir -p /mnt/var/db/xbps/keys
 cp /var/db/xbps/keys/* /mnt/var/db/xbps/keys/
-XBPS_ARCH=x86_64 xbps-install -Sy -R https://repo-us.voidlinux.org/current -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 opendoas iwd vim curl
+cp /etc/resolv.conf /mnt/etc/
+mkdir -p /etc/xbps.d
+touch /etc/xbps.d/ignore_sudo.conf
+echo ignorepkg=sudo > /etc/xbps.d/ignore_sudo.conf
+XBPS_ARCH=x86_64 xbps-install -Sy -R https://mirrors.servercentral.com/voidlinux/current -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 vim curl
 curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/General/1-LivePart2.sh
 mv 1-LivePart2.sh /mnt
 mv temp-key.txt /mnt
 mv temp-key2.txt /mnt
 DISK=$DISK DISK2=$DISK2 HOST=$HOST HOST2=$HOST2 NAME=$NAME TIME=$TIME BOOT_PART=$BOOT_PART ROOT_PART=$ROOT_PART HOME_PART=$HOME_PART chroot /mnt /bin/bash ./1-LivePart2.sh
 rm /mnt/1-LivePart2.sh
-umount -R /mnt
+#umount -R /mnt
+
+echo "-------------------------------------------------"
+echo "-----         System Configuration          -----"
+echo "-------------------------------------------------"
+curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/General/2-Configuration.sh
+mv 2-Configuration.sh /mnt
+DISK=$DISK DISK2=$DISK2 HOST=$HOST HOST2=$HOST2 NAME=$NAME TIME=$TIME BOOT_PART=$BOOT_PART ROOT_PART=$ROOT_PART HOME_PART=$HOME_PART chroot /mnt /bin/bash ./2-Configuration.sh
+rm /mnt/2-Configuration.sh
 
 echo "-------------------------------------------------"
 echo "-----   You may now shut down the system    -----"

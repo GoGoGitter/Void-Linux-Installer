@@ -3,53 +3,57 @@
 echo "-------------------------------------------------"
 echo "-----          XBPS configuration          -----"
 echo "-------------------------------------------------"
-doas mkdir -p /etc/xbps.d
-doas touch /etc/xbps.d/settings.conf
-doas sh -c 'echo "architecture=x86_64" >> /etc/xbps.d/settings.conf'
-doas sh -c 'echo "ignorepkg=sudo" >> /etc/xbps.d/settings.conf'
-doas xbps-remove -Rfy sudo
-doas xbps-install -S
-doas xbps-install -uy # XBPS must use a separate transaction to update itself.
-doas xbps-install -uy # If your update includes the xbps package, you will need to run the command a second time to apply the rest of the updates.
-doas xbps-install -y void-repo-nonfree void-repo-multilib void-repo-multilib-nonfree
-doas cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
-doas sed -i 's|https://alpha.de.repo.voidlinux.org|https://repo-us.voidlinux.org|g' /etc/xbps.d/*-repository-*.conf
-doas xbps-install -S
+mkdir -p /etc/xbps.d
+cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
+sed -i 's|https://repo-default.voidlinux.org|https://mirrors.servercentral.com/voidlinux|g' /etc/xbps.d/*-repository-*.conf
+touch /etc/xbps.d/ignore_sudo.conf
+echo ignorepkg=sudo > /etc/xbps.d/ignore_sudo.conf
+xbps-install -Suy
+xbps-install -y void-repo-nonfree void-repo-multilib void-repo-multilib-nonfree
 
 echo "-------------------------------------------------"
-echo "-----               Microcode               -----"
+echo "-----          Firmware,Microcode           -----"
 echo "-------------------------------------------------"
 if [ "$(cat /proc/cpuinfo | grep AuthenticAMD | uniq)" != "" ]
 then
-  doas xbps-install -y linux-firmware-amd
+  xbps-install -y linux-firmware-amd
 elif [ "$(cat /proc/cpuinfo | grep GenuineIntel | uniq)" != "" ]
 then
-  doas xbps-install -y intel-ucode # After installing this package, it is necessary to regenerate your initramfs.
+  xbps-install -y intel-ucode # After installing this package, it is necessary to regenerate your initramfs.
   VER=$(echo $(uname -r) | sed 's/\./ /2' | sed 's/ \w*$//') # uname -r outputs in the form x.y.z_a. This alters the string to the form x.y for the following command
-  doas xbps-reconfigure --force linux$VER # For subsequent updates, the microcode will be added to the initramfs automatically.
+  xbps-reconfigure --force linux$VER # For subsequent updates, the microcode will be added to the initramfs automatically.
 fi
+
+echo "-------------------------------------------------"
+echo "-----           Users and Groups            -----"
+echo "-------------------------------------------------"
+useradd -m $NAME
+gpasswd -a $NAME wheel
+xbps-install -y opendoas
+touch /etc/doas.conf
+echo "permit nopass :wheel as root" > /etc/doas.conf
 
 echo "-------------------------------------------------"
 echo "-----                Logging                -----"
 echo "-------------------------------------------------"
-doas xbps-install -y socklog-void
-doas ln -s /etc/sv/socklog-unix /var/service/
-doas ln -s /etc/sv/nanoklogd /var/service/
+xbps-install -y socklog-void
+ln -s /etc/sv/socklog-unix /var/service/
+ln -s /etc/sv/nanoklogd /var/service/
 
 echo "-------------------------------------------------"
 echo "-----                 Cron                  -----"
 echo "-------------------------------------------------"
-doas xbps-install -y dcron
-doas ln -s /etc/sv/dcron /var/service/
+xbps-install -y dcron
+ln -s /etc/sv/dcron /var/service/
 
 echo "-------------------------------------------------"
 echo "-----          Solid State Drives           -----"
 echo "-------------------------------------------------"
 if [[ "$(cat /etc/default/grub | grep 'rd.luks.allow-discards')" != "" ]] || [[ "$(cat /etc/crypttab | grep discard)" != "" ]]
 then
-  doas touch /etc/cron.weekly/fstrim
-  doas bash -c "echo -e '#!/bin/sh\n\nfstrim -v -a' > /etc/cron.weekly/fstrim"
-  doas chmod u+x /etc/cron.weekly/fstrim
+  touch /etc/cron.weekly/fstrim
+  bash -c "echo -e '#!/bin/sh\n\nfstrim -v -a' > /etc/cron.weekly/fstrim"
+  chmod u+x /etc/cron.weekly/fstrim
 fi
 
 #echo "-------------------------------------------------"
@@ -58,65 +62,71 @@ fi
 
 
 echo "-------------------------------------------------"
-echo "-----                  NTP                  -----"
+echo "-----             Date and Time             -----"
 echo "-------------------------------------------------"
-doas xbps-install -y chrony
-doas ln -s /etc/sv/chronyd /var/service/
+ln -sf /usr/share/zoneinfo/$TIME /etc/localtime
+hwclock --systohc
+xbps-install -y chrony
+ln -s /etc/sv/chronyd /var/service/
 
 echo "-------------------------------------------------"
 echo "-----         Removing old kernels          -----"
 echo "-------------------------------------------------"
-doas touch /etc/cron.monthly/vkpurge
-doas bash -c "echo -e '#!/bin/sh\n\nvkpurge rm all' > /etc/cron.monthly/vkpurge"
-doas chmod u+x /etc/cron.monthly/vkpurge
+touch /etc/cron.monthly/vkpurge
+bash -c "echo -e '#!/bin/sh\n\nvkpurge rm all' > /etc/cron.monthly/vkpurge"
+chmod u+x /etc/cron.monthly/vkpurge
 
 #echo "-------------------------------------------------"
 #echo "-----           Power Management            -----"
 #echo "-------------------------------------------------"
-#doas xbps-install -y tlp
-#doas ln -s /etc/sv/tlp /var/service/
-#doas sed -i 's/#SATA_LINKPWR_DENYLIST=.*/SATA_LINKPWR_DENYLIST="host0"/' /etc/tlp.conf
-#doas sed -i 's/#AHCI_RUNTIME_PM_ON_BAT=.*/AHCI_RUNTIME_PM_ON_BAT=on/' /etc/tlp.conf
-
-#echo "-------------------------------------------------"
-#echo "-----               Network                 -----"
-#echo "-------------------------------------------------"
-#doas xbps-install -y broadcom-wl-dkms
+#xbps-install -y tlp
+#ln -s /etc/sv/tlp /var/service/
+#sed -i 's/#SATA_LINKPWR_DENYLIST=.*/SATA_LINKPWR_DENYLIST="host0"/' /etc/tlp.conf
+#sed -i 's/#AHCI_RUNTIME_PM_ON_BAT=.*/AHCI_RUNTIME_PM_ON_BAT=on/' /etc/tlp.conf
 
 echo "-------------------------------------------------"
-echo "-----               Firewalls               -----"
+echo "-----           Network,Firewalls           -----"
 echo "-------------------------------------------------"
-doas xbps-install -y ufw
-doas ln -s /etc/sv/ufw /var/service/
-doas ufw enable
+xbps-install -y ufw
+ln -s /etc/sv/ufw /var/service/
+ufw enable
+
+echo "-------------------------------------------------"
+echo "-----             Network,IWD               -----"
+echo "-------------------------------------------------"
+xbps-install -y iwd
+ln -s /etc/sv/dhcpcd /var/service/
+ln -s /etc/sv/dbus /var/service/
+ln -s /etc/sv/iwd /var/service/
+#xbps-install -y broadcom-wl-dkms
 
 echo "-------------------------------------------------"
 echo "-----      Session and Seat Management      -----"
 echo "-------------------------------------------------"
 rm /var/service/acpid
-doas xbps-install -y elogind
+xbps-install -y elogind
 
 echo "-------------------------------------------------"
 echo "-----                 Xorg                  -----"
 echo "-------------------------------------------------"
-doas xbps-install -y xorg-minimal
-cp /etc/X11/xinit/xinitrc ~/.xinitrc
-sed -i '/&$/d' ~/.xinitrc
-sed -i '/^exec/d' ~/.xinitrc
+xbps-install -y xorg-minimal
+cp /etc/X11/xinit/xinitrc /home/$NAME/.xinitrc
+sed -i '/&$/d' /home/$NAME/.xinitrc
+sed -i '/^exec/d' /home/$NAME/.xinitrc
 
 #echo "-------------------------------------------------"
 #echo "-----           Graphics Drivers            -----"
 #echo "-------------------------------------------------"
 #if AMD
 #then
-#  doas xbps-install -y mesa-dri vulkan-loader mesa-vulkan-radeon amdvlk xf86-video-amdgpu xf86-video-ati mesa-vaapi mesa-vdpau
+#  xbps-install -y mesa-dri vulkan-loader mesa-vulkan-radeon amdvlk xf86-video-amdgpu xf86-video-ati mesa-vaapi mesa-vdpau
 #elif Intel
 #then
-#  doas xbps-install -y mesa-dri vulkan-loader mesa-vulkan-intel intel-video-accel
+#  xbps-install -y mesa-dri vulkan-loader mesa-vulkan-intel intel-video-accel
 #  # echo "export LIBVA_DRIVER_NAME=i965" >> ~/.xinitrc
 #elif NVIDIA
 #then
-#  doas xbps-install -y 
+#  xbps-install -y 
 #fi
 
 #echo "-------------------------------------------------"
@@ -130,21 +140,21 @@ sed -i '/^exec/d' ~/.xinitrc
 echo "-------------------------------------------------"
 echo "-----               PipeWire                -----"
 echo "-------------------------------------------------"
-doas xbps-install -y pipewire libspa-bluetooth
-echo "pipewire &" >> ~/.xinitrc
-echo "pipewire-pulse &" >> ~/.xinitrc
+xbps-install -y pipewire libspa-bluetooth
+echo "pipewire &" >> /home/$NAME/.xinitrc
+echo "pipewire-pulse &" >> /home/$NAME/.xinitrc
 
 echo "-------------------------------------------------"
 echo "-----               Bluetooth               -----"
 echo "-------------------------------------------------"
-doas xbps-install -y bluez
-doas touch /etc/sv/bluetoothd/down
-doas ln -s /etc/sv/bluetoothd /var/service/
+xbps-install -y bluez
+touch /etc/sv/bluetoothd/down
+ln -s /etc/sv/bluetoothd /var/service/
 
 echo "-------------------------------------------------"
 echo "-----                Flatpak                -----"
 echo "-------------------------------------------------"
-doas xbps-install -y flatpak
+xbps-install -y flatpak
 #flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 #echo "-------------------------------------------------"
@@ -155,17 +165,19 @@ doas xbps-install -y flatpak
 echo "-------------------------------------------------"
 echo "-----                libvirt                -----"
 echo "-------------------------------------------------"
-doas xbps-install -y libvirt virt-manager #virt-manager-tools
-doas ln -s /etc/sv/libvirtd /var/service/
-doas ln -s /etc/sv/virtlockd /var/service/
-doas ln -s /etc/sv/virtlogd /var/service/
+xbps-install -y libvirt virt-manager #virt-manager-tools
+ln -s /etc/sv/libvirtd /var/service/
+ln -s /etc/sv/virtlockd /var/service/
+ln -s /etc/sv/virtlogd /var/service/
 
 echo "-------------------------------------------------"
 echo "-----               xbps-src                -----"
 echo "-------------------------------------------------"
-doas xbps-install -y git
-mkdir ~/.git-clones
-cd ~/.git-clones
-git clone https://github.com/void-linux/void-packages.git
-cd void-packages
-./xbps-src binary-bootstrap
+xbps-install -y git
+su - $NAME <<BOI
+	mkdir /home/$NAME/.git-clones
+	cd /home/$NAME/.git-clones
+	git clone https://github.com/void-linux/void-packages.git
+	cd void-packages
+	./xbps-src binary-bootstrap
+BOI
