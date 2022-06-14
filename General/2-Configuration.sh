@@ -4,12 +4,10 @@ echo "-------------------------------------------------"
 echo "-----          XBPS configuration          -----"
 echo "-------------------------------------------------"
 mkdir -p /etc/xbps.d
-#touch /etc/xbps.d/ignore_sudo.conf
-#echo ignorepkg=sudo > /etc/xbps.d/ignore_sudo.conf
 xbps-install -Suy
 xbps-install -y void-repo-nonfree void-repo-multilib void-repo-multilib-nonfree
 cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
-sed -i 's|https://repo-default.voidlinux.org|https://mirrors.servercentral.com/voidlinux|g' /etc/xbps.d/*-repository-*.conf
+sed -i 's|https://repo-default.voidlinux.org|$REPO|g' /etc/xbps.d/*-repository-*.conf
 
 echo "-------------------------------------------------"
 echo "-----          Firmware,Microcode           -----"
