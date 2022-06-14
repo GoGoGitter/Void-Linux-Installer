@@ -12,10 +12,10 @@ NAME=cool-username # username of user to be created and put in the wheel group
 TIME=Canada/Eastern # timezone. acceptable values are given in /usr/share/zoneinfo. e.g Canada/Eastern
 
 # Uncomment only one of the following
-#REPO=https://repo-default.voidlinux.org/current
-#REPO=https://repo-fi.voidlinux.org/current
-#REPO=https://mirrors.servercentral.com/voidlinux/current
-#REPO=https://repo-us.voidlinux.org/current
+#REPO=https://repo-default.voidlinux.org
+#REPO=https://repo-fi.voidlinux.org
+#REPO=https://mirrors.servercentral.com/voidlinux
+#REPO=https://repo-us.voidlinux.org
 
 echo '-------------------------------------------------'
 echo '-----             Partitioning              -----'
@@ -94,7 +94,7 @@ echo ignorepkg=sudo > /mnt/etc/xbps.d/ignore_sudo.conf
 mkdir -p /mnt/var/db/xbps/keys
 cp /var/db/xbps/keys/* /mnt/var/db/xbps/keys/
 hwclock --systohc
-XBPS_ARCH=x86_64 xbps-install -Sy -R $REPO -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 vim curl
+XBPS_ARCH=x86_64 xbps-install -Sy -R $REPO/current -r /mnt base-system cryptsetup grub-x86_64-efi lvm2 vim curl
 cp /etc/resolv.conf /mnt/etc/
 curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/General/1-LivePart2.sh
 mv 1-LivePart2.sh /mnt
