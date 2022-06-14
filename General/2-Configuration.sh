@@ -4,8 +4,8 @@ echo "-------------------------------------------------"
 echo "-----          XBPS configuration          -----"
 echo "-------------------------------------------------"
 mkdir -p /etc/xbps.d
-xbps-install -Suy
-xbps-install -y void-repo-nonfree void-repo-multilib void-repo-multilib-nonfree
+xbps-install -Suy -R $REPO/current
+xbps-install -y -R $REPO/current void-repo-nonfree void-repo-multilib void-repo-multilib-nonfree
 cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
 sed -i 's|https://repo-default.voidlinux.org|$REPO|g' /etc/xbps.d/*-repository-*.conf
 
