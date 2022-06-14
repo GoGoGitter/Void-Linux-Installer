@@ -58,12 +58,6 @@ grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id="Void
 xbps-reconfigure -fa
 
 #echo "-------------------------------------------------"
-#echo "-----               Time zone               -----"
-#echo "-------------------------------------------------"
-#ln -sf /usr/share/zoneinfo/$TIME /etc/localtime
-#hwclock --systohc
-
-#echo "-------------------------------------------------"
 #echo "-----                Network                -----"
 #echo "-------------------------------------------------"
 #ln -s /etc/sv/dhcpcd /var/service/
