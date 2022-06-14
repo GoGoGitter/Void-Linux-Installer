@@ -99,18 +99,13 @@ cp /etc/resolv.conf /mnt/etc/
 curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/General/1-LivePart2.sh
 mv 1-LivePart2.sh /mnt
 mv temp-key.txt /mnt
-mv temp-key2.txt /mnt
+if [ "$DISK2" != "" ]
+then
+  mv temp-key2.txt /mnt
+fi
 DISK=$DISK DISK2=$DISK2 HOST=$HOST HOST2=$HOST2 NAME=$NAME TIME=$TIME BOOT_PART=$BOOT_PART ROOT_PART=$ROOT_PART HOME_PART=$HOME_PART REPO=$REPO chroot /mnt /bin/bash ./1-LivePart2.sh
 rm /mnt/1-LivePart2.sh
 #umount -R /mnt
-
-#echo "-------------------------------------------------"
-#echo "-----         System Configuration          -----"
-#echo "-------------------------------------------------"
-#curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/General/2-Configuration.sh
-#mv 2-Configuration.sh /mnt
-#DISK=$DISK DISK2=$DISK2 HOST=$HOST HOST2=$HOST2 NAME=$NAME TIME=$TIME BOOT_PART=$BOOT_PART ROOT_PART=$ROOT_PART HOME_PART=$HOME_PART chroot /mnt /bin/bash ./2-Configuration.sh
-#rm /mnt/2-Configuration.sh
 
 echo "-------------------------------------------------"
 echo "-----   You may now shut down the system    -----"
