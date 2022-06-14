@@ -83,13 +83,6 @@ chmod u+x /etc/cron.monthly/vkpurge
 #sed -i 's/#AHCI_RUNTIME_PM_ON_BAT=.*/AHCI_RUNTIME_PM_ON_BAT=on/' /etc/tlp.conf
 
 echo "-------------------------------------------------"
-echo "-----           Network,Firewalls           -----"
-echo "-------------------------------------------------"
-xbps-install -y ufw
-ln -s /etc/sv/ufw /var/service/
-ufw enable
-
-echo "-------------------------------------------------"
 echo "-----             Network,IWD               -----"
 echo "-------------------------------------------------"
 xbps-install -y iwd
@@ -97,6 +90,13 @@ ln -s /etc/sv/dhcpcd /var/service/
 ln -s /etc/sv/dbus /var/service/
 ln -s /etc/sv/iwd /var/service/
 #xbps-install -y broadcom-wl-dkms
+
+echo "-------------------------------------------------"
+echo "-----           Network,Firewalls           -----"
+echo "-------------------------------------------------"
+xbps-install -y ufw
+ln -s /etc/sv/ufw /var/service/
+ufw enable
 
 echo "-------------------------------------------------"
 echo "-----      Session and Seat Management      -----"
