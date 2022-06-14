@@ -71,7 +71,7 @@ echo "-------------------------------------------------"
 echo "-----         Removing old kernels          -----"
 echo "-------------------------------------------------"
 touch /etc/cron.monthly/vkpurge
-bash -c "echo -e '#!/bin/sh\n\nvkpurge rm all' > /etc/cron.monthly/vkpurge"
+echo -e '#!/bin/sh\n\nvkpurge rm all' > /etc/cron.monthly/vkpurge
 chmod u+x /etc/cron.monthly/vkpurge
 
 #echo "-------------------------------------------------"
