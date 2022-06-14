@@ -100,7 +100,7 @@ curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/G
 mv 1-LivePart2.sh /mnt
 mv temp-key.txt /mnt
 mv temp-key2.txt /mnt
-DISK=$DISK DISK2=$DISK2 HOST=$HOST HOST2=$HOST2 NAME=$NAME TIME=$TIME BOOT_PART=$BOOT_PART ROOT_PART=$ROOT_PART HOME_PART=$HOME_PART chroot /mnt /bin/bash ./1-LivePart2.sh
+DISK=$DISK DISK2=$DISK2 HOST=$HOST HOST2=$HOST2 NAME=$NAME TIME=$TIME BOOT_PART=$BOOT_PART ROOT_PART=$ROOT_PART HOME_PART=$HOME_PART REPO=$REPO chroot /mnt /bin/bash ./1-LivePart2.sh
 rm /mnt/1-LivePart2.sh
 #umount -R /mnt
 
