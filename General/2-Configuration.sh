@@ -50,7 +50,7 @@ echo "-------------------------------------------------"
 if [[ "$(cat /etc/default/grub | grep 'rd.luks.allow-discards')" != "" ]] || [[ "$(cat /etc/crypttab | grep discard)" != "" ]]
 then
   touch /etc/cron.weekly/fstrim
-  bash -c "echo -e '#!/bin/sh\n\nfstrim -v -a' > /etc/cron.weekly/fstrim"
+  echo -e '#!/bin/sh\n\nfstrim -v -a' > /etc/cron.weekly/fstrim
   chmod u+x /etc/cron.weekly/fstrim
 fi
 
