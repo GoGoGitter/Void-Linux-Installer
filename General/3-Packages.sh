@@ -5,7 +5,7 @@ echo "-----               Packages                -----"
 echo "-------------------------------------------------"
 PKGS=(
 #'xdg-user-dirs'         # general user directories
-'acpilight'                 # Manages Screen Brightness
+'brillo'                 # Manages Screen Brightness
 'rtkit'                 # 
 'pulsemixer'            # TUI app for controlling volume of applications
 ##DNSSEC                 # might use unbound
@@ -56,10 +56,10 @@ PKGS=(
 #'mesa-dri-32bit'        # for steam
 )
 for PKG in "${PKGS[@]}"; do
-    doas xbps-install -Sy $PKG
+    xbps-install -Sy $PKG
 done
 
-doas gpasswd -a ${USER} video # adding the user to the video group so that 'light' does not require root permission to work
+gpasswd -a ${NAME} video # adding the user to the video group so that 'light' does not require root permission to work
 sed -i "s/$(cat /etc/default/grub | grep GRUB_CMDLINE_LINUX_DEFAULT | sed 's/.$//')/$(cat /etc/default/grub | grep GRUB_CMDLINE_LINUX_DEFAULT | sed 's/.$//') acpi_backlight=vendor/" /etc/default/grub
 
 #curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh # 'nnn' downloading nnn plugins
