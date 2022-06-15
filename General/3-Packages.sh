@@ -5,7 +5,7 @@ echo "-----               Packages                -----"
 echo "-------------------------------------------------"
 PKGS=(
 #'xdg-user-dirs'         # general user directories
-'brillo'                 # Manages Screen Brightness
+'brillo'                # Manages Screen Brightness
 'rtkit'                 # 
 'pulsemixer'            # TUI app for controlling volume of applications
 ##DNSSEC                 # might use unbound
