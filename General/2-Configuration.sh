@@ -174,10 +174,10 @@ echo "-------------------------------------------------"
 echo "-----               xbps-src                -----"
 echo "-------------------------------------------------"
 xbps-install -y git
-su - $NAME <<BOI
+su - $NAME <<EOF
 	mkdir /home/$NAME/.git-clones
 	cd /home/$NAME/.git-clones
 	git clone https://github.com/void-linux/void-packages.git
 	cd void-packages
 	./xbps-src binary-bootstrap
-BOI
+EOF
