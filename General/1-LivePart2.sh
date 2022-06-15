@@ -65,6 +65,13 @@ DISK=$DISK DISK2=$DISK2 HOST=$HOST HOST2=$HOST2 NAME=$NAME TIME=$TIME BOOT_PART=
 rm 2-Configuration.sh
 
 echo "-------------------------------------------------"
+echo "-----               Packages                -----"
+echo "-------------------------------------------------"
+curl -O https://raw.githubusercontent.com/GoGoGitter/Void-Linux-Installer/main/General/3-Packages.sh
+DISK=$DISK DISK2=$DISK2 HOST=$HOST HOST2=$HOST2 NAME=$NAME TIME=$TIME BOOT_PART=$BOOT_PART ROOT_PART=$ROOT_PART HOME_PART=$HOME_PART REPO=$REPO /bin/bash 3-Packages.sh
+rm 3-Packages.sh
+
+echo "-------------------------------------------------"
 echo "-----               Passwords               -----"
 echo "-------------------------------------------------"
 echo "Set a new root password:"
