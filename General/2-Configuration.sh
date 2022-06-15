@@ -109,9 +109,11 @@ echo "-------------------------------------------------"
 echo "-----                 Xorg                  -----"
 echo "-------------------------------------------------"
 xbps-install -y xorg-minimal
-cp /etc/X11/xinit/xinitrc /home/$NAME/.xinitrc
-sed -i '/&$/d' /home/$NAME/.xinitrc
-sed -i '/^exec/d' /home/$NAME/.xinitrc
+su - $NAME <<EOF
+	cp /etc/X11/xinit/xinitrc /home/$NAME/.xinitrc
+	sed -i '/&$/d' /home/$NAME/.xinitrc
+	sed -i '/^exec/d' /home/$NAME/.xinitrc
+EOF
 
 #echo "-------------------------------------------------"
 #echo "-----           Graphics Drivers            -----"
