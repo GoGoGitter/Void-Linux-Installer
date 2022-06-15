@@ -66,11 +66,11 @@ echo 'brillo -O' >> /etc/rc.shutdown
 
 curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh # 'nnn' downloading nnn plugins
 
-doas gpasswd -a ${NAME} input # 'evtest' adding user to input group to ensure gamepads can be used without root privileges
+gpasswd -a ${NAME} input # 'evtest' adding user to input group to ensure gamepads can be used without root privileges
 
-doas sh -c "echo 'blacklist xpad' > /etc/modprobe.d/xpad.conf"
+echo 'blacklist xpad' > /etc/modprobe.d/xpad.conf
 
-#doas dracut --force --add-drivers bcm5974 # 'xf86-input-mtrack' without this, trackpad only moves up and down despite configuration given "because of some dracut driver inclusion issue" (from void wiki)
+#dracut --force --add-drivers bcm5974 # 'xf86-input-mtrack' without this, trackpad only moves up and down despite configuration given "because of some dracut driver inclusion issue" (from void wiki)
 
 echo "-------------------------------------------------"
 echo "-----            Source Packages            -----"
