@@ -61,6 +61,8 @@ done
 
 gpasswd -a ${NAME} video # adding the user to the video group so that 'light' does not require root permission to work
 sed -i "s/$(cat /etc/default/grub | grep GRUB_CMDLINE_LINUX_DEFAULT | sed 's/.$//')/$(cat /etc/default/grub | grep GRUB_CMDLINE_LINUX_DEFAULT | sed 's/.$//') acpi_backlight=vendor/" /etc/default/grub
+echo 'brillo -I' >> /etc/rc.local
+echo 'brillo -O' >> /etc/rc.shutdown
 
 #curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh # 'nnn' downloading nnn plugins
 
