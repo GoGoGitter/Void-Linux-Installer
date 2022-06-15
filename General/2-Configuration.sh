@@ -105,13 +105,13 @@ echo "-------------------------------------------------"
 rm /var/service/acpid
 xbps-install -y elogind
 
-#echo "-------------------------------------------------"
-#echo "-----                 Xorg                  -----"
-#echo "-------------------------------------------------"
-#xbps-install -y xorg-minimal
-#cp /etc/X11/xinit/xinitrc /home/$NAME/.xinitrc
-#sed -i '/&$/d' /home/$NAME/.xinitrc
-#sed -i '/^exec/d' /home/$NAME/.xinitrc
+echo "-------------------------------------------------"
+echo "-----                 Xorg                  -----"
+echo "-------------------------------------------------"
+xbps-install -y xorg-minimal
+cp /etc/X11/xinit/xinitrc /home/$NAME/.xinitrc
+sed -i '/&$/d' /home/$NAME/.xinitrc
+sed -i '/^exec/d' /home/$NAME/.xinitrc
 
 #echo "-------------------------------------------------"
 #echo "-----           Graphics Drivers            -----"
@@ -150,13 +150,13 @@ xbps-install -y bluez
 touch /etc/sv/bluetoothd/down
 ln -s /etc/sv/bluetoothd /var/service/
 
-#echo "-------------------------------------------------"
-#echo "-----                Flatpak                -----"
-#echo "-------------------------------------------------"
-#xbps-install -y flatpak
-#su - $NAME <<BOI
-#	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-#BOI
+echo "-------------------------------------------------"
+echo "-----                Flatpak                -----"
+echo "-------------------------------------------------"
+xbps-install -y flatpak
+su - $NAME <<BOI
+	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+BOI
 
 #echo "-------------------------------------------------"
 #echo "-----               Printing                -----"
@@ -171,14 +171,14 @@ ln -s /etc/sv/libvirtd /var/service/
 ln -s /etc/sv/virtlockd /var/service/
 ln -s /etc/sv/virtlogd /var/service/
 
-#echo "-------------------------------------------------"
-#echo "-----               xbps-src                -----"
-#echo "-------------------------------------------------"
-#xbps-install -y git
-#su - $NAME <<EOF
-#	mkdir /home/$NAME/.git-clones
-#	cd /home/$NAME/.git-clones
-#	git clone https://github.com/void-linux/void-packages.git
-#	cd void-packages
-#	./xbps-src binary-bootstrap
-#EOF
+echo "-------------------------------------------------"
+echo "-----               xbps-src                -----"
+echo "-------------------------------------------------"
+xbps-install -y git
+su - $NAME <<EOF
+	mkdir /home/$NAME/.git-clones
+	cd /home/$NAME/.git-clones
+	git clone https://github.com/void-linux/void-packages.git
+	cd void-packages
+	./xbps-src binary-bootstrap
+EOF
