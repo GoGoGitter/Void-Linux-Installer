@@ -56,7 +56,7 @@ PKGS=(
 #'mesa-dri-32bit'        # for steam
 )
 for PKG in "${PKGS[@]}"; do
-    xbps-install -Sy $PKG
+    xbps-install -y $PKG
 done
 
 gpasswd -a ${NAME} video # adding the user to the video group so that 'light' does not require root permission to work
