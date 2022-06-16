@@ -19,8 +19,8 @@ then
 elif [ "$(cat /proc/cpuinfo | grep GenuineIntel | uniq)" != "" ]
 then
   xbps-install -y intel-ucode # After installing this package, it is necessary to regenerate your initramfs.
-  VER=$(echo $(uname -r) | sed 's/\./ /2' | sed 's/ \w*$//') # uname -r outputs in the form x.y.z_a. This alters the string to the form x.y for the following command
-  xbps-reconfigure --force linux$VER # For subsequent updates, the microcode will be added to the initramfs automatically.
+  VER=$(xbps-query linux | grep pkgver)
+  xbps-reconfigure --force linux${VER:14:4} # For subsequent updates, the microcode will be added to the initramfs automatically.
 fi
 
 echo "-------------------------------------------------"
